@@ -32,4 +32,12 @@ const int MAP[MAP_HEIGHT][MAP_WIDTH] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
+bool canMove(int row, int column) {
+    if (row < 0 || row >= MAP_HEIGHT || column < 0 || column >= MAP_WIDTH) return false;
+
+    int mapValue = MAP[row][column];
+
+    return mapValue != 1 && mapValue != 2;
+}
+
 #endif //GAME02_CONFIG_H
