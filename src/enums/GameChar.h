@@ -7,8 +7,8 @@
 
 enum class GameChar {
     PLAYER = 254,
-    BREAKABLE_WALL = 176,
-    WALL = 178,
+    BREAKABLE_WALL = 178,
+    WALL = 219,
     BOMB = 207,
 };
 

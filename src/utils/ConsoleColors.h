@@ -5,21 +5,23 @@
 #ifndef GAME02_CONSOLECOLORS_H
 #define GAME02_CONSOLECOLORS_H
 
+#include <iostream>
+#include <windows.h>
+
 enum class Color {
-    BLUE = 1,
-    GREEN = 2,
-    AQUA = 3,
-    RED = 4,
-    PURPLE = 5,
-    YELLOW = 6,
-    WHITE = 7,
-    GRAY = 8,
-    LIGHT_BLUE = 9,
-    BLACK = 0,
+    RESET = 15,
+    RED_BACKGROUND = 207,
+    ORANGE_BACKGROUND = 111,
+    YELLOW_BACKGROUND = 239,
+    WHITE_BACKGROUND = 240,
 };
 
-namespace ConsoleColors {
+namespace ConsoleColor {
+    void showColor(Color color) {
+        HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
+        SetConsoleTextAttribute(console, int(color));
+    }
 }
 
 #endif //GAME02_CONSOLECOLORS_H
