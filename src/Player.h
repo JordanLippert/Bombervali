@@ -42,7 +42,27 @@ namespace Player {
      * - Seta para esquerda = 774
      */
     void tick(int pressedKey) {
+        switch(pressedKey){
+            case 724 //cima
+                row--;
+                bool canMove();
+            break;
 
+            case 804 //|| case 115 //baixo
+                row++;
+                bool canMove();
+            break;
+
+            case 774 //|| case 975 //esquerda
+                column--;
+                bool canMove();
+            break;
+
+            case 754 //|| case 100 //direita
+                column++;
+                bool canMove();
+            break;
+        }
     }
 
     /**
