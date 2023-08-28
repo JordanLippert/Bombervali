@@ -15,7 +15,7 @@ namespace Player {
     int row = 1, column = 1;
 
     /**
-     * Este método deve ser acionado quando a pessoa pressionar Espaço (Deixe ele me branco, apenas chame ele)
+     * Este método retorna se o player está em uma posição específica
      */
     bool isInPosition(int arrayRow, int arrayColumn) {
         return row == arrayRow && column == arrayColumn;

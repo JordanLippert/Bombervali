@@ -27,6 +27,8 @@ namespace Game {
         if (_kbhit()) {
             pressedKey = getch();
         }
+
+        Player::tick(pressedKey);
     }
     
     // Camada de renderização do jogo
