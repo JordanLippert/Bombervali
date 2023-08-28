@@ -50,7 +50,24 @@ namespace Player {
      * - Seta para esquerda = 774
      */
     void tick(int pressedKey) {
-
+        if ( _kbhit() ){
+            tecla = getch();
+            switch(tecla)
+            {
+                case 72: case 'w': ///cima
+                    x--;
+                    break;
+                case 80: case 's': ///baixo
+                    x++;
+                    break;
+                case 75:case 'a': ///esquerda
+                    y--;
+                    break;
+                case 77: case 'd': ///direita
+                    y++;
+                    break;
+            }
+        }
     }
 
     /**
