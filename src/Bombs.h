@@ -24,7 +24,7 @@ namespace Bombs {
 
     bool thereIsBombNear(int row, int column) {
         for (int i = 0; i < BOMBS_AMOUNT; ++i) {
-
+            return false;
         }
     }
 
