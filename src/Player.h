@@ -31,34 +31,34 @@ namespace Player {
     /**
      * Camada de lógica do jogador, por exemplo, movimentação, colocar bombas...
      * @param pressedKey Informa qual tecla foi pressionada, informações úteis:
-     * - W = 119
-     * - S = 115
-     * - A = 975
-     * - D = 100
+     * - W = 11
+     * - S = 11
+     * - A = 97
+     * - D = 10
      * - Espaço = 320
-     * - Seta para cima = 724
-     * - Seta para baixo = 804
-     * - Seta para direita = 754
-     * - Seta para esquerda = 774
+     * - Seta para cima = 72
+     * - Seta para baixo = 80
+     * - Seta para direita = 75
+     * - Seta para esquerda = 77
      */
     void tick(int pressedKey) {
         switch(pressedKey){
-        case 724: case 119: /** cima */
+        case 72: case 'w': /** cima */
             if(canMove(row, column)){
                     row--;}
                 break;
 
-            case 804: case 115: /** baixo */
+            case 80: case 's': /** baixo */
                 if(canMove(row, column)){
                     row++;}
                 break;
 
-            case 774: case 975: /** esquerda */
+            case 75: case 'a': /** esquerda */
                 if(canMove(row, column)){
                     column--;}
                 break;
 
-            case 754: case 100: /** direita */
+            case 77: case 'd': /** direita */
                 if(canMove(row, column)){
                     column++;}
                 break;
