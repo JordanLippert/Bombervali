@@ -44,28 +44,24 @@ namespace Player {
     void tick(int pressedKey) {
         switch(pressedKey){
         case 724: case 119: /** cima */
-            if(canMove(row  column)){
-                bool canMove();
+            if(canMove(row, column)){
                     row--;}
                 break;
 
             case 804: case 115: /** baixo */
-                row++;
-                if{
-                    bool canMove();}
-            break;
+                if(canMove(row, column)){
+                    row++;}
+                break;
 
             case 774: case 975: /** esquerda */
-                column--;
-                if{
-                    bool canMove();}
-            break;
+                if(canMove(row, column)){
+                    column--;}
+                break;
 
             case 754: case 100: /** direita */
-                column++;
-                if{
-                    bool canMove();}
-            break;
+                if(canMove(row, column)){
+                    column++;}
+                break;
         }
     }
 
