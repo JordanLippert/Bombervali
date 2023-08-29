@@ -44,7 +44,7 @@ namespace Player {
     void tick(int pressedKey) {
         switch(pressedKey){
         case 724: case 119: /** cima */
-            if(canMove(row && column)){
+            if(canMove(row  column)){
                 bool canMove();
                     row--;}
                 break;
