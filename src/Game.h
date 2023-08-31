@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "utils/StringUtils.h"
 #include "Bombs.h"
+#include "Enemies.h"
 
 using namespace std;
 
@@ -31,6 +32,7 @@ namespace Game {
 
         Player::tick(pressedKey);
         Bombs::tick();
+        Enemies::tick();
     }
     
     // Camada de renderização do jogo
@@ -97,6 +99,7 @@ namespace Game {
         mouseCoord.Y = 0;
 
         Bombs::initBombsArray();
+        Enemies::initEnemies();
     }
 }
 
