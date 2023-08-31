@@ -35,7 +35,7 @@ namespace Player {
      * - S = 11
      * - A = 97
      * - D = 10
-     * - Espaço = 320
+     * - Espaço = 32
      * - Seta para cima = 72
      * - Seta para baixo = 80
      * - Seta para direita = 75
@@ -43,24 +43,29 @@ namespace Player {
      */
     void tick(int pressedKey) {
         switch(pressedKey){
-        case 72: case 'w': /** cima */
-            if(canMove(row, column)){
+
+            case 72: case 'w': /** cima */
+                if(canMove(row - 1 , column)){
                     row--;}
                 break;
 
             case 80: case 's': /** baixo */
-                if(canMove(row, column)){
+                if(canMove(row + 1 , column)){
                     row++;}
                 break;
 
             case 75: case 'a': /** esquerda */
-                if(canMove(row, column)){
+                if(canMove(row, column - 1)){
                     column--;}
                 break;
 
             case 77: case 'd': /** direita */
-                if(canMove(row, column)){
+                if(canMove(row, column + 1)){
                     column++;}
+                break;
+
+            case 32: case 13: /** dropar bomba */
+                placeBomb();
                 break;
         }
     }
