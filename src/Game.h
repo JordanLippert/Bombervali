@@ -14,6 +14,7 @@
 #include "utils/StringUtils.h"
 #include "Bombs.h"
 #include "Enemies.h"
+#include "Menu.h"
 
 using namespace std;
 
@@ -30,47 +31,59 @@ namespace Game {
             pressedKey = getch();
         }
 
-        Player::tick(pressedKey);
-        Bombs::tick();
-        Enemies::tick();
+        if (Menu::isPlayable()) {
+            Player::tick(pressedKey);
+            Bombs::tick();
+            Enemies::tick();
+
+            return;
+        }
+
+        Menu::isPlayable();
     }
     
     // Camada de renderização do jogo
     void render() {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
-        for (int row = 0; row < MAP_HEIGHT; row++) {
-            for (int column = 0; column < MAP_WIDTH; column++) {
-                bool needToPrintBomb = Bombs::render(row, column);
+        if (Menu::isPlayable()) {
+            for (int row = 0; row < MAP_HEIGHT; row++) {
+                for (int column = 0; column < MAP_WIDTH; column++) {
+                    bool needToPrintBomb = Bombs::render(row, column);
 
-                if (Player::isInPosition(row, column)) {
-                    cout << " " << Player::render() << " ";
+                    if (Player::isInPosition(row, column)) {
+                        cout << " " << Player::render() << " ";
+                        ConsoleColor::showColor(Color::RESET);
+                        continue;
+                    }
+
+                    int tileType = MAP[row][column];
+
+                    if (tileType == 1) {
+                        cout << char(GameChar::WALL) << char(GameChar::WALL) << char(GameChar::WALL);
+                        ConsoleColor::showColor(Color::RESET);
+                        continue;
+                    }
+
+                    if (tileType == 2) {
+                        cout << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL);
+                        ConsoleColor::showColor(Color::RESET);
+                        continue;
+                    }
+
+                    if (!needToPrintBomb) cout << "   ";
+                    else std::cout << " " << char(GameChar::BOMB) << " ";
+
                     ConsoleColor::showColor(Color::RESET);
-                    continue;
                 }
 
-                int tileType = MAP[row][column];
-
-                if (tileType == 1) {
-                    cout << char(GameChar::WALL) << char(GameChar::WALL) << char(GameChar::WALL);
-                    ConsoleColor::showColor(Color::RESET);
-                    continue;
-                }
-
-                if (tileType == 2) {
-                    cout << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL);
-                    ConsoleColor::showColor(Color::RESET);
-                    continue;
-                }
-
-                if (!needToPrintBomb) cout << "   ";
-                else std::cout << " " << char(GameChar::BOMB) << " ";
-
-                ConsoleColor::showColor(Color::RESET);
+                cout << endl;
             }
 
-            cout << endl;
+            return;
         }
+
+        Menu::render();
     }
 
     // Método para começar a rodar o jogo, contendo o loop principal
