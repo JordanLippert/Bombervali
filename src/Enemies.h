@@ -21,6 +21,11 @@ namespace Enemies {
 
     Enemy enemies[3];
 
+    // Está função deve retornar se todos os inimigos estão mortos
+    bool areAllEnemiesDead() {
+
+    }
+
     // Função para mover os inimigos de forma randômica
     void moveEnemies() {
 
