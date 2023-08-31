@@ -9,7 +9,8 @@ enum class GameChar {
     PLAYER = 2,
     BREAKABLE_WALL = 178,
     WALL = 219,
-    BOMB = 207,
+    BOMB = 224,
+    ENEMY = 184,
 };
 
 #endif //GAME02_GAMECHAR_H
