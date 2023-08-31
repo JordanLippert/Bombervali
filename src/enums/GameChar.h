@@ -6,7 +6,7 @@
 #define GAME02_GAMECHAR_H
 
 enum class GameChar {
-    PLAYER = 254,
+    PLAYER = 2,
     BREAKABLE_WALL = 178,
     WALL = 219,
     BOMB = 207,
