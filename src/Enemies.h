@@ -23,7 +23,7 @@ namespace Enemies {
 
     // Está função deve retornar se todos os inimigos estão mortos
     bool areAllEnemiesDead() {
-
+        return false;
     }
 
     // Função para mover os inimigos de forma randômica

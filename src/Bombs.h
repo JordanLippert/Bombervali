@@ -40,6 +40,18 @@ namespace Bombs {
         return thereIsAbove || thereIsBelow || thereIsOnLeft || thereIsOnRight || thereIsHere;
     }
 
+    bool isExplosionNear(int row, int column) {
+        for (int i = 0; i < BOMBS_AMOUNT; ++i) {
+            Bomb currentBomb = bombs[i];
+
+            if (currentBomb.placed && currentBomb.stage == 3) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void placeBomb(int row, int column, int index) {
         if (isBombPlaced(index)) return;
 

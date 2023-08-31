@@ -35,11 +35,9 @@ namespace Game {
             Player::tick(pressedKey);
             Bombs::tick();
             Enemies::tick();
-
-            return;
         }
 
-        Menu::isPlayable();
+        Menu::tick(pressedKey);
     }
     
     // Camada de renderização do jogo
