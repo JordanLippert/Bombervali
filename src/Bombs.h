@@ -20,12 +20,14 @@ struct Bomb {
 
 namespace Bombs {
     Bomb bombs[BOMBS_AMOUNT];
-    bool added = false;
 
-    bool thereIsBombNear(int row, int column) {
-        for (int i = 0; i < BOMBS_AMOUNT; ++i) {
-        }
-            return false;
+    /**
+     * Este método retorna se uma bomba está colocada no mapa
+     * @param index Indice da bomba
+     * @return Se a bomba está colocada
+     */
+    bool isBombPlaced(int index) {
+        return bombs[index].placed;
     }
 
     bool isBombNearToCoordinates(Bomb bomb, int row, int column) {
@@ -39,6 +41,8 @@ namespace Bombs {
     }
 
     void placeBomb(int row, int column, int index) {
+        if (isBombPlaced(index)) return;
+
         Bomb bomb {};
 
         bomb.row = row;
@@ -80,12 +84,6 @@ namespace Bombs {
     }
 
     void tick() {
-        if (!added) {
-            placeBomb(5, 5, 0);
-            placeBomb(3, 1, 1);
-        }
-        added = true;
-
         for (int i = 0; i < BOMBS_AMOUNT; ++i) {
             Bomb current = bombs[i];
 
