@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "./enums/GameChar.h"
+#include "Bombs.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ namespace Player {
      * Este método deve ser acionado quando a pessoa pressionar Espaço (Deixe ele me branco, apenas chame ele)
      */
     void placeBomb() {
-
+        Bombs::placeBomb(row, column, 0);
     }
 
     /**
