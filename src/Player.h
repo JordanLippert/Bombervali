@@ -8,6 +8,7 @@
 #include <iostream>
 #include "./enums/GameChar.h"
 #include "Bombs.h"
+#include "Menu.h"
 
 using namespace std;
 
@@ -43,6 +44,11 @@ namespace Player {
      * - Seta para esquerda = 77
      */
     void tick(int pressedKey) {
+        if(Bombs::isExplosionNear(row, column)) /** Controle de explosão próxima ao Player */
+        {
+            Menu:: changeState(GameStage::LOSE);
+        }
+
         switch(pressedKey){
 
             case 72: case 'w': /** cima */
