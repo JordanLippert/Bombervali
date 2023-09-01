@@ -4,7 +4,7 @@
 
 #ifndef GAME02_ENEMIES_H
 #define GAME02_ENEMIES_H
-
+#include <cstdlib>
 #include <ctime>
 #include "Player.h"
 
@@ -26,9 +26,18 @@ namespace Enemies {
         return false;
     }
 
+    int generateNumber(int maxNumber = 2){
+        int numberGenerated;
+        rand() % 3 + 1 = numberGenerated;
+    }
+
+
     // Função para mover os inimigos de forma randômica
     void moveEnemies() {
-
+        int i;
+        for(i = 0, i <= 3, i++){
+            rand();
+        }
     }
 
     // Função para colocar as bombas dos inimigos
