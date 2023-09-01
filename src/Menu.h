@@ -44,6 +44,10 @@ namespace Menu {
         if (stage == GameStage::START) {
             renderStartMenu();
         }
+
+        if (stage == GameStage::LOSE) {
+            renderLose();
+        }
     }
 }
 
