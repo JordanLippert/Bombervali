@@ -7,18 +7,30 @@
 
 #include <iostream>
 #include "enums/GameStage.h"
+#include "utils/StringUtils.h"
 
 using namespace std;
 
 namespace Menu {
     GameStage stage = GameStage::START;
+    int terminalRows, terminalColumns;
 
     bool isPlayable() {
         return stage == GameStage::PLAYING;
     }
 
     void renderStartMenu() {
-        cout << "Opa meu chapa, aperta ENTER pra começar vai.";
+        cout << "\n";
+
+        cout << terminalColumns;
+
+        cout << centerStringInScreen("  ___            _                      _ _ ", terminalColumns);
+        cout << centerStringInScreen(" | _ ) ___ _ __ | |__  ___ _ ___ ____ _| (_)", terminalColumns);
+        cout << centerStringInScreen(" | _ \\/ _ \\ '  \\| '_ \\/ -_) '_\\ V / _` | | |", terminalColumns);
+        cout << centerStringInScreen(" |___/\\___/_|_|_|_.__/\\___|_|  \\_/\\__,_|_|_|", terminalColumns);
+        cout << centerStringInScreen("v 1.0.0", terminalColumns);
+
+        cout << "\n\nPressione ENTER para iniciar o jogo.";
     }
 
     void renderWin() {
@@ -26,7 +38,7 @@ namespace Menu {
     }
 
     void renderLose() {
-        cout << "Se fudeu otário, tomou bimba na bundinha. Quem você acha que é? C bam? Chris Bumbstead? Eu acho que não é mesmo. FAKE NATTY!";
+        cout << "Infelizmente parece que você se explodiu :(";
     }
 
     void changeState(GameStage newStage) {
