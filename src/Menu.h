@@ -20,17 +20,13 @@ namespace Menu {
     }
 
     void renderStartMenu() {
-        cout << "\n";
-
-        cout << terminalColumns;
-
-        cout << centerStringInScreen("  ___            _                      _ _ ", terminalColumns);
-        cout << centerStringInScreen(" | _ ) ___ _ __ | |__  ___ _ ___ ____ _| (_)", terminalColumns);
-        cout << centerStringInScreen(" | _ \\/ _ \\ '  \\| '_ \\/ -_) '_\\ V / _` | | |", terminalColumns);
-        cout << centerStringInScreen(" |___/\\___/_|_|_|_.__/\\___|_|  \\_/\\__,_|_|_|", terminalColumns);
+        cout << centerStringInScreen("  ___            _                      _ _ ", terminalColumns) << endl;
+        cout << centerStringInScreen(" | _ ) ___ _ __ | |__  ___ _ ___ ____ _| (_)", terminalColumns) << endl;
+        cout << centerStringInScreen(R"( | _ \/ _ \ '  \| '_ \/ -_) '_\ V / _` | | |)", terminalColumns) << endl;
+        cout << centerStringInScreen(R"( |___/\___/_|_|_|_.__/\___|_|  \_/\__,_|_|_|)", terminalColumns) << endl;
         cout << centerStringInScreen("v 1.0.0", terminalColumns);
 
-        cout << "\n\nPressione ENTER para iniciar o jogo.";
+        cout << centerStringInScreen("\n\nPressione ENTER para iniciar o jogo.", terminalColumns);
     }
 
     void renderWin() {
