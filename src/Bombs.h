@@ -45,7 +45,11 @@ namespace Bombs {
             Bomb currentBomb = bombs[i];
 
             if (currentBomb.placed && currentBomb.stage == 3) {
-                return true;
+                bool isNear = isBombNearToCoordinates(currentBomb, row, column);
+
+                if (isNear) {
+                    return true;
+                }
             }
         }
 
