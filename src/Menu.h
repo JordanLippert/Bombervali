@@ -20,13 +20,16 @@ namespace Menu {
     }
 
     void renderStartMenu() {
-        cout << centerStringInScreen("  ___            _                      _ _ ", terminalColumns) << endl;
-        cout << centerStringInScreen(" | _ ) ___ _ __ | |__  ___ _ ___ ____ _| (_)", terminalColumns) << endl;
-        cout << centerStringInScreen(R"( | _ \/ _ \ '  \| '_ \/ -_) '_\ V / _` | | |)", terminalColumns) << endl;
-        cout << centerStringInScreen(R"( |___/\___/_|_|_|_.__/\___|_|  \_/\__,_|_|_|)", terminalColumns) << endl;
+        cout << endl << endl;
+        cout << centerStringInScreen("  ___  ___  __  __ ___ ___ _____   ___   _    ___ ", terminalColumns) << endl;
+        cout << centerStringInScreen(" | _ )/ _ \\|  \\/  | _ ) __| _ \\ \\ / /_\\ | |  |_ _|", terminalColumns) << endl;
+        cout << centerStringInScreen(" | _ \\ (_) | |\\/| | _ \\ _||   /\\ V / _ \\| |__ | | ", terminalColumns) << endl;
+        cout << centerStringInScreen(" |___/\\___/|_|  |_|___/___|_|_\\ \\_/_/ \\_\\____|___|", terminalColumns) << endl;
         cout << centerStringInScreen("v 1.0.0", terminalColumns);
+        cout << endl;
+        cout << centerStringInScreen("Caio Rosa, Guilherme Silvestre & Jordan Lippert @ Univali", terminalColumns);
 
-        cout << centerStringInScreen("\n\nPressione ENTER para iniciar o jogo.", terminalColumns);
+        cout << endl << endl << centerStringInScreen("Pressione ENTER para iniciar o jogo.", terminalColumns);
     }
 
     void renderWin() {
