@@ -7,18 +7,29 @@
 
 #include <iostream>
 #include "enums/GameStage.h"
+#include "utils/StringUtils.h"
 
 using namespace std;
 
 namespace Menu {
     GameStage stage = GameStage::START;
+    int terminalRows, terminalColumns;
 
     bool isPlayable() {
         return stage == GameStage::PLAYING;
     }
 
     void renderStartMenu() {
-        cout << "Opa meu chapa, aperta ENTER pra começar vai.";
+        cout << endl << endl;
+        cout << centerStringInScreen("  ___  ___  __  __ ___ ___ _____   ___   _    ___ ", terminalColumns) << endl;
+        cout << centerStringInScreen(" | _ )/ _ \\|  \\/  | _ ) __| _ \\ \\ / /_\\ | |  |_ _|", terminalColumns) << endl;
+        cout << centerStringInScreen(" | _ \\ (_) | |\\/| | _ \\ _||   /\\ V / _ \\| |__ | | ", terminalColumns) << endl;
+        cout << centerStringInScreen(" |___/\\___/|_|  |_|___/___|_|_\\ \\_/_/ \\_\\____|___|", terminalColumns) << endl;
+        cout << centerStringInScreen("v 1.0.0", terminalColumns);
+        cout << endl;
+        cout << centerStringInScreen("Caio Rosa, Guilherme Silvestre & Jordan Lippert @ Univali", terminalColumns);
+
+        cout << endl << endl << centerStringInScreen("Pressione ENTER para iniciar o jogo.", terminalColumns);
     }
 
     void renderWin() {
@@ -26,7 +37,7 @@ namespace Menu {
     }
 
     void renderLose() {
-        cout << "Se fudeu otário, tomou bimba na bundinha. Quem você acha que é? C bam? Chris Bumbstead? Eu acho que não é mesmo. FAKE NATTY!";
+        cout << "Infelizmente parece que você se explodiu :(";
     }
 
     void changeState(GameStage newStage) {

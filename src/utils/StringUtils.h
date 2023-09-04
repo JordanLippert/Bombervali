@@ -9,8 +9,23 @@
 
 using namespace std;
 
-string placeSpaceInBorders(string str) {
-    return " " + str + " ";
+string centerStringInScreen(string str, int size) {
+    int strLength = str.length();
+    int spaces = (size - strLength) / 2;
+
+    string newString;
+
+    for (int i = 0; i < spaces; ++i) {
+        newString += " ";
+    }
+
+    newString += str;
+
+    for (int i = 0; i < spaces; ++i) {
+        newString += " ";
+    }
+
+    return newString;
 }
 
 string placeSpaceInBorders(char str) {

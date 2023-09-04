@@ -21,7 +21,6 @@ using namespace std;
 namespace Game {
     bool running = true;
     COORD mouseCoord {};
-    int terminalRows, terminalColumns;
 
     // Camada de lógica do jogo
     void tick() {
@@ -99,8 +98,8 @@ namespace Game {
         CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
 
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bufferInfo);
-        terminalColumns = bufferInfo.srWindow.Right - bufferInfo.srWindow.Left + 1;
-        terminalRows = bufferInfo.srWindow.Bottom - bufferInfo.srWindow.Top + 1;
+        Menu::terminalColumns = bufferInfo.srWindow.Right - bufferInfo.srWindow.Left + 1;
+        Menu::terminalRows = bufferInfo.srWindow.Bottom - bufferInfo.srWindow.Top + 1;
 
         GetConsoleCursorInfo(out, &cursorInfo);
         cursorInfo.bVisible = false;
