@@ -10,6 +10,8 @@
 
 enum class Color {
     RESET = 15,
+    RED = 12,
+    GREEN = 10,
     RED_BACKGROUND = 207,
     ORANGE_BACKGROUND = 111,
     YELLOW_BACKGROUND = 239,
