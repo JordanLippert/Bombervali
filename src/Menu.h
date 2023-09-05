@@ -22,10 +22,12 @@ namespace Menu {
 
     void renderStartMenu() {
         cout << endl << endl;
-        cout << centerStringInScreen("  ___  ___  __  __ ___ ___ _____   ___   _    ___ ", terminalColumns) << endl;
-        cout << centerStringInScreen(" | _ )/ _ \\|  \\/  | _ ) __| _ \\ \\ / /_\\ | |  |_ _|", terminalColumns) << endl;
-        cout << centerStringInScreen(" | _ \\ (_) | |\\/| | _ \\ _||   /\\ V / _ \\| |__ | | ", terminalColumns) << endl;
-        cout << centerStringInScreen(" |___/\\___/|_|  |_|___/___|_|_\\ \\_/_/ \\_\\____|___|", terminalColumns) << endl;
+        cout << centerStringInScreen(".______     ______   .___  ___. .______    _______ .______     ____    ____  ___       __       __ ", terminalColumns) << endl;
+        cout << centerStringInScreen("|   _  \\   /  __  \\  |   \\/   | |   _  \\  |   ____||   _  \\    \\   \\  /   / /   \\     |  |     |  |", terminalColumns) << endl;
+        cout << centerStringInScreen("|  |_)  | |  |  |  | |  \\  /  | |  |_)  | |  |__   |  |_)  |    \\   \\/   / /  ^  \\    |  |     |  |", terminalColumns) << endl;
+        cout << centerStringInScreen("|   _  <  |  |  |  | |  |\\/|  | |   _  <  |   __|  |      /      \\      / /  /_\\  \\   |  |     |  |", terminalColumns) << endl;
+        cout << centerStringInScreen("|  |_)  | |  `--'  | |  |  |  | |  |_)  | |  |____ |  |\\  \\----.  \\    / /  _____  \\  |  `----.|  |", terminalColumns) << endl;
+        cout << centerStringInScreen("|______/   \\______/  |__|  |__| |______/  |_______|| _| `._____|   \\__/ /__/     \\__\\ |_______||__|", terminalColumns) << endl;
         cout << centerStringInScreen("v 1.0.0", terminalColumns);
         cout << endl;
         cout << centerStringInScreen("Caio Rosa, Guilherme Silvestre & Jordan Lippert @ Univali", terminalColumns);
