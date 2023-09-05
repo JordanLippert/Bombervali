@@ -60,7 +60,7 @@ namespace Bombs {
         for (int i = 0; i < BOMBS_AMOUNT; ++i) {
             Bomb currentBomb = bombs[i];
 
-            if (currentBomb.placed && currentBomb.stage == 3) {
+            if (currentBomb.placed && currentBomb.stage == 4) {
                 bool isNear = isBombNearToCoordinates(currentBomb, row, column);
 
                 if (isNear) {
@@ -146,7 +146,7 @@ namespace Bombs {
 
             if (!current.placed) continue;
 
-            if (MAP[row][column] != 1 && isBombNearToCoordinates(current, row, column)) {
+            if (isBombNearToCoordinates(current, row, column)) {
                 if (current.stage == 1) {
                     ConsoleColor::showColor(Color::RED_BACKGROUND);
                 }
