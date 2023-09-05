@@ -11,6 +11,7 @@ struct Enemy {
     int row;
     int column;
     bool isLive;
+    bool hasPlacedBomb;
 };
 
 namespace Enemies {
@@ -61,12 +62,6 @@ namespace Enemies {
 
     // Função para mover os inimigos para cima
     void moveEnemyUp(Enemy &enemy) {
-        if (Bombs::isBombNear(enemy.row - 1, enemy.column)) {
-            if (canMove(enemy.row + 1, enemy.column)) {
-                enemy.row++;
-            }
-            return;
-        }
         if (canMove(enemy.row - 1, enemy.column)) {
             enemy.row--;
         }
@@ -74,12 +69,6 @@ namespace Enemies {
 
     // Função para mover os inimigos para baixo
     void moveEnemyDown(Enemy &enemy) {
-        if (Bombs::isBombNear(enemy.row + 1, enemy.column)) {
-            if (canMove(enemy.row - 1, enemy.column)) {
-                enemy.row--;
-            }
-            return;
-        }
         if (canMove(enemy.row + 1, enemy.column)) {
             enemy.row++;
         }
@@ -87,12 +76,6 @@ namespace Enemies {
 
     //Função para mover inimigos para esquerda
     void moveEnemyLeft(Enemy &enemy) {
-        if (Bombs::isBombNear(enemy.row, enemy.column - 1)) {
-            if (canMove(enemy.row, enemy.column + 1)) {
-                enemy.column++;
-            }
-            return;
-        }
         if (canMove(enemy.row, enemy.column - 1)) {
             enemy.column--;
         }
@@ -100,12 +83,6 @@ namespace Enemies {
 
     //Função para mover inimigos para direita
     void moveEnemyRight(Enemy &enemy) {
-        if (Bombs::isBombNear(enemy.row, enemy.column + 1)) {
-            if (canMove(enemy.row, enemy.column - 1)) {
-                enemy.column--;
-            }
-            return;
-        }
         if (canMove(enemy.row, enemy.column + 1)) {
             enemy.column++;
         }
@@ -120,10 +97,9 @@ namespace Enemies {
             if (!currentEnemy.isLive) continue;
 
             int amountOfTiles = generateNumber() + 1;
+            int direction = generateNumber(4);
 
             for (int j = 0; j < amountOfTiles; ++j) {
-                int direction = generateNumber(4);
-
                 switch (direction) {
                     case 0:
                         moveEnemyUp(currentEnemy);
@@ -153,8 +129,11 @@ namespace Enemies {
 
             int randomNumber = generateNumber(100) + 1;
 
-            if (randomNumber <= 25) {
+            if (randomNumber <= 10 && !enemy.hasPlacedBomb) {
                 Bombs::placeBomb(enemy.row, enemy.column, i);
+
+                enemy.hasPlacedBomb = true;
+                enemies[i] = enemy;
             }
         }
     }
@@ -202,6 +181,7 @@ namespace Enemies {
         enemy1.row = 19;
         enemy1.column = 1;
         enemy1.isLive = true;
+        enemy1.hasPlacedBomb = false;
 
         enemies[0] = enemy1;
 
@@ -209,6 +189,7 @@ namespace Enemies {
         enemy2.row = 19;
         enemy2.column = 19;
         enemy2.isLive = true;
+        enemy2.hasPlacedBomb = false;
 
         enemies[1] = enemy2;
 
@@ -216,6 +197,7 @@ namespace Enemies {
         enemy3.row = 1;
         enemy3.column = 19;
         enemy3.isLive = true;
+        enemy3.hasPlacedBomb = false;
 
         enemies[2] = enemy3;
     }
