@@ -8,6 +8,7 @@
 #include <iostream>
 #include "enums/GameStage.h"
 #include "utils/StringUtils.h"
+#include "Enemies.h"
 
 using namespace std;
 
@@ -49,6 +50,10 @@ namespace Menu {
         if (pressedKey == 13 && stage == GameStage::START) {
             changeState(GameStage::PLAYING);
         }
+
+        if (stage == GameStage::PLAYING && Enemies::areAllEnemiesDead()) {
+            changeState(GameStage::WIN);
+        }
     }
 
     void render() {
@@ -58,6 +63,10 @@ namespace Menu {
 
         if (stage == GameStage::LOSE) {
             renderLose();
+        }
+
+        if (stage == GameStage::WIN) {
+            renderWin();
         }
     }
 }

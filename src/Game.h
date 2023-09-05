@@ -54,6 +54,12 @@ namespace Game {
                         continue;
                     }
 
+                    if (Enemies::thereIsEnemy(row, column)) {
+                        cout << " " << char(GameChar::ENEMY) << " ";
+                        ConsoleColor::showColor(Color::RESET);
+                        continue;
+                    }
+
                     int tileType = MAP[row][column];
 
                     if (tileType == 1) {

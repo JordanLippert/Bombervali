@@ -40,6 +40,22 @@ namespace Bombs {
         return thereIsAbove || thereIsBelow || thereIsOnLeft || thereIsOnRight || thereIsHere;
     }
 
+    bool isBombNear(int row, int column) {
+        for (int i = 0; i < BOMBS_AMOUNT; ++i) {
+            Bomb currentBomb = bombs[i];
+
+            if (currentBomb.placed) {
+                bool isNear = isBombNearToCoordinates(currentBomb, row, column);
+
+                if (isNear) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     bool isExplosionNear(int row, int column) {
         for (int i = 0; i < BOMBS_AMOUNT; ++i) {
             Bomb currentBomb = bombs[i];

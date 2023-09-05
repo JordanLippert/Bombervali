@@ -20,18 +20,28 @@ namespace Enemies {
     bool startedTimer = false;
 
     Enemy enemies[3];
+
     bool thereIsEnemy(int row, int column){
         for(int i = 0; i < 3; i++){
             Enemy enemy = enemies[i];
-            if (enemy.row == row && enemy.column == column){
+
+            if (enemy.row == row && enemy.column == column && enemy.isLive){
                 return true;
             }
         }
+
+        return false;
     }
 
     // Está função deve retornar se todos os inimigos estão mortos
     bool areAllEnemiesDead() {
-        return false;
+        for (int i = 0; i < 3; ++i) {
+            Enemy enemy = enemies[i];
+
+            if (enemy.isLive) return false;
+        }
+
+        return true;
     }
 
     int generateNumber(int maxNumber = 3) {
@@ -70,32 +80,63 @@ namespace Enemies {
         int i;
         for (i = 0; i < 3; i++) {
             Enemy currentEnemy = enemies[i];
+
+            if (!currentEnemy.isLive) continue;
+
+            int amountOfTiles = generateNumber() + 1;
             int direction = generateNumber(4);
-            switch (direction) {
-                case 0:
-                    moveEnemyUp(currentEnemy);
-                    break;
-                case 1:
-                    moveEnemyDown(currentEnemy);
-                    break;
-                case 2:
-                    moveEnemyLeft(currentEnemy);
-                    break;
-                case 3:
-                    moveEnemyRight(currentEnemy);
-                    break;
-            }
+
+            for (int j = 0; j < amountOfTiles; ++j) {
+                switch (direction) {
+                    case 0:
+                        moveEnemyUp(currentEnemy);
+                        break;
+                    case 1:
+                        moveEnemyDown(currentEnemy);
+                        break;
+                    case 2:
+                        moveEnemyLeft(currentEnemy);
+                        break;
+                    case 3:
+                        moveEnemyRight(currentEnemy);
+                        break;
+                }
+
                 enemies[i] = currentEnemy;
+            }
         }
     }
 
-
     // Função para colocar as bombas dos inimigos
     void placeBombs() {
+        for (int i = 0; i < 3; ++i) {
+            Enemy enemy = enemies[i];
 
+            if (!enemy.isLive) continue;
+
+            int randomNumber = generateNumber(100) + 1;
+
+            if (randomNumber <= 25) {
+                Bombs::placeBomb(enemy.row, enemy.column, i);
+            }
+        }
+    }
+
+    // Função para colocar as bombas dos inimigos
+    void killEnemies() {
+        for (int i = 0; i < 3; ++i) {
+            Enemy enemy = enemies[i];
+
+            if (enemy.isLive && Bombs::isExplosionNear(enemy.row, enemy.column)) {
+                enemy.isLive = false;
+
+                enemies[i] = enemy;
+            }
+        }
     }
 
     void tick() {
+        killEnemies();
         // Resetar o ínicio do clock caso necessário
         if (duration == 0 && !startedTimer) {
             start = clock();
@@ -140,7 +181,6 @@ namespace Enemies {
         enemy3.isLive = true;
 
         enemies[2] = enemy3;
-
     }
 }
 
