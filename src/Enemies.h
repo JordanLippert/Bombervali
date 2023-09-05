@@ -33,6 +33,18 @@ namespace Enemies {
         return false;
     }
 
+    int getAliveEnemiesAmount() {
+        int amount = 0;
+
+        for (int i = 0; i < 3; ++i) {
+            Enemy enemy = enemies[i];
+
+            if (enemy.isLive) amount++;
+        }
+
+        return amount;
+    }
+
     // Está função deve retornar se todos os inimigos estão mortos
     bool areAllEnemiesDead() {
         for (int i = 0; i < 3; ++i) {

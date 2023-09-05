@@ -34,6 +34,13 @@ int MAP[MAP_HEIGHT][MAP_WIDTH] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
+const int HUD_SIZE = 3;
+
+std::string HUD[HUD_SIZE] = {
+        "Faltam $enimies serem mortos",
+        "$bar            "
+};
+
 bool canMove(int row, int column) {
     if (row < 0 || row >= MAP_HEIGHT || column < 0 || column >= MAP_WIDTH) return false;
 

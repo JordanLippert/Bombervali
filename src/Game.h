@@ -44,6 +44,8 @@ namespace Game {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
         if (Menu::isPlayable()) {
+            int currentHud = 0;
+
             for (int row = 0; row < MAP_HEIGHT; row++) {
                 for (int column = 0; column < MAP_WIDTH; column++) {
                     bool needToPrintBomb = Bombs::render(row, column);
@@ -80,9 +82,24 @@ namespace Game {
                     ConsoleColor::showColor(Color::RESET);
                 }
 
+                if (row > ((MAP_HEIGHT - HUD_SIZE) / 2) && currentHud < HUD_SIZE)  {
+                    string remainingEnemies = std::to_string(Enemies::getAliveEnemiesAmount());
+                    string progressBar = "Aperte ESPACO para colocar uma bomba";
+                    if (Bombs::isBombPlaced(3)) {
+                        progressBar = "Tempo para colocar outra bomba: " + getProgressBar(Bombs::getBombStage(3), 4, 8);
+                    }
+
+                    string hudText = HUD[currentHud];
+                    currentHud++;
+
+                    replaceString(hudText, "$enimies", remainingEnemies);
+                    replaceString(hudText, "$bar", progressBar);
+
+                    cout << "           " << hudText;
+                }
+
                 cout << endl;
             }
-
             return;
         }
 

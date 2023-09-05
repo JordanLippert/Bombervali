@@ -30,6 +30,10 @@ namespace Bombs {
         return bombs[index].placed;
     }
 
+    int getBombStage(int index) {
+        return bombs[index].stage;
+    }
+
     bool isBombNearToCoordinates(Bomb bomb, int row, int column) {
         bool thereIsAbove = (bomb.row == row - 1) && bomb.column == column;
         bool thereIsBelow = (bomb.row == row + 1) && bomb.column == column;

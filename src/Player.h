@@ -27,7 +27,7 @@ namespace Player {
      * Este método deve ser acionado quando a pessoa pressionar Espaço (Deixe ele me branco, apenas chame ele)
      */
     void placeBomb() {
-        Bombs::placeBomb(row, column, 0);
+        Bombs::placeBomb(row, column, 3);
     }
 
     /**

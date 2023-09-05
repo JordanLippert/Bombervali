@@ -28,13 +28,31 @@ string centerStringInScreen(string str, int size) {
     return newString;
 }
 
-string placeSpaceInBorders(char str) {
-    string returnString = " ";
+void replaceString(string& str, const string& from, const string& to) {
+    size_t start_pos = str.find(from);
+    if(start_pos == string::npos)
+        return;
+    str.replace(start_pos, from.length(), to);
+}
 
-    returnString += str;
-    returnString += " ";
+string getProgressBar(int currentProgress, int maxProgress, int barWidth) {
+    int percent = (currentProgress * 100) / maxProgress;
 
-    return returnString;
+    int numChars = (barWidth * percent) / 100;
+    string bar;
+
+    bar.append("[");
+    for (int i = 0; i < barWidth; i++) {
+        if (i < numChars) {
+            bar.append("#");
+        } else {
+            bar.append(" ");
+        }
+    }
+
+    bar.append("] ");
+
+    return bar;
 }
 
 #endif //GAME02_STRINGUTILS_H
