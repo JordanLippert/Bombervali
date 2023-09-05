@@ -6,7 +6,6 @@
 #define GAME02_ENEMIES_H
 #include <cstdlib>
 #include <ctime>
-#include "Player.h"
 
 struct Enemy {
     int row;
@@ -59,6 +58,7 @@ namespace Enemies {
     int generateNumber(int maxNumber = 3) {
         return rand() % maxNumber;
     }
+
     // Função para mover os inimigos para cima
     void moveEnemyUp(Enemy &enemy) {
         if (Bombs::isBombNear(enemy.row - 1, enemy.column)) {

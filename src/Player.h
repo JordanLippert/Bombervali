@@ -44,13 +44,12 @@ namespace Player {
      * - Seta para esquerda = 77
      */
     void tick(int pressedKey) {
-        if(Bombs::isExplosionNear(row, column)) /** Controle de explosão próxima ao Player */
+        if(Bombs::isExplosionNear(row, column) || Enemies::thereIsEnemy(row, column)) /** Controle de explosão próxima ao Player */
         {
             Menu:: changeState(GameStage::LOSE);
         }
 
         switch(pressedKey){
-
             case 72: case 'w': /** cima */
                 if(canMove(row - 1 , column)){
                     row--;}
