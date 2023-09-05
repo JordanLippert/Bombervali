@@ -37,7 +37,7 @@ int MAP[MAP_HEIGHT][MAP_WIDTH] = {
 const int HUD_SIZE = 3;
 
 std::string HUD[HUD_SIZE] = {
-        "Faltam $enimies serem mortos",
+        "Faltam $enimies inimigos serem mortos",
         "$bar            "
 };
 
