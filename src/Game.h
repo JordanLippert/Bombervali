@@ -133,6 +133,7 @@ namespace Game {
 
         Bombs::initBombsArray();
         Enemies::initEnemies();
+        srand(time(NULL));
     }
 }
 
