@@ -82,6 +82,7 @@ namespace Game {
                     ConsoleColor::showColor(Color::RESET);
                 }
 
+                /*
                 if (row > ((MAP_HEIGHT - HUD_SIZE) / 2) && currentHud < HUD_SIZE)  {
                     string remainingEnemies = std::to_string(Enemies::getAliveEnemiesAmount());
                     string progressBar = "Aperte ESPACO para colocar uma bomba";
@@ -97,6 +98,7 @@ namespace Game {
 
                     cout << "           " << hudText;
                 }
+                 */
 
                 cout << endl;
             }
