@@ -21,6 +21,11 @@ namespace Enemies {
 
     Enemy enemies[3];
 
+    /**
+     * Verifica se existe um inimigo na localização informada
+     * @param row Linha da localização
+     * @param column Coluna da localização
+     */
     bool thereIsEnemy(int row, int column){
         for(int i = 0; i < 3; i++){
             Enemy enemy = enemies[i];
@@ -56,6 +61,7 @@ namespace Enemies {
         return true;
     }
 
+    // Está função retorna um número gerado com o limite informado
     int generateNumber(int maxNumber = 3) {
         return rand() % maxNumber;
     }
@@ -120,7 +126,7 @@ namespace Enemies {
         }
     }
 
-    // Função para colocar as bombas dos inimigos
+    // Função para colocar as bombas inimigas
     void placeBombs() {
         for (int i = 0; i < 3; ++i) {
             Enemy enemy = enemies[i];
@@ -138,7 +144,9 @@ namespace Enemies {
         }
     }
 
-    // Função para colocar as bombas dos inimigos
+    /**
+     * Função para verificar se existe uma explosão perto de um inimigo
+     */
     void killEnemies() {
         for (int i = 0; i < 3; ++i) {
             Enemy enemy = enemies[i];
@@ -151,6 +159,9 @@ namespace Enemies {
         }
     }
 
+    /**
+     * Função responsável pela lógica dos inimigos (roda no Loop princial)
+     */
     void tick() {
         killEnemies();
 
@@ -175,6 +186,9 @@ namespace Enemies {
         }
     }
 
+    /**
+     * Função para inicializar os inimigos e o Array principal
+     */
     void initEnemies() {
         Enemy enemy1 {};
 

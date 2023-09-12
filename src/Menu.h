@@ -16,10 +16,16 @@ namespace Menu {
     GameStage stage = GameStage::START;
     int terminalRows, terminalColumns;
 
+    /**
+     * Este método retorna se o estágio do jogo é jogável
+     */
     bool isPlayable() {
         return stage == GameStage::PLAYING;
     }
 
+    /**
+     * Escrever o menu de inicio do jogo no console
+     */
     void renderStartMenu() {
         cout << endl << endl;
         cout << centerStringInScreen(".______     ______   .___  ___. .______    _______ .______     ____    ____  ___       __       __ ", terminalColumns) << endl;
@@ -35,6 +41,9 @@ namespace Menu {
         cout << endl << endl << centerStringInScreen("Pressione ENTER para iniciar o jogo.", terminalColumns);
     }
 
+    /**
+     * Escrever o menu de vitória do jogo no console
+     */
     void renderWin() {
         ConsoleColor::showColor(Color::GREEN);
         cout << endl << endl;
@@ -49,6 +58,9 @@ namespace Menu {
         cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
     }
 
+    /**
+     * Escrever o menu de derrota do jogo no console
+     */
     void renderLose() {
         ConsoleColor::showColor(Color::RED);
 
@@ -64,21 +76,33 @@ namespace Menu {
         cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
     }
 
+    /**
+     * Este metódo muda o estado do jogo e limpa a tela, para evitar bugs visuais
+     */
     void changeState(GameStage newStage) {
         stage = newStage;
         system("cls");
     }
 
+    /**
+     * Método responsável pela lógica dos menus
+     * @param pressedKey
+     */
     void tick(char pressedKey) {
+        // Se está no estágio de início, verifica se apertou ENTER para iniciar
         if (pressedKey == 13 && stage == GameStage::START) {
             changeState(GameStage::PLAYING);
         }
 
+        // Verifica a condição de vitória
         if (stage == GameStage::PLAYING && Enemies::areAllEnemiesDead()) {
             changeState(GameStage::WIN);
         }
     }
 
+    /**
+     * Método responsável pela camada de renderização dos menus
+     */
     void render() {
         if (stage == GameStage::START) {
             renderStartMenu();

@@ -44,18 +44,19 @@ namespace Game {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
         if (Menu::isPlayable()) {
-            int currentHud = 0;
-
             for (int row = 0; row < MAP_HEIGHT; row++) {
                 for (int column = 0; column < MAP_WIDTH; column++) {
+                    // O método das bombas muda o fundo caso necessário e informa se deve escrever o símbolo da bomba no console
                     bool needToPrintBomb = Bombs::render(row, column);
 
+                    // Verificar se o player está na posição atual, se sim, escrever o símbolo dele
                     if (Player::isInPosition(row, column)) {
                         cout << " " << Player::render() << " ";
                         ConsoleColor::showColor(Color::RESET);
                         continue;
                     }
 
+                    // Verificar se um inimigo existe na posição atual, se sim, escrever o símbolo dos inimigos
                     if (Enemies::thereIsEnemy(row, column)) {
                         cout << " " << char(GameChar::ENEMY) << " ";
                         ConsoleColor::showColor(Color::RESET);
@@ -64,41 +65,27 @@ namespace Game {
 
                     int tileType = MAP[row][column];
 
+                    // Caso seja uma parede
                     if (tileType == 1) {
                         cout << char(GameChar::WALL) << char(GameChar::WALL) << char(GameChar::WALL);
                         ConsoleColor::showColor(Color::RESET);
                         continue;
                     }
 
+                    // Caso seja uma parede frágil
                     if (tileType == 2) {
                         cout << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL);
                         ConsoleColor::showColor(Color::RESET);
                         continue;
                     }
 
+                    // Por último se for um espaço vazio sem bomba, renderizar sem o símbolo
                     if (!needToPrintBomb) cout << "   ";
                     else std::cout << " " << char(GameChar::BOMB) << " ";
 
+                    // Resetar a cor de fundo caso necessário
                     ConsoleColor::showColor(Color::RESET);
                 }
-
-                /*
-                if (row > ((MAP_HEIGHT - HUD_SIZE) / 2) && currentHud < HUD_SIZE)  {
-                    string remainingEnemies = std::to_string(Enemies::getAliveEnemiesAmount());
-                    string progressBar = "Aperte ESPACO para colocar uma bomba";
-                    if (Bombs::isBombPlaced(3)) {
-                        progressBar = "Tempo para colocar outra bomba: " + getProgressBar(Bombs::getBombStage(3), 4, 8);
-                    }
-
-                    string hudText = HUD[currentHud];
-                    currentHud++;
-
-                    replaceString(hudText, "$enimies", remainingEnemies);
-                    replaceString(hudText, "$bar", progressBar);
-
-                    cout << "           " << hudText;
-                }
-                 */
 
                 cout << endl;
             }
@@ -111,6 +98,7 @@ namespace Game {
     // Método para começar a rodar o jogo, contendo o loop principal
     void run() {
         while (running) {
+            // Primeiro a camada de lógica, e depois a renderização do Mapa / Menu
             tick();
             render();
         }
@@ -132,10 +120,11 @@ namespace Game {
 
         mouseCoord.X = 0;
         mouseCoord.Y = 0;
+        srand(time(NULL));
 
+        // Inicializar os módulos do jogo
         Bombs::initBombsArray();
         Enemies::initEnemies();
-        srand(time(NULL));
     }
 }
 
