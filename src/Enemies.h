@@ -1,5 +1,5 @@
 //
-// Created by caior on 29/08/2023.
+// Created by caio on 29/08/2023.
 //
 
 #ifndef GAME02_ENEMIES_H
@@ -160,7 +160,7 @@ namespace Enemies {
     }
 
     /**
-     * Função responsável pela lógica dos inimigos (roda no Loop princial)
+     * Função responsável pela lógica dos inimigos (roda no Loop principal)
      */
     void tick() {
         killEnemies();
@@ -177,7 +177,7 @@ namespace Enemies {
 
         if (duration == 1) {
             duration = 0;
-            // Variavel para controlar se o contador deve reiniciar
+            // Variável para controlar se o contador deve reiniciar
             startedTimer = false;
 
             // Mover e colocar as bombas dos inimigos

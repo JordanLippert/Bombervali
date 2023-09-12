@@ -77,7 +77,7 @@ namespace Player {
     }
 
     /**
-     * Este método deve apenas retornar o  atual do jogador
+     * Este método deve apenas retornar o local atual do jogador
      */
     char render() {
         return char(GameChar::PLAYER);

@@ -23,7 +23,7 @@ namespace Bombs {
 
     /**
      * Este método retorna se uma bomba está colocada no mapa
-     * @param index Indice da bomba
+     * @param index Índice da bomba
      * @return Se a bomba está colocada
      */
     bool isBombPlaced(int index) {
@@ -32,7 +32,7 @@ namespace Bombs {
 
     /**
      * Este método retorna o estágio de explosão que uma bomba está
-     * @param index Indice da bomba
+     * @param index Índice da bomba
      * @return Qual estagio da explosão está a bomba
      */
     int getBombStage(int index) {
@@ -79,7 +79,7 @@ namespace Bombs {
     }
 
     /**
-     * Este método retorna se uma explosão está ocorrendo perta localização
+     * Este método retorna se uma explosão está ocorrendo perto localização
      * @param row Linha da localização
      * @param column Coluna da localização
      * @return Uma boolean se uma explosão existe perto dessa localização
@@ -136,7 +136,7 @@ namespace Bombs {
     }
 
     /**
-     * Verifica se existe uma parece frágil na localização, se existir apaga essa parede frágil
+     * Verifica se existe uma parede frágil na localização, se existir apaga essa parede frágil
      * @param row Linha da localização
      * @param column Coluna da localização
      */
@@ -160,7 +160,7 @@ namespace Bombs {
     }
 
     /**
-     * Método responsável pela lógica das bombas (roda no Loop princial)
+     * Método responsável pela lógica das bombas (roda no Loop principal)
      */
     void tick() {
         for (int i = 0; i < BOMBS_AMOUNT; ++i) {
@@ -193,7 +193,7 @@ namespace Bombs {
     }
 
     /**
-     * Método responsável pela lógica de renderização (roda no Loop princial)
+     * Método responsável pela lógica de renderização (roda no Loop principal)
      * @param row Linha que está percorrendo
      * @param column Coluna que está percorrendo
      * @return Retorna TRUE se for para escrever o simbolo da bomba no mapa
