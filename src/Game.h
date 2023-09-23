@@ -125,6 +125,7 @@ namespace Game {
         // Inicializar os módulos do jogo
         Bombs::initBombsArray();
         Enemies::initEnemies();
+        loadMap();
     }
 }
 
