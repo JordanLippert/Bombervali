@@ -5,9 +5,9 @@
 #ifndef GAME02_BOMBS_H
 #define GAME02_BOMBS_H
 
-#include "../config.h"
-#include "utils/ConsoleColors.h"
-#include "enums/GameChar.h"
+#include "../../config.h"
+#include "../utils/ConsoleColors.h"
+#include "../enums/GameChar.h"
 #include <time.h>
 
 struct Bomb {

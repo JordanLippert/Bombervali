@@ -10,11 +10,13 @@
 #include <conio.h>
 #include <unistd.h>
 #include "../config.h"
-#include "Player.h"
+#include "entities/Player.h"
 #include "utils/StringUtils.h"
-#include "Bombs.h"
-#include "Enemies.h"
+#include "entities/Bombs.h"
+#include "entities/Enemies.h"
 #include "Menu.h"
+#include "GameClock.h"
+#include "utils/TimeFormat.h"
 
 using namespace std;
 
@@ -22,7 +24,6 @@ namespace Game {
     bool running = true;
     COORD mouseCoord {};
 
-    // Camada de lógica do jogo
     void tick() {
         int pressedKey;
 
@@ -34,6 +35,7 @@ namespace Game {
             Player::tick(pressedKey);
             Bombs::tick();
             Enemies::tick();
+            GameClock::tick();
         }
 
         Menu::tick(pressedKey);
@@ -44,6 +46,7 @@ namespace Game {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
         if (Menu::isPlayable()) {
+            cout << "Tempo de jogo: " << TimeFormat::formatIntoString(GameClock::gameTime) << endl;
             for (int row = 0; row < MAP_HEIGHT; row++) {
                 for (int column = 0; column < MAP_WIDTH; column++) {
                     // O método das bombas muda o fundo caso necessário e informa se deve escrever o símbolo da bomba no console

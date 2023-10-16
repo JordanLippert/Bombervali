@@ -6,9 +6,9 @@
 #define GAME02_PLAYER_H
 
 #include <iostream>
-#include "./enums/GameChar.h"
+#include "../enums/GameChar.h"
 #include "Bombs.h"
-#include "Menu.h"
+#include "../Menu.h"
 
 using namespace std;
 

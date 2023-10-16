@@ -8,19 +8,21 @@
 #include <iostream>
 #include "enums/GameStage.h"
 #include "utils/StringUtils.h"
-#include "Enemies.h"
+#include "entities/Enemies.h"
 
 using namespace std;
 
 namespace Menu {
     GameStage stage = GameStage::START;
+    bool isGamePaused = false;
+
     int terminalRows, terminalColumns;
 
     /**
      * Este método retorna se o estágio do jogo é jogável
      */
     bool isPlayable() {
-        return stage == GameStage::PLAYING;
+        return stage == GameStage::PLAYING && !isGamePaused;
     }
 
     /**
@@ -89,6 +91,11 @@ namespace Menu {
      * @param pressedKey
      */
     void tick(char pressedKey) {
+        // Se está no estágio de início, verifica se apertou ENTER para iniciar
+        if (pressedKey == 13 && stage == GameStage::START) {
+            changeState(GameStage::PLAYING);
+        }
+
         // Se está no estágio de início, verifica se apertou ENTER para iniciar
         if (pressedKey == 13 && stage == GameStage::START) {
             changeState(GameStage::PLAYING);
