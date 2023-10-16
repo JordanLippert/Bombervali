@@ -26,7 +26,7 @@ public:
         this->tiles = std::move(tiles);
     }
 
-    vector<vector<int>> getTiles() {
+    vector<vector<int>>& getTiles() {
         return this->tiles;
     }
 
