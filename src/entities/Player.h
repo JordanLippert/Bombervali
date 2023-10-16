@@ -65,7 +65,7 @@ namespace Player {
             case 75: case 'a': /** esquerda */
                 if(canMove(row, column - 1)){
                     column--;
-
+                }
                 break;
 
             case 77: case 'd': /** direita */
