@@ -21,10 +21,6 @@ string centerStringInScreen(string str, int size) {
 
     newString += str;
 
-    for (int i = 0; i < spaces; ++i) {
-        newString += " ";
-    }
-
     return newString;
 }
 
