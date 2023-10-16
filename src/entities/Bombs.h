@@ -8,6 +8,7 @@
 #include "../../config.h"
 #include "../utils/ConsoleColors.h"
 #include "../enums/GameChar.h"
+#include "../map/MapManager.h"
 #include <time.h>
 
 struct Bomb {
@@ -141,9 +142,9 @@ namespace Bombs {
      * @param column Coluna da localização
      */
     void breakWall(int row, int column) {
-        if (row > 0 && row < MAP_HEIGHT && column > 0 && column < MAP_WIDTH) {
-            if (MAP[row][column] == 2) {
-                MAP[row][column] = 0;
+        if (MapManager::validLocation(row, column)) {
+            if (MapManager::currentMap.getTiles()[row][column] == 2) {
+                MapManager::currentMap.getTiles()[row][column] = 0;
             }
         }
     }

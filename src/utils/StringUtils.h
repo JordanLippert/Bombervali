@@ -6,8 +6,32 @@
 #define GAME02_STRINGUTILS_H
 
 #include <iostream>
+#include <sstream>
+#include <vector>
 
 using namespace std;
+
+vector<string> splitString(const string& text, char delimiter) {
+    stringstream stream(text);
+    string currentString;
+    vector<string> list;
+
+    while (getline(stream, currentString, delimiter)){
+        list.push_back(currentString);
+    }
+
+    return list;
+}
+
+int toInt(const string& numberString) {
+    int value = stoi(numberString);
+
+    return value;
+}
+
+bool contains(const std::string& str, char targetChar) {
+    return str.find(targetChar) != std::string::npos;
+}
 
 string centerStringInScreen(string str, int size) {
     int strLength = str.length();

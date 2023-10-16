@@ -68,28 +68,28 @@ namespace Enemies {
 
     // Função para mover os inimigos para cima
     void moveEnemyUp(Enemy &enemy) {
-        if (canMove(enemy.row - 1, enemy.column)) {
+        if (MapManager::canMove(enemy.row - 1, enemy.column)) {
             enemy.row--;
         }
     }
 
     // Função para mover os inimigos para baixo
     void moveEnemyDown(Enemy &enemy) {
-        if (canMove(enemy.row + 1, enemy.column)) {
+        if (MapManager::canMove(enemy.row + 1, enemy.column)) {
             enemy.row++;
         }
     }
 
     //Função para mover inimigos para esquerda
     void moveEnemyLeft(Enemy &enemy) {
-        if (canMove(enemy.row, enemy.column - 1)) {
+        if (MapManager::canMove(enemy.row, enemy.column - 1)) {
             enemy.column--;
         }
     }
 
     //Função para mover inimigos para direita
     void moveEnemyRight(Enemy &enemy) {
-        if (canMove(enemy.row, enemy.column + 1)) {
+        if (MapManager::canMove(enemy.row, enemy.column + 1)) {
             enemy.column++;
         }
     }

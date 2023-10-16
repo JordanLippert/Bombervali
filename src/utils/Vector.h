@@ -11,11 +11,18 @@ template <typename T>
 class Vector {
 private:
     T* data;
-    int capacity;
-    int size;
+    int capacity {};
+    int size {};
 
 public:
     Vector() : data(nullptr), capacity(0), size(0) {}
+    Vector(int initialCapacity) {
+        T* newData = new T[initialCapacity];
+
+        this->capacity = initialCapacity;
+        this->size = 0;
+        this->data = newData;
+    }
 
     ~Vector() {
         delete[] data;
@@ -26,7 +33,7 @@ public:
             if (capacity == 0) {
                 capacity = 1;
             } else {
-                capacity *= 2;
+                capacity += 2;
             }
 
             T* newData = new T[capacity];
@@ -63,7 +70,7 @@ public:
         return size;
     }
 
-    bool empty() const {
+    bool isEmpty() const {
         return size == 0;
     }
 };

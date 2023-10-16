@@ -18,13 +18,13 @@
 #include "GameClock.h"
 #include "utils/TimeFormat.h"
 #include "map/utils/MapRender.h"
+#include "map/MapManager.h"
 
 using namespace std;
 
 namespace Game {
     bool running = true;
     COORD mouseCoord {};
-
 
     void tick() {
         int pressedKey;
@@ -49,7 +49,7 @@ namespace Game {
 
         if (Menu::isPlayable()) {
             cout << "Tempo de jogo: " << TimeFormat::formatIntoString(GameClock::gameTime) << endl;
-            MapRender::render();
+            MapRender::render(MapManager::currentMap);
             return;
         }
 

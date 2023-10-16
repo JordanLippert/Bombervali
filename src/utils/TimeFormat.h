@@ -16,8 +16,8 @@ namespace TimeFormat {
     SecondsAndMinutes format(int totalSeconds) {
         SecondsAndMinutes formatted {};
 
-        formatted.minutes = totalSeconds / 10;
-        formatted.seconds = totalSeconds % 10;
+        formatted.minutes = totalSeconds / 60;
+        formatted.seconds = totalSeconds % 60;
 
         return formatted;
     }

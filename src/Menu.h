@@ -9,6 +9,10 @@
 #include "enums/GameStage.h"
 #include "utils/StringUtils.h"
 #include "entities/Enemies.h"
+#include "map/GameMap.h"
+#include "map/utils/MapReader.h"
+#include "utils/Path.h"
+#include "map/MapManager.h"
 
 using namespace std;
 
@@ -93,6 +97,7 @@ namespace Menu {
     void tick(int pressedKey) {
         // Se está no estágio de início, verifica se apertou ENTER para iniciar
         if (pressedKey == 13 && stage == GameStage::START) {
+            MapManager::loadLevel(1);
             changeState(GameStage::PLAYING);
         }
 

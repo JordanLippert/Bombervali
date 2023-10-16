@@ -5,14 +5,14 @@
 #ifndef GAME02_CBP_MAPRENDER_H
 #define GAME02_CBP_MAPRENDER_H
 
-#include "../../../config.h"
 #include "../../entities/Bombs.h"
 #include "../../entities/Player.h"
+#include "../GameMap.h"
 
 namespace MapRender {
-    void render() {
-        for (int row = 0; row < MAP_HEIGHT; row++) {
-            for (int column = 0; column < MAP_WIDTH; column++) {
+    void render(GameMap map) {
+        for (int row = 0; row < map.getRows(); row++) {
+            for (int column = 0; column < map.getColumns(); column++) {
                 // O método das bombas muda o fundo caso necessário e informa se deve escrever o símbolo da bomba no console
                 bool needToPrintBomb = Bombs::render(row, column);
 
@@ -30,7 +30,7 @@ namespace MapRender {
                     continue;
                 }
 
-                int tileType = MAP[row][column];
+                int tileType = map.getTiles()[row][column];
 
                 // Caso seja uma parede
                 if (tileType == 1) {

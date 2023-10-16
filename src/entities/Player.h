@@ -51,25 +51,25 @@ namespace Player {
 
         switch(pressedKey){
             case 72: case 'w': /** cima */
-                if(canMove(row - 1 , column)){
+                if(MapManager::canMove(row - 1 , column)){
                     row--;
                 }
                 break;
 
             case 80: case 's': /** baixo */
-                if(canMove(row + 1 , column)){
+                if(MapManager::canMove(row + 1 , column)){
                     row++;
                 }
                 break;
 
             case 75: case 'a': /** esquerda */
-                if(canMove(row, column - 1)){
+                if(MapManager::canMove(row, column - 1)){
                     column--;
                 }
                 break;
 
             case 77: case 'd': /** direita */
-                if(canMove(row, column + 1)){
+                if(MapManager::canMove(row, column + 1)){
                     column++;
                 }
                 break;
