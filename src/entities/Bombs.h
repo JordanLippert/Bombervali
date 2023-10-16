@@ -8,7 +8,7 @@
 #include "../../config.h"
 #include "../utils/ConsoleColors.h"
 #include "../enums/GameChar.h"
-#include "../map/MapManager.h"
+#include "../managers/MapManager.h"
 #include <time.h>
 
 struct Bomb {

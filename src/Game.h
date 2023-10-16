@@ -18,7 +18,7 @@
 #include "GameClock.h"
 #include "utils/TimeFormat.h"
 #include "map/utils/MapRender.h"
-#include "map/MapManager.h"
+#include "managers/MapManager.h"
 
 using namespace std;
 
@@ -33,11 +33,16 @@ namespace Game {
             pressedKey = getch();
         }
 
-        if (Menu::isPlayable()) {
+        if (GameStageManager::isPlayable()) {
             Player::tick(pressedKey);
             Bombs::tick();
             Enemies::tick();
             GameClock::tick();
+
+            if (Player::row == -1) {
+                Player::row = PlayerLocation::row;
+                Player::column = PlayerLocation::column;
+            }
         }
 
         Menu::tick(pressedKey);
@@ -47,7 +52,7 @@ namespace Game {
     void render() {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
-        if (Menu::isPlayable()) {
+        if (GameStageManager::isPlayable()) {
             cout << "Tempo de jogo: " << TimeFormat::formatIntoString(GameClock::gameTime) << endl;
             MapRender::render(MapManager::currentMap);
             return;
@@ -85,7 +90,6 @@ namespace Game {
 
         // Inicializar os módulos do jogo
         Bombs::initBombsArray();
-        Enemies::initEnemies();
     }
 }
 

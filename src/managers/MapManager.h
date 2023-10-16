@@ -5,8 +5,8 @@
 #ifndef GAME02_CBP_MAPMANAGER_H
 #define GAME02_CBP_MAPMANAGER_H
 
-#include "GameMap.h"
-#include "utils/MapReader.h"
+#include "../map/GameMap.h"
+#include "../map/utils/MapReader.h"
 #include "../utils/Path.h"
 
 namespace MapManager {

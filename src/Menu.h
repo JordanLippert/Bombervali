@@ -12,25 +12,17 @@
 #include "map/GameMap.h"
 #include "map/utils/MapReader.h"
 #include "utils/Path.h"
-#include "map/MapManager.h"
+#include "managers/MapManager.h"
+#include "managers/GameStageManager.h"
 
 using namespace std;
 
 namespace Menu {
-    GameStage stage = GameStage::START;
-    bool isGamePaused = false;
-
     int terminalRows, terminalColumns;
+    int selectedOption = 0;
 
     /**
-     * Este método retorna se o estágio do jogo é jogável
-     */
-    bool isPlayable() {
-        return stage == GameStage::PLAYING && !isGamePaused;
-    }
-
-    /**
-     * Escrever o menu de inicio do jogo no console
+     * Escrever o managers de inicio do jogo no console
      */
     void renderStartMenu() {
         cout << endl << endl;
@@ -48,7 +40,7 @@ namespace Menu {
     }
 
     /**
-     * Escrever o menu de vitória do jogo no console
+     * Escrever o managers de vitória do jogo no console
      */
     void renderWin() {
         ConsoleColor::set(Color::GREEN);
@@ -65,7 +57,7 @@ namespace Menu {
     }
 
     /**
-     * Escrever o menu de derrota do jogo no console
+     * Escrever o managers de derrota do jogo no console
      */
     void renderLose() {
         ConsoleColor::set(Color::RED);
@@ -82,12 +74,8 @@ namespace Menu {
         cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
     }
 
-    /**
-     * Este metódo muda o estado do jogo e limpa a tela, para evitar bugs visuais
-     */
-    void changeState(GameStage newStage) {
-        stage = newStage;
-        system("cls");
+    void loseGame() {
+        GameStageManager::changeStage(GameStage::LOSE);
     }
 
     /**
@@ -96,19 +84,18 @@ namespace Menu {
      */
     void tick(int pressedKey) {
         // Se está no estágio de início, verifica se apertou ENTER para iniciar
-        if (pressedKey == 13 && stage == GameStage::START) {
-            MapManager::loadLevel(1);
-            changeState(GameStage::PLAYING);
+        if (pressedKey == 13 && GameStageManager::stage == GameStage::START) {
+            GameStageManager::initNewGame();
         }
 
         // Se está jogando, verifica se é para pausar o jogo
-        if (pressedKey == 9 && stage == GameStage::PLAYING) {
-            isGamePaused = !isGamePaused;
+        if (pressedKey == 9 && GameStageManager::stage == GameStage::PLAYING) {
+            GameStageManager::togglePause();
         }
 
         // Verifica a condição de vitória
-        if (stage == GameStage::PLAYING && Enemies::areAllEnemiesDead()) {
-            changeState(GameStage::WIN);
+        if (GameStageManager::stage == GameStage::PLAYING && Enemies::areAllEnemiesDead()) {
+            GameStageManager::changeStage(GameStage::WIN);
         }
     }
 
@@ -116,19 +103,19 @@ namespace Menu {
      * Método responsável pela camada de renderização dos menus
      */
     void render() {
-        if (stage == GameStage::START) {
+        if (GameStageManager::stage == GameStage::START) {
             renderStartMenu();
         }
 
-        if (stage == GameStage::PLAYING && isGamePaused) {
+        if (GameStageManager::stage == GameStage::PLAYING && GameStageManager::isGamePaused) {
             cout << "O jogo ta pausado hein";
         }
 
-        if (stage == GameStage::LOSE) {
+        if (GameStageManager::stage == GameStage::LOSE) {
             renderLose();
         }
 
-        if (stage == GameStage::WIN) {
+        if (GameStageManager::stage == GameStage::WIN) {
             renderWin();
         }
     }

@@ -5,7 +5,6 @@
 #ifndef GAME02_CONFIG_H
 #define GAME02_CONFIG_H
 
-const int ENEMIES_AMOUNT = 3;
-const int BOMBS_AMOUNT = ENEMIES_AMOUNT + 1;
+const int BOMBS_AMOUNT = 4;
 
 #endif //GAME02_CONFIG_H

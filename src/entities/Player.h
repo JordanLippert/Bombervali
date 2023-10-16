@@ -14,7 +14,7 @@ using namespace std;
 
 namespace Player {
     // Localização do jogador, row = linha, column = coluna
-    int row = 1, column = 1;
+    int row = -1, column = -1;
 
     /**
      * Este método retorna se o player está em uma posição específica
@@ -46,7 +46,7 @@ namespace Player {
     void tick(int pressedKey) {
         if(Bombs::isExplosionNear(row, column) || Enemies::thereIsEnemy(row, column)) /** Controle de morte do Player */
         {
-            Menu:: changeState(GameStage::LOSE);
+            Menu::loseGame();
         }
 
         switch(pressedKey){

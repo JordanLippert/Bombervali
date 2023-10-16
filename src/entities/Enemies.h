@@ -6,6 +6,8 @@
 #define GAME02_ENEMIES_H
 #include <cstdlib>
 #include <ctime>
+#include "../utils/Vector.h"
+#include "../managers/MapManager.h"
 
 struct Enemy {
     int row;
@@ -19,7 +21,7 @@ namespace Enemies {
     int duration;
     bool startedTimer = false;
 
-    Enemy enemies[3];
+    Vector<Enemy> enemies;
 
     /**
      * Verifica se existe um inimigo na localização informada
@@ -27,7 +29,7 @@ namespace Enemies {
      * @param column Coluna da localização
      */
     bool thereIsEnemy(int row, int column){
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < enemies.getSize(); i++){
             Enemy enemy = enemies[i];
 
             if (enemy.row == row && enemy.column == column && enemy.isLive){
@@ -41,7 +43,7 @@ namespace Enemies {
     int getAliveEnemiesAmount() {
         int amount = 0;
 
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 0; i < enemies.getSize(); ++i) {
             Enemy enemy = enemies[i];
 
             if (enemy.isLive) amount++;
@@ -52,7 +54,7 @@ namespace Enemies {
 
     // Está função deve retornar se todos os inimigos estão mortos
     bool areAllEnemiesDead() {
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 0; i < enemies.getSize(); ++i) {
             Enemy enemy = enemies[i];
 
             if (enemy.isLive) return false;
@@ -97,7 +99,7 @@ namespace Enemies {
     // Função para mover os inimigos de forma randômica
     void moveEnemies() {
         int i;
-        for (i = 0; i < 3; i++) {
+        for (i = 0; i < enemies.getSize(); i++) {
             Enemy currentEnemy = enemies[i];
 
             if (!currentEnemy.isLive) continue;
@@ -128,7 +130,7 @@ namespace Enemies {
 
     // Função para colocar as bombas inimigas
     void placeBombs() {
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 0; i < enemies.getSize(); ++i) {
             Enemy enemy = enemies[i];
 
             if (!enemy.isLive) continue;
@@ -148,7 +150,7 @@ namespace Enemies {
      * Função para verificar se existe uma explosão perto de um inimigo
      */
     void killEnemies() {
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 0; i < enemies.getSize(); ++i) {
             Enemy enemy = enemies[i];
 
             if (enemy.isLive && Bombs::isExplosionNear(enemy.row, enemy.column)) {
@@ -163,6 +165,7 @@ namespace Enemies {
      * Função responsável pela lógica dos inimigos (roda no Loop principal)
      */
     void tick() {
+        if (enemies.getSize() == 0) return;
         killEnemies();
 
         // Resetar o ínicio do clock caso necessário
@@ -184,36 +187,6 @@ namespace Enemies {
 //            placeBombs();
             moveEnemies();
         }
-    }
-
-    /**
-     * Função para inicializar os inimigos e o Array principal
-     */
-    void initEnemies() {
-        Enemy enemy1 {};
-
-        enemy1.row = 19;
-        enemy1.column = 1;
-        enemy1.isLive = true;
-        enemy1.hasPlacedBomb = false;
-
-        enemies[0] = enemy1;
-
-        Enemy enemy2 {};
-        enemy2.row = 19;
-        enemy2.column = 19;
-        enemy2.isLive = true;
-        enemy2.hasPlacedBomb = false;
-
-        enemies[1] = enemy2;
-
-        Enemy enemy3 {};
-        enemy3.row = 1;
-        enemy3.column = 19;
-        enemy3.isLive = true;
-        enemy3.hasPlacedBomb = false;
-
-        enemies[2] = enemy3;
     }
 }
 
