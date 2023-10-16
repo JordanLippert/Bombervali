@@ -52,14 +52,14 @@ namespace Game {
                     // Verificar se o player está na posição atual, se sim, escrever o símbolo dele
                     if (Player::isInPosition(row, column)) {
                         cout << " " << Player::render() << " ";
-                        ConsoleColor::showColor(Color::RESET);
+                        ConsoleColor::reset();
                         continue;
                     }
 
                     // Verificar se um inimigo existe na posição atual, se sim, escrever o símbolo dos inimigos
                     if (Enemies::thereIsEnemy(row, column)) {
                         cout << " " << char(GameChar::ENEMY) << " ";
-                        ConsoleColor::showColor(Color::RESET);
+                        ConsoleColor::reset();
                         continue;
                     }
 
@@ -68,14 +68,14 @@ namespace Game {
                     // Caso seja uma parede
                     if (tileType == 1) {
                         cout << char(GameChar::WALL) << char(GameChar::WALL) << char(GameChar::WALL);
-                        ConsoleColor::showColor(Color::RESET);
+                        ConsoleColor::reset();
                         continue;
                     }
 
                     // Caso seja uma parede frágil
                     if (tileType == 2) {
                         cout << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL);
-                        ConsoleColor::showColor(Color::RESET);
+                        ConsoleColor::reset();
                         continue;
                     }
 
@@ -84,7 +84,7 @@ namespace Game {
                     else std::cout << " " << char(GameChar::BOMB) << " ";
 
                     // Resetar a cor de fundo caso necessário
-                    ConsoleColor::showColor(Color::RESET);
+                    ConsoleColor::reset();
                 }
 
                 cout << endl;

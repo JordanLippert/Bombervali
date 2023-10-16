@@ -45,13 +45,13 @@ namespace Menu {
      * Escrever o menu de vitória do jogo no console
      */
     void renderWin() {
-        ConsoleColor::showColor(Color::GREEN);
+        ConsoleColor::set(Color::GREEN);
         cout << endl << endl;
         cout << centerStringInScreen(" __   _____ _____ ___  ___ ___   _   ", terminalColumns) << endl;
         cout << centerStringInScreen(" \\ \\ / /_ _|_   _/ _ \\| _ \\_ _| /_\\  ", terminalColumns) << endl;
         cout << centerStringInScreen("  \\ V / | |  | || (_) |   /| | / _ \\ ", terminalColumns) << endl;
         cout << centerStringInScreen("   \\_/ |___| |_| \\___/|_|_\\___/_/ \\_\\", terminalColumns) << endl;
-        ConsoleColor::showColor(Color::RESET);
+        ConsoleColor::reset();
         cout << endl;
         cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
         cout << endl;
@@ -62,7 +62,7 @@ namespace Menu {
      * Escrever o menu de derrota do jogo no console
      */
     void renderLose() {
-        ConsoleColor::showColor(Color::RED);
+        ConsoleColor::set(Color::RED);
 
         cout << endl << endl;
         cout << centerStringInScreen("  ___  ___ ___ ___  ___ _____ _   ", terminalColumns) << endl;
@@ -70,7 +70,7 @@ namespace Menu {
         cout << centerStringInScreen(" | |) | _||   /   / (_) || |/ _ \\ ", terminalColumns) << endl;
         cout << centerStringInScreen(" |___/|___|_|_\\_|_\\\\___/ |_/_/ \\_\\", terminalColumns) << endl;
         cout << endl;
-        ConsoleColor::showColor(Color::RESET);
+        ConsoleColor::reset();
         cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
         cout << endl;
         cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);

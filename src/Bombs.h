@@ -208,16 +208,16 @@ namespace Bombs {
             // E muda a cor do fundo do console conforme o estado da explosão
             if (isBombNearToCoordinates(current, row, column)) {
                 if (current.stage == 1) {
-                    ConsoleColor::showColor(Color::RED_BACKGROUND);
+                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::RED);
                 }
                 if (current.stage == 2) {
-                    ConsoleColor::showColor(Color::YELLOW_BACKGROUND);
+                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::YELLOW);
                 }
                 if (current.stage == 3) {
-                    ConsoleColor::showColor(Color::ORANGE_BACKGROUND);
+                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::OLIVE);
                 }
                 if (current.stage == 4) {
-                    ConsoleColor::showColor(Color::WHITE_BACKGROUND);
+                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::WHITE);
                 }
             }
 

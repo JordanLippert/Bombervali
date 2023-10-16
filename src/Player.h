@@ -44,7 +44,7 @@ namespace Player {
      * - Seta para esquerda = 77
      */
     void tick(int pressedKey) {
-        if(Bombs::isExplosionNear(row, column) || Enemies::thereIsEnemy(row, column)) /** Controle de explosão próxima ao Player */
+        if(Bombs::isExplosionNear(row, column) || Enemies::thereIsEnemy(row, column)) /** Controle de morte do Player */
         {
             Menu:: changeState(GameStage::LOSE);
         }
