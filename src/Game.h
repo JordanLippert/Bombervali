@@ -17,6 +17,7 @@
 #include "Menu.h"
 #include "GameClock.h"
 #include "utils/TimeFormat.h"
+#include "map/utils/MapRender.h"
 
 using namespace std;
 
@@ -48,51 +49,7 @@ namespace Game {
 
         if (Menu::isPlayable()) {
             cout << "Tempo de jogo: " << TimeFormat::formatIntoString(GameClock::gameTime) << endl;
-            for (int row = 0; row < MAP_HEIGHT; row++) {
-                for (int column = 0; column < MAP_WIDTH; column++) {
-                    // O método das bombas muda o fundo caso necessário e informa se deve escrever o símbolo da bomba no console
-                    bool needToPrintBomb = Bombs::render(row, column);
-
-                    // Verificar se o player está na posição atual, se sim, escrever o símbolo dele
-                    if (Player::isInPosition(row, column)) {
-                        cout << " " << Player::render() << " ";
-                        ConsoleColor::reset();
-                        continue;
-                    }
-
-                    // Verificar se um inimigo existe na posição atual, se sim, escrever o símbolo dos inimigos
-                    if (Enemies::thereIsEnemy(row, column)) {
-                        cout << " " << char(GameChar::ENEMY) << " ";
-                        ConsoleColor::reset();
-                        continue;
-                    }
-
-                    int tileType = MAP[row][column];
-
-                    // Caso seja uma parede
-                    if (tileType == 1) {
-                        cout << char(GameChar::WALL) << char(GameChar::WALL) << char(GameChar::WALL);
-                        ConsoleColor::reset();
-                        continue;
-                    }
-
-                    // Caso seja uma parede frágil
-                    if (tileType == 2) {
-                        cout << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL);
-                        ConsoleColor::reset();
-                        continue;
-                    }
-
-                    // Por último se for um espaço vazio sem bomba, renderizar sem o símbolo
-                    if (!needToPrintBomb) cout << "   ";
-                    else std::cout << " " << char(GameChar::BOMB) << " ";
-
-                    // Resetar a cor de fundo caso necessário
-                    ConsoleColor::reset();
-                }
-
-                cout << endl;
-            }
+            MapRender::render();
             return;
         }
 
