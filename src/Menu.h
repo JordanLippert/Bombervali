@@ -90,15 +90,15 @@ namespace Menu {
      * Método responsável pela lógica dos menus
      * @param pressedKey
      */
-    void tick(char pressedKey) {
+    void tick(int pressedKey) {
         // Se está no estágio de início, verifica se apertou ENTER para iniciar
         if (pressedKey == 13 && stage == GameStage::START) {
             changeState(GameStage::PLAYING);
         }
 
-        // Se está no estágio de início, verifica se apertou ENTER para iniciar
-        if (pressedKey == 13 && stage == GameStage::START) {
-            changeState(GameStage::PLAYING);
+        // Se está jogando, verifica se é para pausar o jogo
+        if (pressedKey == 9 && stage == GameStage::PLAYING) {
+            isGamePaused = !isGamePaused;
         }
 
         // Verifica a condição de vitória
@@ -113,6 +113,10 @@ namespace Menu {
     void render() {
         if (stage == GameStage::START) {
             renderStartMenu();
+        }
+
+        if (stage == GameStage::PLAYING && isGamePaused) {
+            cout << "O jogo ta pausado hein";
         }
 
         if (stage == GameStage::LOSE) {

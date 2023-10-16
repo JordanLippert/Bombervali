@@ -24,6 +24,7 @@ namespace Game {
     bool running = true;
     COORD mouseCoord {};
 
+
     void tick() {
         int pressedKey;
 

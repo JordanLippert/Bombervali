@@ -14,7 +14,7 @@ struct SecondsAndMinutes {
 
 namespace TimeFormat {
     SecondsAndMinutes format(int totalSeconds) {
-        SecondsAndMinutes formatted;
+        SecondsAndMinutes formatted {};
 
         formatted.minutes = totalSeconds / 10;
         formatted.seconds = totalSeconds % 10;
