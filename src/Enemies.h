@@ -181,7 +181,7 @@ namespace Enemies {
             startedTimer = false;
 
             // Mover e colocar as bombas dos inimigos
-            placeBombs();
+//            placeBombs();
             moveEnemies();
         }
     }
