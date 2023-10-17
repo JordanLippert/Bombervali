@@ -2,18 +2,20 @@
 // Created by Caio on 16/10/2023.
 //
 
-#ifndef GAME02_CBP_GAMECLOCK_H
-#define GAME02_CBP_GAMECLOCK_H
+#ifndef GAME02_CBP_GAMESTATISTICS_H
+#define GAME02_CBP_GAMESTATISTICS_H
 
 
 #include <cstdlib>
 #include <ctime>
-namespace GameClock {
+
+namespace GameStatistics {
     clock_t end, start;
     int duration;
     bool startedTimer = false;
 
     int gameTime = 0;
+    int amountOfBombsPlaced = 0;
 
     void tick() {
         // Resetar o ínicio do clock caso necessário
@@ -36,4 +38,4 @@ namespace GameClock {
     }
 }
 
-#endif //GAME02_CBP_GAMECLOCK_H
+#endif //GAME02_CBP_GAMESTATISTICS_H

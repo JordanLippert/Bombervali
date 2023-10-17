@@ -9,13 +9,12 @@
 #include <windows.h>
 #include <conio.h>
 #include <unistd.h>
-#include "../config.h"
 #include "entities/Player.h"
 #include "utils/StringUtils.h"
 #include "entities/Bombs.h"
 #include "entities/Enemies.h"
 #include "Menu.h"
-#include "GameClock.h"
+#include "GameStatistics.h"
 #include "utils/TimeFormat.h"
 #include "map/utils/MapRender.h"
 #include "managers/MapManager.h"
@@ -37,7 +36,7 @@ namespace Game {
             Player::tick(pressedKey);
             Bombs::tick();
             Enemies::tick();
-            GameClock::tick();
+            GameStatistics::tick();
 
             if (Player::row == -1) {
                 Player::row = PlayerLocation::row;
@@ -53,7 +52,7 @@ namespace Game {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
         if (GameStageManager::isPlayable()) {
-            cout << "Tempo de jogo: " << TimeFormat::formatIntoString(GameClock::gameTime) << endl;
+            cout << "Tempo de jogo: " << TimeFormat::formatIntoString(GameStatistics::gameTime) << endl;
             MapRender::render(MapManager::currentMap);
             return;
         }
@@ -87,9 +86,6 @@ namespace Game {
         mouseCoord.X = 0;
         mouseCoord.Y = 0;
         srand(time(NULL));
-
-        // Inicializar os módulos do jogo
-        Bombs::initBombsArray();
     }
 }
 

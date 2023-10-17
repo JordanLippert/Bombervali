@@ -49,6 +49,28 @@ public:
         data[size++] = value;
     }
 
+    void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw std::out_of_range("Index out of bounds");
+        }
+
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+
+        size--;
+
+        if (size < capacity / 2) {
+            capacity /= 2;
+            T* newData = new T[capacity];
+            for (int i = 0; i < size; i++) {
+                newData[i] = data[i];
+            }
+            delete[] data;
+            data = newData;
+        }
+    }
+
     void pop() {
         if (size > 0) {
             size--;
