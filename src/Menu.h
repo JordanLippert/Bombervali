@@ -106,6 +106,16 @@ namespace Menu {
             GameStageManager::initNewGame();
         }
 
+        // Sobe a opção no menu
+        if ((pressedKey == 72 || pressedKey == 'w') && GameStageManager::stage == GameStage::START) {
+            GameStageManager::initNewGame();
+        }
+
+        // Desce a opção no menu
+        if ((pressedKey == 80 || pressedKey == 's') && GameStageManager::stage == GameStage::START) {
+            GameStageManager::initNewGame();
+        }
+
         // Se está jogando, verifica se é para pausar o jogo
         if (pressedKey == 9 && GameStageManager::stage == GameStage::PLAYING) {
             GameStageManager::togglePause();
