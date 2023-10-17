@@ -108,11 +108,13 @@ namespace Menu {
 
         // Sobe a opção no menu
         if ((pressedKey == 72 || pressedKey == 'w') && GameStageManager::stage == GameStage::START) {
+            selectedOption--;
             GameStageManager::initNewGame();
         }
 
         // Desce a opção no menu
         if ((pressedKey == 80 || pressedKey == 's') && GameStageManager::stage == GameStage::START) {
+            selectedOption++;
             GameStageManager::initNewGame();
         }
 
