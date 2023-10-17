@@ -19,7 +19,9 @@ using namespace std;
 
 namespace Menu {
     int terminalRows, terminalColumns;
+
     int selectedOption = 0;
+    int maxOption = 3;
 
     /**
      * Escrever o managers de inicio do jogo no console
@@ -74,6 +76,22 @@ namespace Menu {
         cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
     }
 
+    /**
+     * Escrever o managers de vitória do jogo no console
+     */
+    void renderPauseMenu() {
+        ConsoleColor::set(Color::CYAN);
+        cout << endl << endl;
+        cout << centerStringInScreen("  ___  _  _   _ ___ ___ ", terminalColumns) << endl;
+        cout << centerStringInScreen(" | _ \\/_\\| | | / __| __|", terminalColumns) << endl;
+        cout << centerStringInScreen(" |  _/ _ \\ |_| \\__ \\ _| ", terminalColumns) << endl;
+        cout << centerStringInScreen(" |_|/_/ \\_\\___/|___/___|", terminalColumns) << endl;
+        ConsoleColor::reset();
+        cout << endl;
+        cout << centerStringInScreen("Aperte TAB para voltar a jogar.", terminalColumns);
+        cout << endl;
+    }
+
     void loseGame() {
         GameStageManager::changeStage(GameStage::LOSE);
     }
@@ -108,7 +126,7 @@ namespace Menu {
         }
 
         if (GameStageManager::stage == GameStage::PLAYING && GameStageManager::isGamePaused) {
-            cout << "O jogo ta pausado hein";
+            renderPauseMenu();
         }
 
         if (GameStageManager::stage == GameStage::LOSE) {
