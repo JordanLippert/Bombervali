@@ -15,9 +15,9 @@
 #include "entities/Enemies.h"
 #include "Menu.h"
 #include "GameStatistics.h"
-#include "utils/TimeFormat.h"
 #include "map/utils/MapRender.h"
 #include "managers/MapManager.h"
+#include "Hud.h"
 
 using namespace std;
 
@@ -40,7 +40,8 @@ namespace Game {
 
             if (Player::row == -1) {
                 Player::row = PlayerLocation::row;
-                Player::column = PlayerLocation::column;
+                Player
+                ::column = PlayerLocation::column;
             }
         }
 
@@ -52,7 +53,7 @@ namespace Game {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
         if (GameStageManager::isPlayable()) {
-            cout << "Tempo de jogo: " << TimeFormat::formatIntoString(GameStatistics::gameTime) << endl;
+            Hud::render();
             MapRender::render(MapManager::currentMap);
             return;
         }

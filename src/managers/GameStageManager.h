@@ -38,7 +38,7 @@ namespace GameStageManager {
     }
 
     void initNewGame() {
-        MapManager::loadLevel(1);
+        MapManager::loadLevel(2);
         MapLoader::loadGameFromMap(MapManager::currentMap);
         changeStage(GameStage::PLAYING);
     }
