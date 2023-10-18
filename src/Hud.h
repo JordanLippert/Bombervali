@@ -48,7 +48,6 @@ namespace Hud {
         renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".");
         renderDivider();
         renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".");
-        renderVerticalString("FPS: ", to_string(GameStatistics::fps));
         cout << endl;
         renderBorder(char(GameChar::HUD_BOTTOM_LEFT), char(GameChar::HUD_BOTTOM_RIGHT));
         cout << endl;
