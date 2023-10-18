@@ -15,6 +15,7 @@ using namespace std;
 namespace Player {
     // Localização do jogador, row = linha, column = coluna
     int row = -1, column = -1;
+    int bombsplayer = 5;
 
     /**
      * Este método retorna se o player está em uma posição específica
