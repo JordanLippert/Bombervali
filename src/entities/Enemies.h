@@ -9,11 +9,66 @@
 #include "../utils/Vector.h"
 #include "../managers/MapManager.h"
 
+// Está função retorna um número gerado com o limite informado
+int generateNumber(int maxNumber = 3) {
+    return rand() % maxNumber;
+}
+
 struct Enemy {
     int row;
     int column;
-    bool isLive;
     bool hasPlacedBomb;
+
+    // Função para mover os inimigos para cima
+    void moveUp() {
+        if (MapManager::canMove(row - 1, column)) {
+            row--;
+        }
+    }
+
+    // Função para mover os inimigos para baixo
+    void moveDown() {
+        if (MapManager::canMove(row + 1, column)) {
+            row++;
+        }
+    }
+
+    //Função para mover inimigos para esquerda
+    void moveLeft() {
+        if (MapManager::canMove(row, column - 1)) {
+            column--;
+        }
+    }
+
+    //Função para mover inimigos para direita
+    void moveRight() {
+        if (MapManager::canMove(row, column + 1)) {
+            column++;
+        }
+    }
+
+
+    void move(){
+        int amountOfTiles = generateNumber() + 1;
+        int direction = generateNumber(4);
+
+        switch (direction) {
+            case 0:
+                moveUp();
+                break;
+            case 1:
+                moveDown();
+                break;
+            case 2:
+                moveRight();
+                break;
+            case 3:
+                moveLeft();
+                break;
+        }
+
+    }
+
 };
 
 namespace Enemies {
@@ -32,7 +87,7 @@ namespace Enemies {
         for(int i = 0; i < enemies.getSize(); i++){
             Enemy enemy = enemies[i];
 
-            if (enemy.row == row && enemy.column == column && enemy.isLive){
+            if (enemy.row == row && enemy.column == column){
                 return true;
             }
         }
@@ -41,60 +96,13 @@ namespace Enemies {
     }
 
     int getAliveEnemiesAmount() {
-        int amount = 0;
-
-        for (int i = 0; i < enemies.getSize(); ++i) {
-            Enemy enemy = enemies[i];
-
-            if (enemy.isLive) amount++;
-        }
-
-        return amount;
+       return enemies.getSize();
     }
 
     // Está função deve retornar se todos os inimigos estão mortos
     bool areAllEnemiesDead() {
-        for (int i = 0; i < enemies.getSize(); ++i) {
-            Enemy enemy = enemies[i];
-
-            if (enemy.isLive) return false;
+        return enemies.getSize() == 0;
         }
-
-        return true;
-    }
-
-    // Está função retorna um número gerado com o limite informado
-    int generateNumber(int maxNumber = 3) {
-        return rand() % maxNumber;
-    }
-
-    // Função para mover os inimigos para cima
-    void moveEnemyUp(Enemy &enemy) {
-        if (MapManager::canMove(enemy.row - 1, enemy.column)) {
-            enemy.row--;
-        }
-    }
-
-    // Função para mover os inimigos para baixo
-    void moveEnemyDown(Enemy &enemy) {
-        if (MapManager::canMove(enemy.row + 1, enemy.column)) {
-            enemy.row++;
-        }
-    }
-
-    //Função para mover inimigos para esquerda
-    void moveEnemyLeft(Enemy &enemy) {
-        if (MapManager::canMove(enemy.row, enemy.column - 1)) {
-            enemy.column--;
-        }
-    }
-
-    //Função para mover inimigos para direita
-    void moveEnemyRight(Enemy &enemy) {
-        if (MapManager::canMove(enemy.row, enemy.column + 1)) {
-            enemy.column++;
-        }
-    }
 
     // Função para mover os inimigos de forma randômica
     void moveEnemies() {
@@ -102,29 +110,8 @@ namespace Enemies {
         for (i = 0; i < enemies.getSize(); i++) {
             Enemy currentEnemy = enemies[i];
 
-            if (!currentEnemy.isLive) continue;
-
-            int amountOfTiles = generateNumber() + 1;
-            int direction = generateNumber(4);
-
-            for (int j = 0; j < amountOfTiles; ++j) {
-                switch (direction) {
-                    case 0:
-                        moveEnemyUp(currentEnemy);
-                        break;
-                    case 1:
-                        moveEnemyDown(currentEnemy);
-                        break;
-                    case 2:
-                        moveEnemyLeft(currentEnemy);
-                        break;
-                    case 3:
-                        moveEnemyRight(currentEnemy);
-                        break;
-                }
 
                 enemies[i] = currentEnemy;
-            }
         }
     }
 
@@ -132,8 +119,6 @@ namespace Enemies {
     void placeBombs() {
         for (int i = 0; i < enemies.getSize(); ++i) {
             Enemy enemy = enemies[i];
-
-            if (!enemy.isLive) continue;
 
             int randomNumber = generateNumber(100) + 1;
 
@@ -153,10 +138,9 @@ namespace Enemies {
         for (int i = 0; i < enemies.getSize(); ++i) {
             Enemy enemy = enemies[i];
 
-            if (enemy.isLive && Bombs::isExplosionNear(enemy.row, enemy.column)) {
-                enemy.isLive = false;
+            if (Bombs::isExplosionNear(enemy.row, enemy.column)) {
+                enemies.remove(i);
 
-                enemies[i] = enemy;
             }
         }
     }

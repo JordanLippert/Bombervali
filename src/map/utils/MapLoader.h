@@ -29,7 +29,6 @@ namespace MapLoader {
 
                             newEnemy.row = i;
                             newEnemy.column = j;
-                            newEnemy.isLive = true;
                             newEnemy.hasPlacedBomb = false;
 
                             Enemies::enemies.push(newEnemy);
