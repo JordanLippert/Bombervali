@@ -54,11 +54,17 @@ namespace Player {
                 if(MapManager::canMove(row - 1 , column)){
                     row--;
                 }
+                if(MapManager::PowerUpType){
+
+                }
                 break;
 
             case 80: case 's': /** baixo */
                 if(MapManager::canMove(row + 1 , column)){
                     row++;
+                }
+                if(MapManager::PowerUpType){
+
                 }
                 break;
 
@@ -66,11 +72,17 @@ namespace Player {
                 if(MapManager::canMove(row, column - 1)){
                     column--;
                 }
+                if(MapManager::PowerUpType){
+
+                }
                 break;
 
             case 77: case 'd': /** direita */
                 if(MapManager::canMove(row, column + 1)){
                     column++;
+                }
+                if(MapManager::PowerUpType){
+
                 }
                 break;
 
