@@ -47,8 +47,7 @@ struct Enemy {
         }
     }
 
-
-    void move(){
+    void move() {
         int amountOfTiles = generateNumber() + 1;
         int direction = generateNumber(4);
 
@@ -66,7 +65,6 @@ struct Enemy {
                 moveLeft();
                 break;
         }
-
     }
 
 };
