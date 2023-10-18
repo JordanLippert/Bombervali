@@ -9,7 +9,7 @@ enum class GameChar {
     PLAYER = 2,
     BREAKABLE_WALL = 178,
     WALL = 219,
-    BOMB = 224,
+    BOMB = 162,
     ENEMY = 184,
     BOMB_CONSUMABLE = 162,
     POWER_UP_DISTANCE_BOOST = 224,
