@@ -48,6 +48,21 @@ string centerStringInScreen(string str, int size) {
     return newString;
 }
 
+string spaceAtRight(string str, int size) {
+    int strLength = str.length();
+    int spaces = size - strLength;
+
+    string newString;
+
+    newString += str;
+
+    for (int i = 0; i < spaces; ++i) {
+        newString += " ";
+    }
+
+    return newString;
+}
+
 void replaceString(string& str, const string& from, const string& to) {
     size_t start_pos = str.find(from);
     if(start_pos == string::npos)

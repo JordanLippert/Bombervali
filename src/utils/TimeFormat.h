@@ -28,6 +28,8 @@ namespace TimeFormat {
         int minutes = secondsAndMinutes.minutes;
         int seconds = secondsAndMinutes.seconds;
 
+        if (seconds == 0 && minutes == 0) return "0 segundos.";
+
         std::string formatted;
 
         if (minutes > 0) {

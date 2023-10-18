@@ -24,7 +24,7 @@ namespace Player {
     }
 
     /**
-     * Este método deve ser acionado quando a pessoa pressionar Espaço (Deixe ele me branco, apenas chame ele)
+     * Este método deve ser acionado quando a pessoa pressionar Espaço ou Enter (Deixe ele em branco, apenas chame ele)
      */
     void placeBomb() {
         Bombs::placeBomb(row, column, 3);

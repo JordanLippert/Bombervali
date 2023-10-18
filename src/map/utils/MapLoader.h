@@ -9,6 +9,7 @@
 #include "../../entities/Player.h"
 #include "../../entities/Enemies.h"
 #include "../PlayerLocation.h"
+#include "../../entities/Consumables.h"
 
 namespace MapLoader {
     void loadGameFromMap(GameMap map) {
@@ -18,12 +19,13 @@ namespace MapLoader {
 
                 if (tileType > 2) {
                     switch (tileType) {
-                        case 3:
+                        case 3: {
                             // Player
                             PlayerLocation::row = i;
                             PlayerLocation::column = j;
                             break;
-                        case 4:
+                        }
+                        case 4: {
                             // Inimigo
                             Enemy newEnemy {};
 
@@ -33,15 +35,22 @@ namespace MapLoader {
 
                             Enemies::enemies.push(newEnemy);
                             break;
-//                        case 5:
-//                            // Consumivel Bomba
-//                            break;
-//                        case 6:
-//                            // Consumivel Power Up - Distância de explosão
-//                            break;
-//                        case 7:
-//                            // Consumivel Power Up - Atravessar paredes
-//                            break;
+                        }
+                        case 5: {
+                            // Consumivel Bomba
+                            Consumables::placeNew(i, j, ConsumableType::BOMB);
+                            break;
+                        }
+                        case 6: {
+                            // Consumivel Power Up - Distância de explosão
+                            Consumables::placeNew(i, j, ConsumableType::POWER_UP_DISTANCE);
+                            break;
+                        }
+                        case 7: {
+                            // Consumivel Power Up - Atravessar paredes
+                            Consumables::placeNew(i, j, ConsumableType::POWER_UP_IGNORE_WALLS);
+                            break;
+                        }
                     }
                 }
             }
