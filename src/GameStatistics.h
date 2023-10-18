@@ -16,11 +16,8 @@ namespace GameStatistics {
 
     int gameTime = 0;
     int amountOfBombsPlaced = 0;
-    int fps = 0;
-    int coutingFps = 0;
 
     void tick() {
-        coutingFps++;
         // Resetar o ínicio do clock caso necessário
         if (duration == 0 && !startedTimer) {
             start = clock();
@@ -33,8 +30,6 @@ namespace GameStatistics {
 
         if (duration >= 1) {
             duration = 0;
-            fps = coutingFps;
-            coutingFps = 0;
             // Variável para controlar se o contador deve reiniciar
             startedTimer = false;
 
