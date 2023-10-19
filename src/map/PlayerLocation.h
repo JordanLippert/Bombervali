@@ -7,6 +7,7 @@
 
 namespace PlayerLocation {
     int row, column;
+    bool reset = true;
 }
 
 #endif //GAME02_CBP_PLAYERLOCATION_H

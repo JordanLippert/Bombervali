@@ -5,12 +5,12 @@
 #ifndef GAME02_BOMBS_H
 #define GAME02_BOMBS_H
 
+#include <cmath>
 #include "../utils/ConsoleColors.h"
 #include "../enums/GameChar.h"
 #include "../managers/MapManager.h"
 #include "../utils/Vector.h"
 #include "../GameStatistics.h"
-#include <time.h>
 
 struct Bomb {
     int row;
@@ -18,19 +18,12 @@ struct Bomb {
     clock_t placedAt;
     int stage;
     bool isFromPlayer;
+    bool ignoreWalls;
+    int radius;
 };
 
 namespace Bombs {
     Vector<Bomb> bombs;
-
-    /**
-     * Este método retorna o estágio de explosão que uma bomba está
-     * @param index Índice da bomba
-     * @return Qual estagio da explosão está a bomba
-     */
-    int getBombStage(int index) {
-        return bombs[index].stage;
-    }
 
     /**
      * Este método verifica se uma bomba está perto de uma localização
@@ -40,13 +33,27 @@ namespace Bombs {
      * @return Uma boolean se a bomba está perto
      */
     bool isBombNearToCoordinates(Bomb bomb, int row, int column) {
-        bool thereIsAbove = (bomb.row == row - 1) && bomb.column == column;
-        bool thereIsBelow = (bomb.row == row + 1) && bomb.column == column;
-        bool thereIsOnLeft = bomb.row == row && (bomb.column == column - 1);
-        bool thereIsOnRight = bomb.row == row && (bomb.column == column + 1);
-        bool thereIsHere = bomb.row == row && bomb.column == column;
+        int directions[][2] = { {0, 1}, {0, -1}, { 1, 0 }, { -1, 0 } };
 
-        return thereIsAbove || thereIsBelow || thereIsOnLeft || thereIsOnRight || thereIsHere;
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 1; j <= bomb.radius; ++j) {
+                int directionRow = directions[i][0] * j;
+                int directionColumn = directions[i][1] * j;
+
+                if (!bomb.ignoreWalls && !(bomb.row == row && bomb.column == column)) {
+                    cout << directionRow << "|" << directionColumn;
+//                    int mapRow = bomb.row + directionRow;
+//                    int mapColumn = bomb.column + directionColumn;
+//
+//                    if (!MapManager::validLocation(mapRow, mapColumn)) continue;
+//                    if (MapManager::currentMap.getTiles()[mapRow][mapColumn] == 1) return false;
+                }
+
+                if ((bomb.row + directionRow) == row && (bomb.column + directionColumn) == column) return true;
+            }
+        }
+
+        return bomb.row == row && bomb.column == column;
     }
 
     /**
@@ -105,7 +112,7 @@ namespace Bombs {
      * @param column Coluna da localização
      * @param index Índice (identificador) da bomba
      */
-    void placeBomb(int row, int column, bool isPlayer = false) {
+    void placeBomb(int row, int column, bool isPlayer = false, int radius = 1, bool ignoreWalls = false) {
         if (isPlayer && isThereBombPlacedByPlayer()) return;
 
         if (isPlayer) {
@@ -117,8 +124,10 @@ namespace Bombs {
         bomb.row = row;
         bomb.column = column;
         bomb.stage = 1;
+        bomb.radius = radius;
         bomb.placedAt = clock();
         bomb.isFromPlayer = isPlayer;
+        bomb.ignoreWalls = ignoreWalls;
 
         bombs.push(bomb);
     }
@@ -141,10 +150,16 @@ namespace Bombs {
      * @param bomb Bomba
      */
     void removeWallFromNearBomb(Bomb bomb) {
-        breakWall(bomb.row + 1, bomb.column);
-        breakWall(bomb.row - 1, bomb.column);
-        breakWall(bomb.row, bomb.column + 1);
-        breakWall(bomb.row, bomb.column - 1);
+        int directions[][2] = { {0, 1}, {0, -1}, { 1, 0 }, { -1, 0 } };
+
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < bomb.radius; ++j) {
+                int directionRow = directions[i][0] == 0 ? 0 : directions[i][0] * (j + 1);
+                int directionColumn = directions[i][1] == 0 ? 0 : directions[i][1] * (j + 1);
+
+                breakWall(bomb.row + directionRow, bomb.column + directionColumn);
+            }
+        }
     }
 
     /**

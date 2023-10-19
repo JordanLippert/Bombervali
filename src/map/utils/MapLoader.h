@@ -23,6 +23,7 @@ namespace MapLoader {
                             // Player
                             PlayerLocation::row = i;
                             PlayerLocation::column = j;
+                            PlayerLocation::reset = true;
                             break;
                         }
                         case 4: {

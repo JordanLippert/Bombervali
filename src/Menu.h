@@ -87,8 +87,26 @@ namespace Menu {
         ConsoleColor::reset();
         cout << endl;
         cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
+
+        renderOptions(MenuOptions::closeOrReturnMenu, Color::GREEN);
+    }
+
+    /**
+     * Escrever o managers de derrota do jogo no console
+     */
+    void renderLose() {
+        ConsoleColor::set(Color::RED);
+
+        cout << endl << endl;
+        cout << centerStringInScreen("  ___  ___ ___ ___  ___ _____ _   ", terminalColumns) << endl;
+        cout << centerStringInScreen(" |   \\| __| _ \\ _ \\/ _ \\_   _/_\\  ", terminalColumns) << endl;
+        cout << centerStringInScreen(" | |) | _||   /   / (_) || |/ _ \\ ", terminalColumns) << endl;
+        cout << centerStringInScreen(" |___/|___|_|_\\_|_\\\\___/ |_/_/ \\_\\", terminalColumns) << endl;
         cout << endl;
-        cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
+        ConsoleColor::reset();
+        cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
+
+        renderOptions(MenuOptions::closeOrReturnMenu, Color::RED);
     }
 
     /**
@@ -107,24 +125,6 @@ namespace Menu {
         cout << endl << endl;
 
         renderOptions(MenuOptions::closeOrReturnMenu, Color::LIGHT_MAGENTA);
-    }
-
-    /**
-     * Escrever o managers de derrota do jogo no console
-     */
-    void renderLose() {
-        ConsoleColor::set(Color::RED);
-
-        cout << endl << endl;
-        cout << centerStringInScreen("  ___  ___ ___ ___  ___ _____ _   ", terminalColumns) << endl;
-        cout << centerStringInScreen(" |   \\| __| _ \\ _ \\/ _ \\_   _/_\\  ", terminalColumns) << endl;
-        cout << centerStringInScreen(" | |) | _||   /   / (_) || |/ _ \\ ", terminalColumns) << endl;
-        cout << centerStringInScreen(" |___/|___|_|_\\_|_\\\\___/ |_/_/ \\_\\", terminalColumns) << endl;
-        cout << endl;
-        ConsoleColor::reset();
-        cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
-        cout << endl;
-        cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
     }
 
     /**

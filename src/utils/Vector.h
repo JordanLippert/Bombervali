@@ -71,6 +71,13 @@ public:
         }
     }
 
+    void clear() {
+        delete[] data;
+        data = nullptr;
+        capacity = 0;
+        size = 0;
+    }
+
     void pop() {
         if (size > 0) {
             size--;

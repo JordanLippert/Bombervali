@@ -39,9 +39,11 @@ namespace Game {
             Enemies::tick();
             GameStatistics::tick();
 
-            if (Player::row == -1) {
+            if (PlayerLocation::reset) {
+                PlayerLocation::reset = false;
                 Player::row = PlayerLocation::row;
                 Player::column = PlayerLocation::column;
+                Player::bombsAmount = 5;
             }
         }
 

@@ -8,6 +8,7 @@
 #include "MapManager.h"
 #include "../enums/GameStage.h"
 #include "../map/utils/MapLoader.h"
+#include "../GameClear.h"
 #include <iostream>
 
 namespace GameStageManager {
@@ -44,6 +45,7 @@ namespace GameStageManager {
     }
 
     void initNewGame() {
+        GameClear::clean();
         changeLevel(1);
     }
 }

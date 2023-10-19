@@ -15,7 +15,7 @@ using namespace std;
 namespace Player {
     // Localização do jogador, row = linha, column = coluna
     int row = -1, column = -1;
-    int bombsplayer = 5;
+    int bombsAmount = 5;
 
     /**
      * Este método retorna se o player está em uma posição específica
@@ -28,7 +28,7 @@ namespace Player {
      * Este método deve ser acionado quando a pessoa pressionar Espaço ou Enter (Deixe ele em branco, apenas chame ele)
      */
     void placeBomb() {
-        Bombs::placeBomb(row, column, 3);
+        Bombs::placeBomb(row, column, true, 2, false);
     }
 
     /**
