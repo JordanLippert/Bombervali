@@ -67,7 +67,7 @@ namespace Menu {
         cout << centerStringInScreen("|  |_)  | |  `--'  | |  |  |  | |  |_)  | |  |____ |  |\\  \\----.  \\    / /  _____  \\  |  `----.|  |", terminalColumns) << endl;
         cout << centerStringInScreen("|______/   \\______/  |__|  |__| |______/  |_______|| _| `._____|   \\__/ /__/     \\__\\ |_______||__|", terminalColumns) << endl;
         ConsoleColor::set(Color::WHITE);
-        cout << centerStringInScreen("v 1.0.0", terminalColumns);
+        cout << centerStringInScreen("v 2.0.0", terminalColumns);
         ConsoleColor::reset();
         cout << endl;
 
@@ -138,9 +138,8 @@ namespace Menu {
         cout << centerStringInScreen(" |  _/ _ \\ |_| \\__ \\ _| ", terminalColumns) << endl;
         cout << centerStringInScreen(" |_|/_/ \\_\\___/|___/___|", terminalColumns) << endl;
         ConsoleColor::reset();
-        cout << endl;
-        cout << centerStringInScreen("Aperte TAB para voltar a jogar.", terminalColumns);
-        cout << endl;
+        cout << endl << endl;
+        renderOptions(MenuOptions::pauseMenu, Color::CYAN);
     }
 
     void loseGame() {
@@ -153,7 +152,7 @@ namespace Menu {
      */
     void tick(int pressedKey) {
         // Verificar se está em um menu
-        if (GameStageManager::stage == GameStage::START || GameStageManager::stage == GameStage::CREDITS) {
+        if (!GameStageManager::isPlayable()) {
             // Verificar se apertou ENTER
             if (pressedKey == 13) {
                 if (currentOptionType == MenuOptionType::NEW_GAME) {
@@ -161,6 +160,7 @@ namespace Menu {
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_START) {
                     GameStageManager::changeStage(GameStage::START);
+                    GameStageManager::isGamePaused = false;
                     selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_GAME) {

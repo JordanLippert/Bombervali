@@ -183,24 +183,26 @@ namespace Bombs {
      * @param column Coluna que está percorrendo
      * @return Retorna TRUE se for para escrever o simbolo da bomba no mapa
      */
-    bool render(int row, int column) {
+    bool render(int row, int column, Color &color, BackgroundColor &bgColor) {
         for (int i = 0; i < bombs.getSize(); ++i) {
             Bomb current = bombs[i];
 
             // Verifica se a bomba está perto das coordenadas
             // E muda a cor do fundo do console conforme o estado da explosão
             if (isBombNearToCoordinates(current, row, column)) {
+                color = Color::WHITE;
                 if (current.stage == 1) {
-                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::RED);
+                    bgColor = BackgroundColor::RED;
                 }
                 if (current.stage == 2) {
-                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::YELLOW);
+                    bgColor = BackgroundColor::YELLOW;
                 }
                 if (current.stage == 3) {
-                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::OLIVE);
+                    bgColor = BackgroundColor::OLIVE;
                 }
                 if (current.stage == 4) {
-                    ConsoleColor::set(Color::LIGHTGRAY, BackgroundColor::WHITE);
+                    color = Color::BLACK;
+                    bgColor = BackgroundColor::WHITE;
                 }
             }
 

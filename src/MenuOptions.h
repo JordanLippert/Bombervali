@@ -11,6 +11,7 @@
 
 namespace MenuOptions {
     std::vector<MenuOptionType> startMenu;
+    std::vector<MenuOptionType> pauseMenu;
     std::vector<MenuOptionType> closeOrReturnMenu;
 
     void init() {
@@ -18,6 +19,10 @@ namespace MenuOptions {
         startMenu.push_back(MenuOptionType::LOAD_GAME);
         startMenu.push_back(MenuOptionType::CREDITS);
         startMenu.push_back(MenuOptionType::CLOSE_GAME);
+
+        pauseMenu.push_back(MenuOptionType::RETURN_TO_GAME);
+        pauseMenu.push_back(MenuOptionType::SAVE_GAME);
+        pauseMenu.push_back(MenuOptionType::RETURN_TO_START);
 
         closeOrReturnMenu.push_back(MenuOptionType::RETURN_TO_START);
         closeOrReturnMenu.push_back(MenuOptionType::CLOSE_GAME);

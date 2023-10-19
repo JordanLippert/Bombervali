@@ -58,6 +58,21 @@ namespace Consumables {
 
         return 0;
     }
+
+    Color getConsumableColor(int index) {
+        ConsumableType type = consumables[index].type;
+
+        switch (type) {
+            case ConsumableType::BOMB:
+                return Color::CYAN;
+            case ConsumableType::POWER_UP_DISTANCE:
+                return Color::LIGHT_BLUE;
+            case ConsumableType::POWER_UP_IGNORE_WALLS:
+                return Color::LIGHT_MAGENTA;
+        }
+
+        return Color::LIGHTGRAY;
+    }
 }
 
 #endif //GAME02_CBP_CONSUMABLES_H
