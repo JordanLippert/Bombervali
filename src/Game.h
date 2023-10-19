@@ -89,12 +89,6 @@ namespace Game {
         srand(time(NULL));
 
         MenuOptions::init();
-
-        cout << "Você é gay?";
-
-        int a;
-
-        cin >> a;
     }
 }
 
