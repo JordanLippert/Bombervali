@@ -6,7 +6,7 @@
 #define GAME02_GAMESTAGE_H
 
 enum class GameStage {
-    START, PLAYING, WIN, LOSE
+    START, PLAYING, WIN, LOSE, CREDITS
 };
 
 #endif //GAME02_GAMESTAGE_H

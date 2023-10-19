@@ -18,6 +18,7 @@
 #include "map/utils/MapRender.h"
 #include "managers/MapManager.h"
 #include "Hud.h"
+#include "MenuOptions.h"
 
 using namespace std;
 
@@ -87,6 +88,8 @@ namespace Game {
         mouseCoord.X = 0;
         mouseCoord.Y = 0;
         srand(time(NULL));
+
+        MenuOptions::init();
     }
 }
 

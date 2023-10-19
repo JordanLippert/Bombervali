@@ -14,6 +14,8 @@
 #include "utils/Path.h"
 #include "managers/MapManager.h"
 #include "managers/GameStageManager.h"
+#include "entities/MenuOptionType.h"
+#include "MenuOptions.h"
 
 using namespace std;
 
@@ -22,23 +24,54 @@ namespace Menu {
 
     int selectedOption = 0;
     int maxOption = 3;
+    MenuOptionType currentOptionType;
+
+    void renderOptions(vector<MenuOptionType> options, Color focusColor = Color::LIGHT_BLUE) {
+        maxOption = options.size() - 1;
+
+        for (int i = 0; i < options.size(); ++i) {
+            MenuOptionType current = options[i];
+
+            string text;
+
+            if (selectedOption == i) {
+                text += char(175);
+                text += " ";
+                currentOptionType = current;
+            }
+
+            text += getTextFromType(current);
+
+            cout << endl << endl << getNecessarySpacesToCenter(text, terminalColumns);
+            if (selectedOption == i) {
+                ConsoleColor::set(focusColor);
+            } else {
+                ConsoleColor::set(Color::WHITE);
+            }
+            cout << text;
+            ConsoleColor::reset();
+            cout << "       ";
+        }
+    }
 
     /**
      * Escrever o managers de inicio do jogo no console
      */
     void renderStartMenu() {
         cout << endl << endl;
+        ConsoleColor::set(Color::LIGHT_BLUE);
         cout << centerStringInScreen(".______     ______   .___  ___. .______    _______ .______     ____    ____  ___       __       __ ", terminalColumns) << endl;
         cout << centerStringInScreen("|   _  \\   /  __  \\  |   \\/   | |   _  \\  |   ____||   _  \\    \\   \\  /   / /   \\     |  |     |  |", terminalColumns) << endl;
         cout << centerStringInScreen("|  |_)  | |  |  |  | |  \\  /  | |  |_)  | |  |__   |  |_)  |    \\   \\/   / /  ^  \\    |  |     |  |", terminalColumns) << endl;
         cout << centerStringInScreen("|   _  <  |  |  |  | |  |\\/|  | |   _  <  |   __|  |      /      \\      / /  /_\\  \\   |  |     |  |", terminalColumns) << endl;
         cout << centerStringInScreen("|  |_)  | |  `--'  | |  |  |  | |  |_)  | |  |____ |  |\\  \\----.  \\    / /  _____  \\  |  `----.|  |", terminalColumns) << endl;
         cout << centerStringInScreen("|______/   \\______/  |__|  |__| |______/  |_______|| _| `._____|   \\__/ /__/     \\__\\ |_______||__|", terminalColumns) << endl;
+        ConsoleColor::set(Color::WHITE);
         cout << centerStringInScreen("v 1.0.0", terminalColumns);
+        ConsoleColor::reset();
         cout << endl;
-        cout << centerStringInScreen("Caio Rosa, Guilherme Silvestre & Jordan Lippert @ Univali", terminalColumns);
 
-        cout << endl << endl << centerStringInScreen("Pressione ENTER para iniciar o jogo.", terminalColumns);
+        renderOptions(MenuOptions::startMenu);
     }
 
     /**
@@ -56,6 +89,24 @@ namespace Menu {
         cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
         cout << endl;
         cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
+    }
+
+    /**
+     * Escrever os créditos do jogo
+     */
+    void renderCredits() {
+        ConsoleColor::set(Color::LIGHT_MAGENTA);
+        cout << endl << endl;
+        cout << centerStringInScreen("   ___ ___ ___ ___ ___ _____ ___  ___ ", terminalColumns) << endl;
+        cout << centerStringInScreen("  / __| _ \\ __|   \\_ _|_   _/ _ \\/ __|", terminalColumns) << endl;
+        cout << centerStringInScreen(" | (__|   / _|| |) | |  | || (_) \\__ \\", terminalColumns) << endl;
+        cout << centerStringInScreen("  \\___|_|_\\___|___/___| |_| \\___/|___/", terminalColumns) << endl;
+        cout << endl;
+        ConsoleColor::set(Color::WHITE);
+        cout << centerStringInScreen("Feito por: Caio Rosa, Guilherme Silvestre & Jordan Lippert", terminalColumns);
+        cout << endl << endl;
+
+        renderOptions(MenuOptions::closeOrReturnMenu, Color::LIGHT_MAGENTA);
     }
 
     /**
@@ -101,19 +152,41 @@ namespace Menu {
      * @param pressedKey
      */
     void tick(int pressedKey) {
-        // Se está no estágio de início, verifica se apertou ENTER para iniciar
-        if (pressedKey == 13 && GameStageManager::stage == GameStage::START) {
-            GameStageManager::initNewGame();
-        }
+        // Verificar se está em um menu
+        if (GameStageManager::stage == GameStage::START || GameStageManager::stage == GameStage::CREDITS) {
+            // Verificar se apertou ENTER
+            if (pressedKey == 13) {
+                if (currentOptionType == MenuOptionType::NEW_GAME) {
+                    GameStageManager::initNewGame();
+                }
+                if (currentOptionType == MenuOptionType::RETURN_TO_START) {
+                    GameStageManager::changeStage(GameStage::START);
+                    selectedOption = 0;
+                }
+                if (currentOptionType == MenuOptionType::RETURN_TO_GAME) {
+                    GameStageManager::togglePause();
+                    selectedOption = 0;
+                }
+                if (currentOptionType == MenuOptionType::CREDITS) {
+                    GameStageManager::changeStage(GameStage::CREDITS);
+                    selectedOption = 0;
+                }
+                if (currentOptionType == MenuOptionType::CLOSE_GAME) {
+                    exit(0);
+                }
+            }
 
-        // Sobe a opção no menu
-        if ((pressedKey == 72 || pressedKey == 'w') && GameStageManager::stage == GameStage::START) {
-            selectedOption--;
-        }
+            // Sobe a opção no menu
+            if ((pressedKey == 72 || pressedKey == 'w')) {
+                selectedOption--;
+                if (selectedOption < 0) selectedOption = maxOption;
+            }
 
-        // Desce a opção no menu
-        if ((pressedKey == 80 || pressedKey == 's') && GameStageManager::stage == GameStage::START) {
-            selectedOption++;
+            // Desce a opção no menu
+            if ((pressedKey == 80 || pressedKey == 's')) {
+                selectedOption++;
+                if (selectedOption > maxOption) selectedOption = 0;
+            }
         }
 
         // Se está jogando, verifica se é para pausar o jogo
@@ -145,6 +218,10 @@ namespace Menu {
 
         if (GameStageManager::stage == GameStage::WIN) {
             renderWin();
+        }
+
+        if (GameStageManager::stage == GameStage::CREDITS) {
+            renderCredits();
         }
     }
 }

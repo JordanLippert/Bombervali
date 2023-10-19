@@ -33,7 +33,7 @@ bool contains(const std::string& str, char targetChar) {
     return str.find(targetChar) != std::string::npos;
 }
 
-string centerStringInScreen(string str, int size) {
+string getNecessarySpacesToCenter(string str, int size) {
     int strLength = str.length();
     int spaces = (size - strLength) / 2;
 
@@ -42,6 +42,12 @@ string centerStringInScreen(string str, int size) {
     for (int i = 0; i < spaces; ++i) {
         newString += " ";
     }
+
+    return newString;
+}
+
+string centerStringInScreen(string str, int size) {
+    string newString = getNecessarySpacesToCenter(str, size);
 
     newString += str;
 

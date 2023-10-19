@@ -35,7 +35,7 @@ namespace Consumables {
         consumables.push(newConsumable);
     }
 
-    int getConsumable(int row, int column) {
+    int getConsumableIndex(int row, int column) {
         for (int i = 0; i < consumables.getSize(); ++i) {
             Consumable current = consumables[i];
 

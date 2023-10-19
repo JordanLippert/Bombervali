@@ -31,7 +31,7 @@ namespace MapRender {
                 }
 
                 // Verificar se um consumivel existe na posição atual, se sim, escrever o símbolo no mapa
-                int consumableId = Consumables::getConsumable(row, column);
+                int consumableId = Consumables::getConsumableIndex(row, column);
                 if (consumableId != 0) {
                     cout << " " << Consumables::getConsumableChar(consumableId) << " ";
                     ConsoleColor::reset();
