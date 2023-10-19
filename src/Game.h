@@ -41,14 +41,13 @@ namespace Game {
 
             if (Player::row == -1) {
                 Player::row = PlayerLocation::row;
-                Player
-                ::column = PlayerLocation::column;
+                Player::column = PlayerLocation::column;
             }
         }
 
         Menu::tick(pressedKey);
     }
-    
+
     // Camada de renderização do jogo
     void render() {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
@@ -90,6 +89,12 @@ namespace Game {
         srand(time(NULL));
 
         MenuOptions::init();
+
+        cout << "Você é gay?";
+
+        int a;
+
+        cin >> a;
     }
 }
 

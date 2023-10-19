@@ -1,0 +1,12 @@
+//
+// Created by Caio on 19/10/2023.
+//
+
+#ifndef GAME02_CBP_CONSUMABLETYPE_H
+#define GAME02_CBP_CONSUMABLETYPE_H
+
+enum class ConsumableType {
+    BOMB, POWER_UP_DISTANCE, POWER_UP_IGNORE_WALLS
+};
+
+#endif //GAME02_CBP_CONSUMABLETYPE_H

@@ -1,0 +1,8 @@
+//
+// Created by Caio on 18/10/2023.
+//
+
+#ifndef GAME02_CBP_SAVESYSTEM_H
+#define GAME02_CBP_SAVESYSTEM_H
+
+#endif //GAME02_CBP_SAVESYSTEM_H

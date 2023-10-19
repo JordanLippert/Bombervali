@@ -14,7 +14,7 @@
 #include "utils/Path.h"
 #include "managers/MapManager.h"
 #include "managers/GameStageManager.h"
-#include "entities/MenuOptionType.h"
+#include "enums/MenuOptionType.h"
 #include "MenuOptions.h"
 
 using namespace std;

@@ -6,7 +6,7 @@
 #define GAME02_CBP_MENUOPTIONS_H
 
 #include <vector>
-#include "entities/MenuOptionType.h"
+#include "enums/MenuOptionType.h"
 #include "utils/Vector.h"
 
 namespace MenuOptions {

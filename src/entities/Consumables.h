@@ -7,10 +7,7 @@
 
 #include "../utils/Vector.h"
 #include "../enums/GameChar.h"
-
-enum class ConsumableType {
-    BOMB, POWER_UP_DISTANCE, POWER_UP_IGNORE_WALLS
-};
+#include "../enums/ConsumableType.h"
 
 struct Consumable {
     int row;
