@@ -34,17 +34,17 @@ namespace Game {
         }
 
         if (GameStageManager::isPlayable()) {
-            Player::tick(pressedKey);
-            Bombs::tick();
-            Enemies::tick();
-            GameStatistics::tick();
-
             if (PlayerLocation::reset) {
                 PlayerLocation::reset = false;
                 Player::row = PlayerLocation::row;
                 Player::column = PlayerLocation::column;
                 Player::bombsAmount = 5;
             }
+
+            Player::tick(pressedKey);
+            Bombs::tick();
+            Enemies::tick();
+            GameStatistics::tick();
         }
 
         Menu::tick(pressedKey);
