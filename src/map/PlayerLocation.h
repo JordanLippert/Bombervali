@@ -10,4 +10,8 @@ namespace PlayerLocation {
     bool reset = true;
 }
 
+namespace CurrentPlayerInfo {
+    int row, column, bombsAmount;
+}
+
 #endif //GAME02_CBP_PLAYERLOCATION_H

@@ -42,6 +42,10 @@ namespace Game {
             }
 
             Player::tick(pressedKey);
+            CurrentPlayerInfo::row = Player::row;
+            CurrentPlayerInfo::column = Player::column;
+            CurrentPlayerInfo::bombsAmount = Player::bombsAmount;
+
             Bombs::tick();
             Enemies::tick();
             GameStatistics::tick();

@@ -17,6 +17,7 @@
 #include "enums/MenuOptionType.h"
 #include "MenuOptions.h"
 #include "utils/TimeFormat.h"
+#include "save/SaveSystem.h"
 
 using namespace std;
 
@@ -160,6 +161,11 @@ namespace Menu {
             if (pressedKey == 13) {
                 if (currentOptionType == MenuOptionType::NEW_GAME) {
                     GameStageManager::initNewGame();
+                }
+                if (currentOptionType == MenuOptionType::SAVE_GAME) {
+                    string saveName = "Ola mundo";
+
+                    SaveSystem::saveGame(saveName);
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_START) {
                     GameStageManager::changeStage(GameStage::START);

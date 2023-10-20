@@ -5,11 +5,12 @@
 #ifndef GAME02_CBP_SAVE_H
 #define GAME02_CBP_SAVE_H
 
+#include <string>
 #include "../enums/ConsumableType.h"
-#include "../utils/Vector.h"
-#include "Bombs.h"
+#include "../map/GameMap.h"
 
 class PlayerInfo {
+public:
     int row, column, bombsAmount;
 
     PlayerInfo(int row, int column, int bombsAmount) {
@@ -20,6 +21,7 @@ class PlayerInfo {
 };
 
 class SaveEnemy {
+public:
     int row, column;
 
     SaveEnemy(int row, int column) {
@@ -29,25 +31,47 @@ class SaveEnemy {
 };
 
 class SaveConsumable {
+public:
     int row, column;
     ConsumableType type;
 
-    SaveEnemy(int row, int column) {
+    SaveConsumable(int row, int column, ConsumableType type) {
         this->row = row;
         this->column = column;
+        this->type = type;
+    }
+};
+
+class SaveBomb {
+public:
+    int row, column, stage, isFromPlayer, ignoreWalls, radius;
+    long placedAt;
+
+    SaveBomb(int row, int column, int stage, int isFromPlayer, int ignoreWalls, int radius, long placedAt) {
+        this->row = row;
+        this->column = column;
+        this->stage = stage;
+        this->isFromPlayer = isFromPlayer;
+        this->ignoreWalls = ignoreWalls;
+        this->radius = radius;
+        this->placedAt = placedAt;
     }
 };
 
 class Save {
+public:
     string saveName;
-    int currentLevel;
-    int gameTime;
-    int placedBombs;
-    int enemiesAmount;
+    int currentLevel {};
+    int gameTime {};
+    int placedBombs {};
+    int enemiesAmount {};
     PlayerInfo playerInfo;
-    Vector<SaveEnemy> enemies;
-    Vector<SaveConsumable> consumables;
-    Vector<Bomb> bombs;
+    vector<SaveEnemy> enemies;
+    vector<SaveConsumable> consumables {};
+    vector<SaveBomb> bombs {};
+    GameMap map;
+
+    Save(PlayerInfo playerInfo) : playerInfo(playerInfo) {}
 };
 
 #endif //GAME02_CBP_SAVE_H
