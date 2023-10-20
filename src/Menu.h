@@ -134,6 +134,22 @@ namespace Menu {
     /**
      * Escrever o managers de vitória do jogo no console
      */
+    void renderNextLevel() {
+        ConsoleColor::set(Color::CYAN);
+        cout << endl << endl;
+        cout << centerStringInScreen("  _  _  _____   ___     ___ _   ___ ___ ", terminalColumns) << endl;
+        cout << centerStringInScreen(" | \\| |/ _ \\ \\ / /_\\   | __/_\\ / __| __|", terminalColumns) << endl;
+        cout << centerStringInScreen(" | .` | (_) \\ V / _ \\  | _/ _ \\\\__ \\ _| ", terminalColumns) << endl;
+        cout << centerStringInScreen(" |_|\\_|\\___/ \\_/_/ \\_\\ |_/_/ \\_\\___/___|", terminalColumns) << endl;
+        ConsoleColor::set(Color::WHITE);
+        cout << endl << endl;
+        cout << centerStringInScreen("Parabens! Voce matou todos os inimigos dessa fase.", terminalColumns) << endl;
+        cout << centerStringInScreen("Aperte ENTER para continuar!", terminalColumns) << endl;
+    }
+
+    /**
+     * Escrever o managers de vitória do jogo no console
+     */
     void renderPauseMenu() {
         ConsoleColor::set(Color::CYAN);
         cout << endl << endl;
@@ -159,6 +175,12 @@ namespace Menu {
         if (!GameStageManager::isPlayable()) {
             // Verificar se apertou ENTER
             if (pressedKey == 13) {
+                if (GameStageManager::stage == GameStage::NEXT_LEVEL) {
+                    GameStageManager::nextLevel();
+                    GameStageManager::changeStage(GameStage::PLAYING);
+                    return;
+                }
+
                 if (currentOptionType == MenuOptionType::NEW_GAME) {
                     GameStageManager::initNewGame();
                 }
@@ -209,7 +231,11 @@ namespace Menu {
 
         // Verifica a condição de vitória
         if (GameStageManager::stage == GameStage::PLAYING && Enemies::areAllEnemiesDead()) {
-            GameStageManager::changeStage(GameStage::WIN);
+            if (MapManager::currentLevel == MapManager::MAX_LEVEL) {
+                GameStageManager::changeStage(GameStage::WIN);
+            } else {
+                GameStageManager::changeStage(GameStage::NEXT_LEVEL);
+            };
         }
     }
 
@@ -231,6 +257,10 @@ namespace Menu {
 
         if (GameStageManager::stage == GameStage::WIN) {
             renderWin();
+        }
+
+        if (GameStageManager::stage == GameStage::NEXT_LEVEL) {
+            renderNextLevel();
         }
 
         if (GameStageManager::stage == GameStage::CREDITS) {

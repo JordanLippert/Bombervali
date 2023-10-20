@@ -44,6 +44,14 @@ namespace GameStageManager {
         changeStage(GameStage::PLAYING);
     }
 
+    void nextLevel() {
+        int level = MapManager::currentLevel + 1;
+
+        if (level > MapManager::MAX_LEVEL) level = MapManager::MAX_LEVEL;
+
+        changeLevel(level);
+    }
+
     void initNewGame() {
         GameClear::clean();
         changeLevel(1);

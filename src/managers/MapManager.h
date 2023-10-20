@@ -13,6 +13,8 @@ namespace MapManager {
     GameMap currentMap;
     int currentLevel = 1;
 
+    const int MAX_LEVEL = 3;
+
     void loadLevel(int level) {
         string levelName = "../assets/maps/level_";
 

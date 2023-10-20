@@ -15,6 +15,8 @@ namespace Hud {
     int hudSize = 0;
 
     void renderDivider() {
+        ConsoleColor::set(Color::LIGHTGRAY);
+
         cout << endl << char(GameChar::HUD_LEFT_RIGHT);
 
         for (int i = 0; i < hudSize - 2; ++i) {
@@ -27,7 +29,21 @@ namespace Hud {
     void renderVerticalString(string display = "", string value = "") {
         cout << endl << char(GameChar::HUD_VERTICAL) << " ";
 
+        ConsoleColor::set(Color::WHITE);
         cout << spaceAtRight(display + value, hudSize - 3);
+        ConsoleColor::set(Color::LIGHTGRAY);
+
+        cout << char(GameChar::HUD_VERTICAL);
+    }
+
+    void renderCenterString(string text) {
+        cout << endl << char(GameChar::HUD_VERTICAL) << " ";
+
+        cout << getNecessarySpacesToCenter(text, hudSize - 3);
+        ConsoleColor::set(Color::LIGHT_BLUE);
+        cout << text;
+        ConsoleColor::set(Color::LIGHTGRAY);
+        cout << getNecessarySpacesToCenter(text, hudSize - 3);
 
         cout << char(GameChar::HUD_VERTICAL);
     }
@@ -43,8 +59,10 @@ namespace Hud {
     void render() {
         hudSize = MapManager::currentMap.getColumns() * 3;
 
-        ConsoleColor::set(Color::WHITE);
+        ConsoleColor::set(Color::LIGHTGRAY);
         renderBorder(char(GameChar::HUD_TOP_LEFT), char(GameChar::HUD_TOP_RIGHT));
+        renderCenterString("Fase " + to_string(MapManager::currentLevel));
+        renderDivider();
         renderVerticalString("Tempo de jogo: ", TimeFormat::formatIntoString(GameStatistics::gameTime));
         renderVerticalString("Consumeiveis: ", to_string(Consumables::consumables.getSize() ));
         renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".");

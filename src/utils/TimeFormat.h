@@ -55,7 +55,7 @@ namespace TimeFormat {
                 formatted += "segundos";
             }
         }
-        formatted += ".   ";
+        formatted += ".";
 
         return formatted;
     }

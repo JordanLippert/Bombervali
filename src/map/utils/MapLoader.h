@@ -13,6 +13,10 @@
 
 namespace MapLoader {
     void loadGameFromMap(GameMap map) {
+        Bombs::bombs.clear();
+        Enemies::enemies.clear();
+        Consumables::consumables.clear();
+
         for (int i = 0; i < map.getRows(); ++i) {
             for (int j = 0; j < map.getColumns(); ++j) {
                 int tileType = map.getTiles()[i][j];
