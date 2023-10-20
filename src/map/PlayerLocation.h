@@ -6,7 +6,7 @@
 #define GAME02_CBP_PLAYERLOCATION_H
 
 namespace PlayerLocation {
-    int row, column;
+    int row, column, bombsAmount = 5;
     bool reset = true;
 }
 

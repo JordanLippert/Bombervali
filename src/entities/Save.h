@@ -45,16 +45,14 @@ public:
 class SaveBomb {
 public:
     int row, column, stage, isFromPlayer, ignoreWalls, radius;
-    long placedAt;
 
-    SaveBomb(int row, int column, int stage, int isFromPlayer, int ignoreWalls, int radius, long placedAt) {
+    SaveBomb(int row, int column, int stage, int isFromPlayer, int ignoreWalls, int radius) {
         this->row = row;
         this->column = column;
         this->stage = stage;
         this->isFromPlayer = isFromPlayer;
         this->ignoreWalls = ignoreWalls;
         this->radius = radius;
-        this->placedAt = placedAt;
     }
 };
 

@@ -29,6 +29,12 @@ int toInt(const string& numberString) {
     return value;
 }
 
+long toLong(const string& numberString) {
+    long value = stol(numberString);
+
+    return value;
+}
+
 bool contains(const std::string& str, char targetChar) {
     return str.find(targetChar) != std::string::npos;
 }

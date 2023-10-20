@@ -25,28 +25,8 @@ namespace SaveWriter {
         }
     }
 
-    ConsumableType consumableTypeFromString(string& typeStr) {
-        ConsumableType consumableType = ConsumableType::BOMB;
-
-        if (typeStr == "POWER_UP_DISTANCE") {
-            consumableType = ConsumableType::POWER_UP_DISTANCE;
-        }
-        else if (typeStr == "POWER_UP_IGNORE_WALLS") {
-            consumableType = ConsumableType::POWER_UP_IGNORE_WALLS;
-        }
-
-        return consumableType;
-    }
-
     void write(Save& save, int saveNumber) {
         string fileName = "../saves/save_" + to_string(saveNumber) + ".csv";
-
-        ofstream file2(fileName);
-        if (!file2.is_open()) {
-            cout << "Erro ao criar o arquivo." << endl;
-            return;
-        }
-        file2.close();
 
         ofstream file;
         file.open(fileName, ios::out);
@@ -75,11 +55,28 @@ namespace SaveWriter {
         for (int i = 0; i < save.bombs.size(); i++) {
             SaveBomb bomb = save.bombs[i];
 
-            file << "BOMB," << bomb.row << "," << bomb.column << "," << bomb.stage << "," << bomb.isFromPlayer << "," << bomb.ignoreWalls << "," << bomb.radius << "," << bomb.placedAt << endl;
+            file << "BOMB," << bomb.row << "," << bomb.column << "," << bomb.stage << "," << bomb.isFromPlayer << "," << bomb.ignoreWalls << "," << bomb.radius << endl;
         }
 
         // Escreve as informações gerais
-        file << "GENERAL_INFO," << save.saveName << "," << save.currentLevel << "," << save.gameTime << "," << save.placedBombs << "," << save.enemiesAmount << endl;
+        file << "SAVE_INFO," << save.saveName << "," << save.currentLevel << "," << save.gameTime << "," << save.placedBombs << "," << save.enemiesAmount << endl;
+
+        file << "MAP," << save.map.getRows() << "," << save.map.getColumns() << endl;
+
+        for (int i = 0; i < save.map.getTiles().size(); i++) {
+            vector<int> row = save.map.getTiles()[i];
+
+            for (int j = 0; j < save.map.getTiles()[i].size(); j++) {
+                int tile = save.map.getTiles()[i][j];
+
+                if (j + 1 == save.map.getTiles()[i].size()) {
+                    file << tile;
+                    continue;
+                }
+                file << tile << ",";
+            }
+            file << endl;
+        }
 
         file.close();
     }

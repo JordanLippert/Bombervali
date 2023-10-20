@@ -165,20 +165,24 @@ namespace Menu {
                 if (currentOptionType == MenuOptionType::SAVE_GAME) {
                     string saveName = "Ola mundo";
 
-                    SaveSystem::saveGame(saveName);
+                    SaveSystem::saveGame(saveName, 0);
+                }
+                if (currentOptionType == MenuOptionType::LOAD_GAME) {
+                    SaveSystem::loadSave(0);
+                    GameStageManager::changeStage(GameStage::PLAYING);
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_START) {
+                    selectedOption = 0;
                     GameStageManager::changeStage(GameStage::START);
                     GameStageManager::isGamePaused = false;
-                    selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_GAME) {
-                    GameStageManager::togglePause();
                     selectedOption = 0;
+                    GameStageManager::togglePause();
                 }
                 if (currentOptionType == MenuOptionType::CREDITS) {
-                    GameStageManager::changeStage(GameStage::CREDITS);
                     selectedOption = 0;
+                    GameStageManager::changeStage(GameStage::CREDITS);
                 }
                 if (currentOptionType == MenuOptionType::CLOSE_GAME) {
                     exit(0);

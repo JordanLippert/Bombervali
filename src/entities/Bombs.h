@@ -15,7 +15,6 @@
 struct Bomb {
     int row;
     int column;
-    clock_t placedAt;
     int stage;
     bool isFromPlayer;
     bool ignoreWalls;
@@ -115,6 +114,9 @@ struct Bomb {
 
 namespace Bombs {
     Vector<Bomb> bombs;
+    clock_t end, start;
+    int duration;
+    bool startedTimer = false;
 
     /**
      * Este método verifica se alguma bomba está perto de uma localização
@@ -185,33 +187,25 @@ namespace Bombs {
         bomb.column = column;
         bomb.stage = 1;
         bomb.radius = radius;
-        bomb.placedAt = clock();
         bomb.isFromPlayer = isPlayer;
         bomb.ignoreWalls = ignoreWalls;
 
         bombs.push(bomb);
     }
 
-    /**
-     * Método responsável pela lógica das bombas (roda no Loop principal)
-     */
-    void tick() {
+    void increaseBombsStage() {
         for (int i = 0; i < bombs.getSize(); ++i) {
             Bomb current = bombs[i];
 
-            int end = clock();
-
-            int currentTime = (end - current.placedAt) / CLOCKS_PER_SEC;
-
             // O estágio da bomba é basicamente o tempo que ela está colocada
-            current.stage = currentTime + 1;
+            current.stage = current.stage + 1;
 
             // Estágio de explosão
             if (current.stage == 4) {
                 current.breakNearWalls();
             }
 
-            // Reseta a bomba para o estagio inicial
+            // Remove a bomba do array
             if (current.stage > 4) {
                 bombs.remove(i);
                 continue;
@@ -219,6 +213,29 @@ namespace Bombs {
 
             // Atualiza a bomba no Array principal
             bombs[i] = current;
+        }
+    }
+
+    /**
+     * Método responsável pela lógica das bombas (roda no Loop principal)
+     */
+    void tick() {
+        // Resetar o ínicio do clock caso necessário
+        if (duration == 0 && !startedTimer) {
+            start = clock();
+            startedTimer = true;
+        }
+
+        end = clock();
+        // Calcular duração do ciclo
+        duration = (end - start) / CLOCKS_PER_SEC;
+
+        if (duration >= 1) {
+            duration = 0;
+            // Variável para controlar se o contador deve reiniciar
+            startedTimer = false;
+
+            increaseBombsStage();
         }
     }
 

@@ -33,7 +33,8 @@ public:
             if (capacity == 0) {
                 capacity = 1;
             } else {
-                capacity += 2;
+                if (capacity == 1) capacity = 5;
+                capacity *= 2;
             }
 
             T* newData = new T[capacity];

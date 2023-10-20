@@ -46,6 +46,7 @@ namespace Hud {
         ConsoleColor::set(Color::WHITE);
         renderBorder(char(GameChar::HUD_TOP_LEFT), char(GameChar::HUD_TOP_RIGHT));
         renderVerticalString("Tempo de jogo: ", TimeFormat::formatIntoString(GameStatistics::gameTime));
+        renderVerticalString("Consumeiveis: ", to_string(Consumables::consumables.getSize() ));
         renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".");
         renderDivider();
         renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".");

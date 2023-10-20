@@ -38,7 +38,7 @@ namespace Game {
                 PlayerLocation::reset = false;
                 Player::row = PlayerLocation::row;
                 Player::column = PlayerLocation::column;
-                Player::bombsAmount = 5;
+                Player::bombsAmount = PlayerLocation::bombsAmount;
             }
 
             Player::tick(pressedKey);

@@ -14,10 +14,10 @@
 #include "../../entities/Bombs.h"
 
 namespace SaveParser {
-    Save createFromGame(string saveName, int pRow, int pColumn, int pBombs) {
-        int playerRow = pRow;
-        int playerColumn = pColumn;
-        int bombsAmountOfPlayer = pBombs;
+    Save createFromGame(string saveName) {
+        int playerRow = CurrentPlayerInfo::row;
+        int playerColumn = CurrentPlayerInfo::column;
+        int bombsAmountOfPlayer = CurrentPlayerInfo::bombsAmount;
 
         Save save(PlayerInfo(playerRow, playerColumn, bombsAmountOfPlayer));
 
@@ -47,7 +47,7 @@ namespace SaveParser {
         for (int i = 0; i < Bombs::bombs.getSize(); ++i) {
             Bomb current = Bombs::bombs[i];
 
-            SaveBomb newSaveBomb(current.row, current.column, current.stage, current.isFromPlayer, current.ignoreWalls, current.radius, current.placedAt);
+            SaveBomb newSaveBomb(current.row, current.column, current.stage, current.isFromPlayer, current.ignoreWalls, current.radius);
 
             save.bombs.push_back(newSaveBomb);
         }
