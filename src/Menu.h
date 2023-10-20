@@ -16,6 +16,7 @@
 #include "managers/GameStageManager.h"
 #include "enums/MenuOptionType.h"
 #include "MenuOptions.h"
+#include "utils/TimeFormat.h"
 
 using namespace std;
 
@@ -86,7 +87,8 @@ namespace Menu {
         cout << centerStringInScreen("   \\_/ |___| |_| \\___/|_|_\\___/_/ \\_\\", terminalColumns) << endl;
         ConsoleColor::reset();
         cout << endl;
-        cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
+        cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns) << endl;
+        cout << centerStringInScreen("Seu jogo durou: " + TimeFormat::formatIntoString(GameStatistics::gameTime), terminalColumns);
 
         renderOptions(MenuOptions::closeOrReturnMenu, Color::GREEN);
     }
@@ -104,7 +106,8 @@ namespace Menu {
         cout << centerStringInScreen(" |___/|___|_|_\\_|_\\\\___/ |_/_/ \\_\\", terminalColumns) << endl;
         cout << endl;
         ConsoleColor::reset();
-        cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns);
+        cout << centerStringInScreen("OBRIGADO POR JOGAR!", terminalColumns) << endl;
+        cout << centerStringInScreen("Seu jogo durou: " + TimeFormat::formatIntoString(GameStatistics::gameTime), terminalColumns);
 
         renderOptions(MenuOptions::closeOrReturnMenu, Color::RED);
     }
