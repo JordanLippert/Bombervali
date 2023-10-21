@@ -69,6 +69,22 @@ namespace Consumables {
             if (current.isInLocation(row, column)) {
                 return current;
             }
+            switch (current) {
+                case 0:
+                    ConsumableType::BOMB;
+                    bombsAmount + 3;
+                    break;
+
+                case 1:
+                    ConsumableType::POWER_UP_DISTANCE;
+                    Bombs::placeBomb(row, column, true, 2, false);
+                    break;
+
+                case 2:
+                    ConsumableType::POWER_UP_IGNORE_WALLS;
+                    Bombs::placeBomb(row, column, true, 2, true);
+                    break;
+            }
         }
     }
 
@@ -115,10 +131,15 @@ namespace Consumables {
 
         switch (type) {
             case ConsumableType::BOMB:
+
                 return char(GameChar::BOMB_CONSUMABLE);
+
             case ConsumableType::POWER_UP_DISTANCE:
+                //Bombs::placeBomb(row, column, true, 2, false);
                 return char(GameChar::POWER_UP_DISTANCE_BOOST);
+
             case ConsumableType::POWER_UP_IGNORE_WALLS:
+                //Bombs::placeBomb(row, column, true, 2, true);
                 return char(GameChar::POWER_UP_IGNORE_WALLS);
         }
 

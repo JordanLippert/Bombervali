@@ -15,7 +15,7 @@ using namespace std;
 namespace Player {
     // Localização do jogador, row = linha, column = coluna
     int row = -1, column = -1;
-    int bombsAmount = 5;
+    int bombsAmount = 4;
 
     /**
      * Este método retorna se o player está em uma posição específica
@@ -30,8 +30,9 @@ namespace Player {
     void placeBomb() {
         // Método para verificar se o player pode colocar uma bomba: Bombs::isThereBombPlacedByPlayer()
         // Remover 1 bomba do player pra cada bomba colocada.
-
-        Bombs::placeBomb(row, column, true, 2, false);
+        Bombs::isThereBombPlacedByPlayer();
+        Bombs::placeBomb(row, column, true, 1, false);
+        bombsAmount--;
     }
 
     /**
@@ -52,7 +53,10 @@ namespace Player {
         {
             Menu::loseGame();
         }
-
+        if(Consumables::getConsumableIndex(row, column)){
+            Consumables::getConsumableByLocation(row, column);
+            Consumables::deleteConsumableByLocation(row, column);
+        }
         // verificar consumiveis aqui
         // para verificar se existe um consumível em uma localização, usar: Consumables::existsConsumableAtLocation(linha, coluna)
         // Paga pegar o consumível nessa localização, usar: Consumables::getConsumableByLocation(linha, coluna)
@@ -87,6 +91,7 @@ namespace Player {
 
             case 32: case 13: /** dropar bomba */
                 placeBomb();
+                bombsAmount--;
                 break;
         }
     }
