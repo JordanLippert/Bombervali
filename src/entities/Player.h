@@ -28,6 +28,9 @@ namespace Player {
      * Este método deve ser acionado quando a pessoa pressionar Espaço ou Enter (Deixe ele em branco, apenas chame ele)
      */
     void placeBomb() {
+        // Método para verificar se o player pode colocar uma bomba: Bombs::isThereBombPlacedByPlayer()
+        // Remover 1 bomba do player pra cada bomba colocada.
+
         Bombs::placeBomb(row, column, true, 2, false);
     }
 
@@ -49,6 +52,13 @@ namespace Player {
         {
             Menu::loseGame();
         }
+
+        // verificar consumiveis aqui
+        // para verificar se existe um consumível em uma localização, usar: Consumables::existsConsumableAtLocation(linha, coluna)
+        // Paga pegar o consumível nessa localização, usar: Consumables::getConsumableByLocation(linha, coluna)
+        // Paga remover o consumível do mapa, usar: Consumables::deleteConsumableByLocation(linha, coluna)
+        // Boa sorte, lembrando q precisas criar variáveis dentro do Player, para controlar se os powerups de distância e etc estão ativos
+        // Para cada bomba coletada, deve aumentar em 1 o número de bombas do player
 
         switch(pressedKey){
             case 72: case 'w': /** cima */

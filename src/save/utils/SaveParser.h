@@ -14,13 +14,21 @@
 #include "../../entities/Bombs.h"
 
 namespace SaveParser {
+    /**
+     * Cria um objeto de salvamento a partir do estado atual do jogo.
+     * @param saveName O nome do salvamento.
+     * @return Retorna um objeto de salvamento contendo os dados do jogo a serem salvos.
+     */
     Save createFromGame(string saveName) {
+        // Obter informações do jogador atual
         int playerRow = CurrentPlayerInfo::row;
         int playerColumn = CurrentPlayerInfo::column;
         int bombsAmountOfPlayer = CurrentPlayerInfo::bombsAmount;
 
+        // Inicializar o objeto de salvamento com as informações do jogador
         Save save(PlayerInfo(playerRow, playerColumn, bombsAmountOfPlayer));
 
+        // Copiar estatísticas do jogo e outras informações relevantes
         save.placedBombs = GameStatistics::amountOfBombsPlaced;
         save.gameTime = GameStatistics::gameTime;
         save.enemiesAmount = Enemies::enemies.getSize();
@@ -28,6 +36,7 @@ namespace SaveParser {
         save.map = MapManager::currentMap;
         save.saveName = std::move(saveName);
 
+        // Copiar informações sobre os inimigos no jogo
         for (int i = 0; i < Enemies::enemies.getSize(); ++i) {
             Enemy currentEnemy = Enemies::enemies[i];
 
@@ -36,6 +45,7 @@ namespace SaveParser {
             save.enemies.push_back(newSaveEnemy);
         }
 
+        // Copiar informações sobre os consumíveis no jogo
         for (int i = 0; i < Consumables::consumables.getSize(); ++i) {
             Consumable current = Consumables::consumables[i];
 
@@ -44,6 +54,7 @@ namespace SaveParser {
             save.consumables.push_back(newSaveConsumable);
         }
 
+        // Copiar informações sobre as bombas no jogo
         for (int i = 0; i < Bombs::bombs.getSize(); ++i) {
             Bomb current = Bombs::bombs[i];
 

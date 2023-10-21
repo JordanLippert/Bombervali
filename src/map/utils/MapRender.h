@@ -10,6 +10,10 @@
 #include "../GameMap.h"
 
 namespace MapRender {
+    /**
+     * Renderiza o mapa do jogo no console.
+     * @param map O mapa a ser renderizado.
+     */
     void render(GameMap map) {
         for (int row = 0; row < map.getRows(); row++) {
             for (int column = 0; column < map.getColumns(); column++) {

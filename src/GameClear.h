@@ -12,11 +12,17 @@
 
 namespace GameClear {
     void clean() {
+        // Define que o jogador deve ser reposicionado na próxima partida
         PlayerLocation::reset = true;
+        // Limpa a lista de inimigos
         Enemies::enemies.clear();
+        // Limpa a lista de bombas
         Bombs::bombs.clear();
+        // Limpa a lista de itens consumíveis
         Consumables::consumables.clear();
+        // Reinicia o tempo de jogo
         GameStatistics::gameTime = 0;
+        // Reinicia a contagem de bombas colocadas
         GameStatistics::amountOfBombsPlaced = 0;
     }
 }

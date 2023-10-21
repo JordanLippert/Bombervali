@@ -94,6 +94,10 @@ namespace Enemies {
         return false;
     }
 
+    /**
+     * Retorna a quantidade de inimigos vivos.
+     * @return O número de inimigos vivos no momento.
+     */
     int getAliveEnemiesAmount() {
        return enemies.getSize();
     }

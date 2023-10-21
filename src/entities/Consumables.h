@@ -22,6 +22,12 @@ struct Consumable {
 namespace Consumables {
     Vector<Consumable> consumables;
 
+    /**
+     * Coloca um novo consumível na posição especificada.
+     * @param row A linha onde o consumível será colocado.
+     * @param column A coluna onde o consumível será colocado.
+     * @param type O tipo de consumível a ser colocado.
+     */
     void placeNew(int row, int column, ConsumableType type) {
         Consumable newConsumable {};
 
@@ -32,6 +38,61 @@ namespace Consumables {
         consumables.push(newConsumable);
     }
 
+    /**
+     * Verifica se existe um consumível na localização especificada.
+     * @param row A linha da localização a ser verificada.
+     * @param column A coluna da localização a ser verificada.
+     * @return Retorna true se um consumível for encontrado na localização, senão retorna false.
+     */
+    bool existsConsumableAtLocation(int row, int column) {
+        for (int i = 0; i < consumables.getSize(); ++i) {
+            Consumable current = consumables[i];
+
+            if (current.isInLocation(row, column)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Pega o consumível na localização especificada.
+     * @param row A linha da localização do consumível desejado.
+     * @param column A coluna da localização do consumível desejado.
+     * @return Retorna o consumível encontrado na localização.
+     */
+    Consumable getConsumableByLocation(int row, int column) {
+        for (int i = 0; i < consumables.getSize(); ++i) {
+            Consumable current = consumables[i];
+
+            if (current.isInLocation(row, column)) {
+                return current;
+            }
+        }
+    }
+
+    /**
+     * Remove um consumível na localização especificada.
+     * @param row A linha da localização do consumível desejado.
+     * @param column A coluna da localização do consumível desejado.
+     */
+    void deleteConsumableByLocation(int row, int column) {
+        for (int i = 0; i < consumables.getSize(); ++i) {
+            Consumable current = consumables[i];
+
+            if (current.isInLocation(row, column)) {
+                consumables.remove(i);
+            }
+        }
+    }
+
+    /**
+     * Pega o índice do consumível na localização especificada.
+     * @param row A linha da localização do consumível desejado.
+     * @param column A coluna da localização do consumível desejado.
+     * @return Retorna o índice do consumível encontrado na localização.
+     */
     int getConsumableIndex(int row, int column) {
         for (int i = 0; i < consumables.getSize(); ++i) {
             Consumable current = consumables[i];
@@ -44,6 +105,11 @@ namespace Consumables {
         return 0;
     }
 
+    /**
+     * Obtém o caractere associado ao consumível no índice especificado.
+     * @param index O índice do consumível.
+     * @return Retorna o caractere associado ao consumível.
+     */
     char getConsumableChar(int index) {
         ConsumableType type = consumables[index].type;
 

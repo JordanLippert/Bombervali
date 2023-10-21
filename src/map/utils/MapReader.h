@@ -10,6 +10,11 @@
 #include "../../utils/StringUtils.h"
 
 namespace MapReader {
+    /**
+     * Lê um mapa a partir de um arquivo e cria um objeto GameMap.
+     * @param fileName O nome do arquivo contendo o mapa.
+     * @return Retorna um objeto GameMap criado a partir do conteúdo do arquivo.
+     */
     GameMap readFromFile(const string& fileName) {
         ifstream file;
 

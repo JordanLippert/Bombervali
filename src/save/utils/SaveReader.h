@@ -15,6 +15,11 @@
 using namespace std;
 
 namespace SaveReader {
+    /**
+     * Converte uma string para um enum `ConsumableType`.
+     * @param typeStr A string que representa o tipo de consumível.
+     * @return O enum `ConsumableType` correspondente à string.
+     */
     ConsumableType consumableTypeFromString(string& typeStr) {
         ConsumableType consumableType = ConsumableType::BOMB;
 
@@ -28,6 +33,10 @@ namespace SaveReader {
         return consumableType;
     }
 
+    /**
+     * Encontra o maior número entre os salvamentos existentes.
+     * @return O número do maior salvamento encontrado.
+     */
     int findMajorSaveNumber() {
         struct dirent *entry;
         DIR *dp = opendir("../saves");
@@ -53,6 +62,11 @@ namespace SaveReader {
         return largestSaveNumber;
     }
 
+    /**
+     * Lê um arquivo de salvamento e converte seus dados em um objeto `Save`.
+     * @param saveNumber O número do salvamento a ser lido.
+     * @return Um objeto `Save` contendo os dados lidos do arquivo de salvamento.
+     */
     Save read(int saveNumber) {
         string fileName = "../saves/save_" + to_string(saveNumber) + ".csv";
 
@@ -70,6 +84,7 @@ namespace SaveReader {
             string type = splittedString[0];
 
             if (type == "PLAYER_INFO") {
+                // Lê informações do jogador
                 int row, column, bombsAmount;
 
                 row = toInt(splittedString[1]);
@@ -79,6 +94,7 @@ namespace SaveReader {
                 PlayerInfo loadedPlayerInfo(row, column, bombsAmount);
                 loadedSave.playerInfo = loadedPlayerInfo;
             } else if (type == "ENEMY") {
+                // Lê informações de um inimigo
                 int row, column;
 
                 row = toInt(splittedString[1]);
@@ -87,6 +103,7 @@ namespace SaveReader {
                 SaveEnemy loadedEnemy(row, column);
                 loadedSave.enemies.push_back(loadedEnemy);
             } else if (type == "CONSUMABLE") {
+                // Lê informações de um consumível
                 int row, column;
 
                 row = toInt(splittedString[1]);
@@ -96,6 +113,7 @@ namespace SaveReader {
                 SaveConsumable loadedConsumable(row, column, consumableType);
                 loadedSave.consumables.push_back(loadedConsumable);
             } else if (type == "BOMB") {
+                // Lê informações de uma bomba
                 int row, column, stage, isFromPlayer, ignoreWalls, radius;
 
                 row = toInt(splittedString[1]);
@@ -108,6 +126,7 @@ namespace SaveReader {
                 SaveBomb loadedBomb(row, column, stage, isFromPlayer, ignoreWalls, radius);
                 loadedSave.bombs.push_back(loadedBomb);
             } else if (type == "SAVE_INFO") {
+                // Lê informações gerais de salvamento
                 loadedSave.saveName = splittedString[1];
                 loadedSave.currentLevel = toInt(splittedString[2]);
                 loadedSave.gameTime = toInt(splittedString[3]);
@@ -115,8 +134,8 @@ namespace SaveReader {
                 loadedSave.enemiesAmount = toInt(splittedString[5]);
             }
             else if (type == "MAP") {
+                // Lê informações do mapa
                 int mapRows, mapColumns;
-
 
                 mapRows = toInt(splittedString[1]);
                 mapColumns = toInt(splittedString[2]);

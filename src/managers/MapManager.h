@@ -15,19 +15,31 @@ namespace MapManager {
 
     const int MAX_LEVEL = 3;
 
+    /**
+     * Carrega um nível do jogo com base no número do nível.
+     * @param level O número do nível a ser carregado.
+     */
     void loadLevel(int level) {
-        string levelName = "../assets/maps/level_";
-
-        levelName += to_string(level);
-        levelName += ".csv";
-
+        string levelName = "../assets/maps/level_" + to_string(level) + ".csv";
         currentMap = MapReader::readFromFile(levelName);
     }
 
+    /**
+     * Verifica se uma localização (linha e coluna) está dentro dos limites do mapa.
+     * @param row A linha da localização.
+     * @param column A coluna da localização.
+     * @return Retorna true se a localização estiver dentro dos limites do mapa, senão, retorna false.
+     */
     bool validLocation(int row, int column) {
         return !(row < 0 || row >= currentMap.getRows() || column < 0 || column >= currentMap.getColumns());
     }
 
+    /**
+     * Verifica se é possível mover-se para uma localização específica no mapa.
+     * @param row A linha da localização.
+     * @param column A coluna da localização.
+     * @return Retorna true se for possível mover-se para a localização, senão, retorna false.
+     */
     bool canMove(int row, int column) {
         if (!validLocation(row, column)) return false;
 

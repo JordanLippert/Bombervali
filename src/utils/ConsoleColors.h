@@ -9,6 +9,7 @@
 #include <windows.h>
 
 enum class Color {
+    // Cores de texto
     BLACK = 0,
     BLUE = 1,
     GREEN = 2,
@@ -28,6 +29,7 @@ enum class Color {
 };
 
 enum class BackgroundColor {
+    // Cores de fundo
     BLACK = 0,
     NAVY_BLUE = 16,
     GREEN = 32,
@@ -49,10 +51,18 @@ enum class BackgroundColor {
 namespace ConsoleColor {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
+    /**
+     * Define a cor do texto e a cor de fundo no console.
+     * @param color A cor do texto a ser definida.
+     * @param bgColor A cor de fundo a ser definida.
+     */
     void set(Color color, BackgroundColor bgColor = BackgroundColor::BLACK) {
         SetConsoleTextAttribute(console, int(color) + int(bgColor));
     }
 
+    /**
+     * Restaura as configurações de cor padrão do console (texto em branco com fundo preto).
+     */
     void reset() {
         SetConsoleTextAttribute(console, 7);
     }

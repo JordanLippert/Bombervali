@@ -12,6 +12,10 @@
 #include "../../entities/Consumables.h"
 
 namespace MapLoader {
+    /**
+     * Carrega o jogo a partir de um mapa, reinicializando as listas de bombas, inimigos e consumíveis.
+     * @param map O mapa a partir do qual o jogo será carregado.
+     */
     void loadGameFromMap(GameMap map) {
         Bombs::bombs.clear();
         Enemies::enemies.clear();

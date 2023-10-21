@@ -23,9 +23,10 @@
 using namespace std;
 
 namespace Game {
-    bool running = true;
-    COORD mouseCoord {};
+    bool running = true; // Variável que controla se o jogo está em execução.
+    COORD mouseCoord {}; // Estrutura COORD para controlar a posição do cursor do mouse.
 
+    // Função tick: Lida com a lógica do jogo a cada iteração.
     void tick() {
         int pressedKey;
 
@@ -54,7 +55,7 @@ namespace Game {
         Menu::tick(pressedKey);
     }
 
-    // Camada de renderização do jogo
+    // Função render: Lida com a renderização do jogo.
     void render() {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
@@ -67,7 +68,7 @@ namespace Game {
         Menu::render();
     }
 
-    // Método para começar a rodar o jogo, contendo o loop principal
+    // Função run: O loop principal do jogo.
     void run() {
         while (running) {
             // Primeiro a camada de lógica, e depois a renderização do Mapa / Menu
@@ -76,10 +77,10 @@ namespace Game {
         }
     }
 
-    // Método que deve ser chamado antes de rodar o jogo
+    // Função initializeGame: Configurações iniciais antes de rodar o jogo.
     void initializeGame() {
         HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-        CONSOLE_CURSOR_INFO     cursorInfo;
+        CONSOLE_CURSOR_INFO cursorInfo;
         CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
 
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bufferInfo);

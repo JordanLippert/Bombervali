@@ -10,24 +10,20 @@
 template <typename T>
 class Vector {
 private:
-    T* data;
-    int capacity {};
-    int size {};
+    T* data;        // Ponteiro para o array dinâmico.
+    int capacity {}; // Capacidade máxima do array.
+    int size {};     // Número atual de elementos no array.
 
 public:
+    // Construtor padrão: Inicializa os membros.
     Vector() : data(nullptr), capacity(0), size(0) {}
-    Vector(int initialCapacity) {
-        T* newData = new T[initialCapacity];
 
-        this->capacity = initialCapacity;
-        this->size = 0;
-        this->data = newData;
-    }
-
+    // Destrutor: Libera a memória alocada para o array.
     ~Vector() {
         delete[] data;
     }
 
+    // Adiciona um elemento ao final do vetor.
     void push(const T& value) {
         if (size == capacity) {
             if (capacity == 0) {
@@ -50,6 +46,7 @@ public:
         data[size++] = value;
     }
 
+    // Remove um elemento no índice especificado.
     void remove(int index) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("Index out of bounds");
@@ -72,6 +69,7 @@ public:
         }
     }
 
+    // Limpa o vetor, liberando a memória e redefinindo os membros.
     void clear() {
         delete[] data;
         data = nullptr;
@@ -79,16 +77,12 @@ public:
         size = 0;
     }
 
-    void pop() {
-        if (size > 0) {
-            size--;
-        }
-    }
-
+    // Retorna uma referência ao elemento no índice especificado.
     T& get(int index) {
-        return this[index];
+        return (*this)[index];
     }
 
+    // Sobrecarga do operador [] para acesso aos elementos por índice.
     T& operator[](int index) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("Index out of bounds");
@@ -96,10 +90,12 @@ public:
         return data[index];
     }
 
+    // Retorna o tamanho atual do vetor.
     int getSize() const {
         return size;
     }
 
+    // Verifica se o vetor está vazio.
     bool isEmpty() const {
         return size == 0;
     }

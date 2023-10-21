@@ -28,6 +28,7 @@ namespace Menu {
     int maxOption = 3;
     MenuOptionType currentOptionType;
 
+    // Função para renderizar as opções do menu
     void renderOptions(vector<MenuOptionType> options, Color focusColor = Color::LIGHT_BLUE) {
         maxOption = options.size() - 1;
 
@@ -37,7 +38,7 @@ namespace Menu {
             string text;
 
             if (selectedOption == i) {
-                text += char(175);
+                text += char(175); // Define um símbolo especial para destacar a opção selecionada.
                 text += " ";
                 currentOptionType = current;
             }
@@ -45,20 +46,20 @@ namespace Menu {
             text += getTextFromType(current);
 
             cout << endl << endl << getNecessarySpacesToCenter(text, terminalColumns);
+
             if (selectedOption == i) {
-                ConsoleColor::set(focusColor);
+                ConsoleColor::set(focusColor); // Define a cor do texto para a opção selecionada.
             } else {
-                ConsoleColor::set(Color::WHITE);
+                ConsoleColor::set(Color::WHITE); // Define a cor do texto para as outras opções.
             }
+
             cout << text;
-            ConsoleColor::reset();
+            ConsoleColor::reset(); // Restaura a cor padrão do texto.
             cout << "       ";
         }
     }
 
-    /**
-     * Escrever o managers de inicio do jogo no console
-     */
+    // Função para renderizar o menu de início do jogo
     void renderStartMenu() {
         cout << endl << endl;
         ConsoleColor::set(Color::LIGHT_BLUE);
@@ -76,9 +77,7 @@ namespace Menu {
         renderOptions(MenuOptions::startMenu);
     }
 
-    /**
-     * Escrever o managers de vitória do jogo no console
-     */
+    // Função para renderizar o menu de vitória
     void renderWin() {
         ConsoleColor::set(Color::GREEN);
         cout << endl << endl;
@@ -94,9 +93,7 @@ namespace Menu {
         renderOptions(MenuOptions::closeOrReturnMenu, Color::GREEN);
     }
 
-    /**
-     * Escrever o managers de derrota do jogo no console
-     */
+    // Função para renderizar o menu de derrota
     void renderLose() {
         ConsoleColor::set(Color::RED);
 
@@ -113,9 +110,7 @@ namespace Menu {
         renderOptions(MenuOptions::closeOrReturnMenu, Color::RED);
     }
 
-    /**
-     * Escrever os créditos do jogo
-     */
+    // Função para renderizar os créditos do jogo
     void renderCredits() {
         ConsoleColor::set(Color::LIGHT_MAGENTA);
         cout << endl << endl;
@@ -131,9 +126,7 @@ namespace Menu {
         renderOptions(MenuOptions::closeOrReturnMenu, Color::LIGHT_MAGENTA);
     }
 
-    /**
-     * Escrever o managers de vitória do jogo no console
-     */
+    // Função para renderizar o menu de avanço de fase
     void renderNextLevel() {
         ConsoleColor::set(Color::CYAN);
         cout << endl << endl;
@@ -147,9 +140,7 @@ namespace Menu {
         cout << centerStringInScreen("Aperte ENTER para continuar!", terminalColumns) << endl;
     }
 
-    /**
-     * Escrever o managers de vitória do jogo no console
-     */
+    // Função para renderizar o menu de pausa
     void renderPauseMenu() {
         ConsoleColor::set(Color::CYAN);
         cout << endl << endl;
@@ -162,14 +153,12 @@ namespace Menu {
         renderOptions(MenuOptions::pauseMenu, Color::CYAN);
     }
 
+    // Função chamada para declarar derrota
     void loseGame() {
         GameStageManager::changeStage(GameStage::LOSE);
     }
 
-    /**
-     * Método responsável pela lógica dos menus
-     * @param pressedKey
-     */
+    // Função para processar a lógica do menu com base nas teclas pressionadas
     void tick(int pressedKey) {
         // Verificar se está em um menu
         if (!GameStageManager::isPlayable()) {

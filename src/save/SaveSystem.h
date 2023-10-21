@@ -12,6 +12,11 @@
 #include "utils/SaveLoader.h"
 
 namespace SaveSystem {
+    /**
+     * Salva o estado atual do jogo com um nome de salvamento específico.
+     * @param saveName O nome do arquivo de salvamento.
+     * @param saveNumber O número de salvamento (opcional). Se não fornecido, será calculado automaticamente.
+     */
     void saveGame(std::string& saveName, int saveNumber = -1) {
         Save save = SaveParser::createFromGame(saveName);
         if (saveNumber == -1) {
@@ -21,6 +26,10 @@ namespace SaveSystem {
         SaveWriter::write(save, saveNumber);
     }
 
+    /**
+     * Carrega um estado de salvamento específico no jogo.
+     * @param saveNumber O número de salvamento a ser carregado.
+     */
     void loadSave(int saveNumber) {
         Save save = SaveReader::read(saveNumber);
 

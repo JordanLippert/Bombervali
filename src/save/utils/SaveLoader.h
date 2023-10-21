@@ -12,15 +12,22 @@
 #include "../../entities/Bombs.h"
 
 namespace SaveLoader {
+    /**
+     * Carrega um estado de salvamento no jogo, restaurando todas as informações salvas.
+     * @param save O objeto de salvamento contendo os dados a serem carregados no jogo.
+     */
     void loadIntoGame(Save save) {
+        // Reinicia a localização do jogador
         PlayerLocation::reset = true;
         PlayerLocation::row = save.playerInfo.row;
         PlayerLocation::column = save.playerInfo.column;
         PlayerLocation::bombsAmount = save.playerInfo.bombsAmount;
 
+        // Restaura as estatísticas do jogo
         GameStatistics::gameTime = save.gameTime;
         GameStatistics::amountOfBombsPlaced = save.placedBombs;
 
+        // Limpa a lista de inimigos e restaura os inimigos do salvamento
         Enemies::enemies.clear();
         for (int i = 0; i < save.enemies.size(); ++i) {
             SaveEnemy saveEnemy = save.enemies[i];
@@ -33,6 +40,7 @@ namespace SaveLoader {
             Enemies::enemies.push(enemy);
         }
 
+        // Limpa a lista de consumíveis e restaura os consumíveis do salvamento
         Consumables::consumables.clear();
         for (int i = 0; i < save.consumables.size(); ++i) {
             SaveConsumable saveConsumable = save.consumables[i];
@@ -46,6 +54,7 @@ namespace SaveLoader {
             Consumables::consumables.push(consumable);
         }
 
+        // Limpa a lista de bombas e restaura as bombas do salvamento
         Bombs::bombs.clear();
         for (int i = 0; i < save.bombs.size(); ++i) {
             SaveBomb saveBomb = save.bombs[i];
@@ -62,6 +71,7 @@ namespace SaveLoader {
             Bombs::bombs.push(bomb);
         }
 
+        // Restaura o mapa atual e o nível
         MapManager::currentMap = save.map;
         MapManager::currentLevel = save.currentLevel;
     }

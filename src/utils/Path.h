@@ -8,7 +8,7 @@
 #include <string>
 
 namespace Path {
-    std::string ROOT_DIR = "../..";
+    std::string ROOT_DIR = "../";
     std::string ASSETS_DIR = ROOT_DIR + "/assets";
 }
 

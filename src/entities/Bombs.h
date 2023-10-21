@@ -20,7 +20,12 @@ struct Bomb {
     bool ignoreWalls;
     int radius;
 
-    // Função para determinar a direção de um objeto em relação a uma localização
+    /**
+     * Determina a direção de um objeto em relação a uma bomba.
+     * @param locRow A linha da localização.
+     * @param locColumn A coluna da localização.
+     * @return Um vetor com a direção (row, column) do objeto em relação à localização.
+     */
     vector<int> getPointingDirection(int locRow, int locColumn) const {
         // Calcular a diferença entre as coordenadas x e y do objeto e da localização
         double dy = row - locRow;
@@ -34,9 +39,9 @@ struct Bomb {
     }
 
     /**
-     * Verifica se existe uma parede frágil na localização, se existir apaga essa parede frágil
-     * @param row Linha da localização
-     * @param column Coluna da localização
+     * Verifica se existe uma parede frágil na localização e a remove, se existir.
+     * @param locRow A linha da localização.
+     * @param locColumn A coluna da localização.
      */
     static void breakWall(int locRow, int locColumn) {
         if (MapManager::validLocation(locRow, locColumn)) {
@@ -47,8 +52,7 @@ struct Bomb {
     }
 
     /**
-     * Deleta as paredes frágeis das laterais de uma bomba
-     * @param bomb Bomba
+     * Remove as paredes frágeis próximas a uma bomba.
      */
     void breakNearWalls() {
         int directions[][2] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
@@ -80,7 +84,7 @@ struct Bomb {
      * Este método verifica se uma bomba está perto de uma localização
      * @param locRow Linha da localização
      * @param locColumn Coluna da localização
-     * @return Uma boolean se a bomba está perto
+     * @return Retorna true se a bomba estiver perto da localização, senão, retorna false.
      */
     bool isNearToCoordinates(int locRow, int locColumn) const {
         int directions[][2] = { {0, 1}, {0, -1}, { 1, 0 }, { -1, 0 } };
@@ -119,26 +123,6 @@ namespace Bombs {
     bool startedTimer = false;
 
     /**
-     * Este método verifica se alguma bomba está perto de uma localização
-     * @param row Linha da localização
-     * @param column Coluna da localização
-     * @return Uma boolean se uma bomba existe perto dessa localização
-     */
-    bool isBombNear(int row, int column) {
-        for (int i = 0; i < bombs.getSize(); ++i) {
-            Bomb currentBomb = bombs[i];
-
-            bool isNear = currentBomb.isNearToCoordinates(row, column);
-
-            if (isNear) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Este método retorna se uma explosão está ocorrendo perto localização
      * @param row Linha da localização
      * @param column Coluna da localização
@@ -160,6 +144,9 @@ namespace Bombs {
         return false;
     }
 
+    /**
+     * Verifica se há pelo menos uma bomba colocada pelo jogador.
+     */
     bool isThereBombPlacedByPlayer() {
         for (int i = 0; i <  bombs.getSize(); ++i) {
             if (bombs[i].isFromPlayer) return true;
@@ -193,6 +180,11 @@ namespace Bombs {
         bombs.push(bomb);
     }
 
+    /**
+     * Aumenta o estágio de todas as bombas e gerencia sua evolução.
+     * O estágio da bomba é basicamente o tempo que ela está colocada. Quando a bomba atinge o estágio 4, ela explode,
+     * removendo paredes próximas. Se uma bomba atinge um estágio maior que 4, ela é removida do array de bombas.
+     */
     void increaseBombsStage() {
         for (int i = 0; i < bombs.getSize(); ++i) {
             Bomb current = bombs[i];

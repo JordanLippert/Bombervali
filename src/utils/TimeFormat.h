@@ -7,28 +7,41 @@
 
 #include <string>
 
+/**
+ * Estrutura que representa minutos e segundos.
+ */
 struct SecondsAndMinutes {
-    int minutes;
-    int seconds;
+    int minutes; // Minutos
+    int seconds; // Segundos
 };
 
 namespace TimeFormat {
+    /**
+     * Formata um valor total de segundos em minutos e segundos separados.
+     * @param totalSeconds O valor total de segundos.
+     * @return Uma estrutura SecondsAndMinutes com os minutos e segundos formatados.
+     */
     SecondsAndMinutes format(int totalSeconds) {
         SecondsAndMinutes formatted {};
 
-        formatted.minutes = totalSeconds / 60;
-        formatted.seconds = totalSeconds % 60;
+        formatted.minutes = totalSeconds / 60; // Calcula os minutos.
+        formatted.seconds = totalSeconds % 60; // Calcula os segundos restantes.
 
         return formatted;
     }
 
+    /**
+     * Formata um valor total de segundos em uma string descritiva, como "2 minutos e 30 segundos".
+     * @param totalSeconds O valor total de segundos.
+     * @return Uma string formatada descrevendo os minutos e segundos.
+     */
     std::string formatIntoString(int totalSeconds) {
         SecondsAndMinutes secondsAndMinutes = format(totalSeconds);
 
         int minutes = secondsAndMinutes.minutes;
         int seconds = secondsAndMinutes.seconds;
 
-        if (seconds == 0 && minutes == 0) return "0 segundos.";
+        if (seconds == 0 && minutes == 0) return "0 segundos."; // Caso especial: 0 segundos.
 
         std::string formatted;
 

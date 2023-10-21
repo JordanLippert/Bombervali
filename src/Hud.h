@@ -12,11 +12,11 @@
 #include "utils/TimeFormat.h"
 
 namespace Hud {
-    int hudSize = 0;
+    int hudSize = 0; // Tamanho do painel HUD
 
+    // Função para renderizar a linha de separação no HUD
     void renderDivider() {
         ConsoleColor::set(Color::LIGHTGRAY);
-
         cout << endl << char(GameChar::HUD_LEFT_RIGHT);
 
         for (int i = 0; i < hudSize - 2; ++i) {
@@ -26,6 +26,7 @@ namespace Hud {
         cout << char(GameChar::HUD_RIGHT_LEFT);
     }
 
+    // Função para renderizar uma linha vertical de texto no HUD
     void renderVerticalString(string display = "", string value = "") {
         cout << endl << char(GameChar::HUD_VERTICAL) << " ";
 
@@ -36,6 +37,7 @@ namespace Hud {
         cout << char(GameChar::HUD_VERTICAL);
     }
 
+    // Função para renderizar uma linha de texto centralizada no HUD
     void renderCenterString(string text) {
         cout << endl << char(GameChar::HUD_VERTICAL) << " ";
 
@@ -48,6 +50,7 @@ namespace Hud {
         cout << char(GameChar::HUD_VERTICAL);
     }
 
+    // Função para renderizar a borda superior ou inferior do HUD
     void renderBorder(char left, char right) {
         cout << left;
         for (int i = 0; i < hudSize - 2; ++i) {
@@ -56,6 +59,7 @@ namespace Hud {
         cout << right;
     }
 
+    // Função principal para renderizar o HUD
     void render() {
         hudSize = MapManager::currentMap.getColumns() * 3;
 
@@ -64,7 +68,7 @@ namespace Hud {
         renderCenterString("Fase " + to_string(MapManager::currentLevel));
         renderDivider();
         renderVerticalString("Tempo de jogo: ", TimeFormat::formatIntoString(GameStatistics::gameTime));
-        renderVerticalString("Consumeiveis: ", to_string(Consumables::consumables.getSize() ));
+        renderVerticalString("Consumeiveis: ", to_string(Consumables::consumables.getSize()));
         renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".");
         renderDivider();
         renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".");

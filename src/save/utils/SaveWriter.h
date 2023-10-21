@@ -12,6 +12,11 @@
 using namespace std;
 
 namespace SaveWriter {
+    /**
+     * Converte um enum `ConsumableType` em uma string.
+     * @param type O enum `ConsumableType` a ser convertido em string.
+     * @return A representação em string do enum `ConsumableType`.
+     */
     string consumableTypeToString(ConsumableType type) {
         switch (type) {
             case ConsumableType::BOMB:
@@ -25,6 +30,11 @@ namespace SaveWriter {
         }
     }
 
+    /**
+     * Escreve os dados de um objeto `Save` em um arquivo de salvamento.
+     * @param save O objeto `Save` contendo os dados a serem escritos.
+     * @param saveNumber O número do salvamento a ser gravado.
+     */
     void write(Save& save, int saveNumber) {
         string fileName = "../saves/save_" + to_string(saveNumber) + ".csv";
 
@@ -61,6 +71,7 @@ namespace SaveWriter {
         // Escreve as informações gerais
         file << "SAVE_INFO," << save.saveName << "," << save.currentLevel << "," << save.gameTime << "," << save.placedBombs << "," << save.enemiesAmount << endl;
 
+        // Escreve as informações do mapa
         file << "MAP," << save.map.getRows() << "," << save.map.getColumns() << endl;
 
         for (int i = 0; i < save.map.getTiles().size(); i++) {
