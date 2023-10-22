@@ -27,6 +27,8 @@ namespace Hud {
         HudUtils::renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".", hudSize);
         HudUtils::renderDivider(hudSize);
         HudUtils::renderVerticalString("Bombas do jogador: ", to_string(Player::bombsAmount) + ".", hudSize);
+        HudUtils::renderVerticalString("PowerUp 1: ", to_string(Player::specialbomb1) + ".", hudSize);
+        HudUtils::renderVerticalString("PowerUp 2: ", to_string(Player::specialbomb2) + ".", hudSize);
         HudUtils::renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".", hudSize);
         cout << endl;
         HudUtils::renderBorder(char(GameChar::HUD_BOTTOM_LEFT), char(GameChar::HUD_BOTTOM_RIGHT), hudSize);
