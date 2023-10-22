@@ -20,51 +20,68 @@ struct Enemy {
     bool hasPlacedBomb;
 
     // Função para mover os inimigos para cima
-    void moveUp() {
-        if (MapManager::canMove(row - 1, column)) {
+    bool moveUp() {
+        if (!MapManager::canMove(row - 1, column)) {
+            return false;
+        } else {
             row--;
+            return true;
         }
     }
 
     // Função para mover os inimigos para baixo
-    void moveDown() {
-        if (MapManager::canMove(row + 1, column)) {
+    bool moveDown() {
+        if (!MapManager::canMove(row + 1, column)) {
+            return false;
+        } else {
             row++;
+            return true;
         }
     }
 
     //Função para mover inimigos para esquerda
-    void moveLeft() {
-        if (MapManager::canMove(row, column - 1)) {
+    bool moveLeft() {
+        if (!MapManager::canMove(row, column - 1)) {
+            return false;
+        } else {
             column--;
+            return true;
         }
     }
 
     //Função para mover inimigos para direita
-    void moveRight() {
-        if (MapManager::canMove(row, column + 1)) {
+    bool moveRight() {
+        if (!MapManager::canMove(row, column + 1)) {
+            return false;
+        } else {
             column++;
+            return true;
         }
     }
 
 
-    void move() {
-        int amountOfTiles = generateNumber() + 1;
+    void move (bool canMoveUp = true, bool canMoveDown = true, bool canMoveLeft = true, bool canMoveRight = true) {
         int direction = generateNumber(4);
 
-        switch (direction) {
-            case 0:
-                moveUp();
-                break;
-            case 1:
-                moveDown();
-                break;
-            case 2:
-                moveRight();
-                break;
-            case 3:
-                moveLeft();
-                break;
+        if (direction == 0 ) {
+            if (!moveUp() || !canMoveUp) {
+                move( false, canMoveDown, canMoveLeft, canMoveRight);
+            }
+        }
+        if (direction == 1 ) {
+            if (!moveDown() || !canMoveDown) {
+                move( canMoveUp, false, canMoveLeft, canMoveRight);
+            }
+        }
+        if (direction == 2 ) {
+            if (!moveLeft() || !canMoveLeft) {
+                move( canMoveUp, canMoveDown, false, canMoveRight);
+            }
+        }
+        else {
+            if (!moveRight() || !canMoveRight) {
+                move( canMoveUp, canMoveDown, canMoveLeft, false);
+            }
         }
     }
 
@@ -112,10 +129,13 @@ namespace Enemies {
         int i;
         for (i = 0; i < enemies.getSize(); i++) {
             Enemy currentEnemy = enemies[i];
-
-
-                enemies[i] = currentEnemy;
+            int amountOfTiles = generateNumber() + 1;
+            for (int j = 0; j < amountOfTiles; j++) {
+                currentEnemy.move();
+            }
+            enemies[i] = currentEnemy;
         }
+
     }
 
     // Função para colocar as bombas inimigas
