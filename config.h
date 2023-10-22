@@ -21,7 +21,7 @@ int MAP[MAP_HEIGHT][MAP_WIDTH];
 void writeMap() {
     ofstream file;
 
-    file.open("map.txt");
+    file.open("../assets/map.txt");
 
     for (int i = 0; i < MAP_HEIGHT; ++i) {
         for (int j = 0; j < MAP_WIDTH; ++j) {
@@ -39,7 +39,7 @@ void writeMap() {
 void loadMap() {
     ifstream file;
 
-    file.open("map.txt");
+    file.open("../assets/map.txt");
 
     int row = 0;
 
