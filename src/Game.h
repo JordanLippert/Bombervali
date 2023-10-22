@@ -9,20 +9,24 @@
 #include <windows.h>
 #include <conio.h>
 #include <unistd.h>
-#include "../config.h"
-#include "Player.h"
+#include "entities/Player.h"
 #include "utils/StringUtils.h"
-#include "Bombs.h"
-#include "Enemies.h"
+#include "entities/Bombs.h"
+#include "entities/Enemies.h"
 #include "Menu.h"
+#include "GameStatistics.h"
+#include "map/utils/MapRender.h"
+#include "managers/MapManager.h"
+#include "Hud.h"
+#include "MenuOptions.h"
 
 using namespace std;
 
 namespace Game {
-    bool running = true;
-    COORD mouseCoord {};
+    bool running = true; // Variável que controla se o jogo está em execução.
+    COORD mouseCoord {}; // Estrutura COORD para controlar a posição do cursor do mouse.
 
-    // Camada de lógica do jogo
+    // Função tick: Lida com a lógica do jogo a cada iteração.
     void tick() {
         int pressedKey;
 
@@ -30,72 +34,43 @@ namespace Game {
             pressedKey = getch();
         }
 
-        if (Menu::isPlayable()) {
+        if (GameStageManager::isPlayable()) {
+            if (PlayerLocation::reset) {
+                PlayerLocation::reset = false;
+                Player::row = PlayerLocation::row;
+                Player::column = PlayerLocation::column;
+                Player::bombsAmount = PlayerLocation::bombsAmount;
+            }
+
             Player::tick(pressedKey);
+            CurrentPlayerInfo::row = Player::row;
+            CurrentPlayerInfo::column = Player::column;
+            CurrentPlayerInfo::bombsAmount = Player::bombsAmount;
+            CurrentPlayerInfo::specialbomb1 = Player::specialbomb1;
+            CurrentPlayerInfo::specialbomb2 = Player::specialbomb2;
+
             Bombs::tick();
             Enemies::tick();
+            GameStatistics::tick();
         }
 
         Menu::tick(pressedKey);
     }
-    
-    // Camada de renderização do jogo
+
+    // Função render: Lida com a renderização do jogo.
     void render() {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mouseCoord);
 
-        if (Menu::isPlayable()) {
-            for (int row = 0; row < MAP_HEIGHT; row++) {
-                for (int column = 0; column < MAP_WIDTH; column++) {
-                    // O método das bombas muda o fundo caso necessário e informa se deve escrever o símbolo da bomba no console
-                    bool needToPrintBomb = Bombs::render(row, column);
-
-                    // Verificar se o player está na posição atual, se sim, escrever o símbolo dele
-                    if (Player::isInPosition(row, column)) {
-                        cout << " " << Player::render() << " ";
-                        ConsoleColor::showColor(Color::RESET);
-                        continue;
-                    }
-
-                    // Verificar se um inimigo existe na posição atual, se sim, escrever o símbolo dos inimigos
-                    if (Enemies::thereIsEnemy(row, column)) {
-                        cout << " " << char(GameChar::ENEMY) << " ";
-                        ConsoleColor::showColor(Color::RESET);
-                        continue;
-                    }
-
-                    int tileType = MAP[row][column];
-
-                    // Caso seja uma parede
-                    if (tileType == 1) {
-                        cout << char(GameChar::WALL) << char(GameChar::WALL) << char(GameChar::WALL);
-                        ConsoleColor::showColor(Color::RESET);
-                        continue;
-                    }
-
-                    // Caso seja uma parede frágil
-                    if (tileType == 2) {
-                        cout << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL) << char(GameChar::BREAKABLE_WALL);
-                        ConsoleColor::showColor(Color::RESET);
-                        continue;
-                    }
-
-                    // Por último se for um espaço vazio sem bomba, renderizar sem o símbolo
-                    if (!needToPrintBomb) cout << "   ";
-                    else std::cout << " " << char(GameChar::BOMB) << " ";
-
-                    // Resetar a cor de fundo caso necessário
-                    ConsoleColor::showColor(Color::RESET);
-                }
-
-                cout << endl;
-            }
+        if (GameStageManager::isPlayable()) {
+            Hud::render();
+            MapRender::render(MapManager::currentMap);
             return;
         }
 
         Menu::render();
     }
 
-    // Método para começar a rodar o jogo, contendo o loop principal
+    // Função run: O loop principal do jogo.
     void run() {
         while (running) {
             // Primeiro a camada de lógica, e depois a renderização do Mapa / Menu
@@ -104,10 +79,10 @@ namespace Game {
         }
     }
 
-    // Método que deve ser chamado antes de rodar o jogo
+    // Função initializeGame: Configurações iniciais antes de rodar o jogo.
     void initializeGame() {
         HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-        CONSOLE_CURSOR_INFO     cursorInfo;
+        CONSOLE_CURSOR_INFO cursorInfo;
         CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
 
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bufferInfo);
@@ -122,10 +97,7 @@ namespace Game {
         mouseCoord.Y = 0;
         srand(time(NULL));
 
-        // Inicializar os módulos do jogo
-        Bombs::initBombsArray();
-        Enemies::initEnemies();
-        loadMap();
+        MenuOptions::init();
     }
 }
 
