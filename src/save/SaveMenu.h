@@ -41,7 +41,7 @@ namespace SaveMenu {
                 selectedSave = save;
             }
 
-            string saveNameText = "#" + to_string(i) + " " + save.saveName;
+            string saveNameText = "#" + to_string(save.saveNumber) + " " + save.saveName;
             string levelString = "Fase: " + to_string(save.currentLevel);
             string playedTimeText = TimeFormat::formatIntoString(save.gameTime, true) + " jogados";
             string remainingEnemiesText = to_string(save.enemiesAmount) + " inimigos";
