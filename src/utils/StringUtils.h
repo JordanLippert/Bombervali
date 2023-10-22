@@ -68,7 +68,7 @@ bool contains(const std::string& str, char targetChar) {
  */
 string getNecessarySpacesToDivideTexts(string str, string str2, int size) {
     int strLength = str.length() + str2.length();
-    int spaces = (size - strLength) / 2;
+    int spaces = (size - strLength);
     string newString;
 
     for (int i = 0; i < spaces; ++i) {
@@ -96,6 +96,16 @@ string getNecessarySpacesToCenter(string str, int size) {
     return newString;
 }
 
+string generateSpaces(int spacesAmount) {
+    string newString;
+
+    for (int i = 0; i < spacesAmount; ++i) {
+        newString += " ";
+    }
+
+    return newString;
+}
+
 /**
  * Centraliza uma string no meio da tela com espaços em branco adicionados à esquerda.
  * @param str A string a ser centralizada.
@@ -104,7 +114,7 @@ string getNecessarySpacesToCenter(string str, int size) {
  */
 string centerStringInScreen(string str, int size) {
     string newString = getNecessarySpacesToCenter(str, size);
-    newString += str;
+    newString += str + "      ";
     return newString;
 }
 

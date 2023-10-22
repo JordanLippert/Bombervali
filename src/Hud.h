@@ -20,7 +20,7 @@ namespace Hud {
         hudSize = MapManager::currentMap.getColumns() * 3;
 
         ConsoleColor::set(Color::LIGHTGRAY);
-        HudUtils::renderBorder(char(GameChar::HUD_TOP_LEFT), char(GameChar::HUD_TOP_RIGHT), hudSize);
+        HudUtils::renderTopBorder(hudSize);
         HudUtils::renderCenterString("Fase " + to_string(MapManager::currentLevel), hudSize);
         HudUtils::renderDivider(hudSize);
         HudUtils::renderVerticalString("Tempo de jogo: ", TimeFormat::formatIntoString(GameStatistics::gameTime), hudSize);
@@ -29,7 +29,7 @@ namespace Hud {
         HudUtils::renderVerticalString("Bombas do jogador: ", to_string(Player::bombsAmount) + ".", hudSize);
         HudUtils::renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".", hudSize);
         cout << endl;
-        HudUtils::renderBorder(char(GameChar::HUD_BOTTOM_LEFT), char(GameChar::HUD_BOTTOM_RIGHT), hudSize);
+        HudUtils::renderBottomBorder(hudSize);
         ConsoleColor::reset();
         cout << endl;
     }

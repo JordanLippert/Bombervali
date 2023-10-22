@@ -61,6 +61,7 @@ public:
     string saveName;
     int currentLevel {};
     int gameTime {};
+    int saveNumber {};
     int placedBombs {};
     int enemiesAmount {};
     PlayerInfo playerInfo;

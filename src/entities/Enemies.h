@@ -63,6 +63,8 @@ struct Enemy {
     void move (bool canMoveUp = true, bool canMoveDown = true, bool canMoveLeft = true, bool canMoveRight = true) {
         int direction = generateNumber(4);
 
+        return;
+
         if (direction == 0 ) {
             moveUp();
         }

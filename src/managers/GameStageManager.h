@@ -54,11 +54,11 @@ namespace GameStageManager {
      * Avança para o próximo nível do jogo, se disponível.
      */
     void nextLevel() {
-        int level = MapManager::currentLevel + 1;
+        MapManager::currentLevel = MapManager::currentLevel + 1;
 
-        if (level > MapManager::MAX_LEVEL) level = MapManager::MAX_LEVEL;
+        if (MapManager::currentLevel > MapManager::MAX_LEVEL) MapManager::currentLevel = MapManager::MAX_LEVEL;
 
-        changeLevel(level);
+        changeLevel(MapManager::currentLevel);
     }
 
     /**

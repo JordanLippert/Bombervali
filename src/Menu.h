@@ -161,41 +161,47 @@ namespace Menu {
 
     // Função para processar a lógica do menu com base nas teclas pressionadas
     void tick(int pressedKey) {
-        SaveMenu::tick();
-
         // Verificar se está em um menu
         if (!GameStageManager::isPlayable()) {
+            if (GameStageManager::stage == GameStage::LOAD_GAME) {
+                SaveMenu::tick(pressedKey);
+                return;
+            }
+
             // Verificar se apertou ENTER
             if (pressedKey == 13) {
                 if (GameStageManager::stage == GameStage::NEXT_LEVEL) {
                     GameStageManager::nextLevel();
                     GameStageManager::changeStage(GameStage::PLAYING);
+                    selectedOption = 0;
                     return;
                 }
-
                 if (currentOptionType == MenuOptionType::NEW_GAME) {
                     GameStageManager::initNewGame();
+                    selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::SAVE_GAME) {
                     string saveName = "Ola mundo";
 
                     SaveSystem::saveGame(saveName, 0);
+                    selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::LOAD_GAME) {
                     SaveMenu::openLoadGameMenu();
+                    selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_START) {
-                    selectedOption = 0;
                     GameStageManager::changeStage(GameStage::START);
                     GameStageManager::isGamePaused = false;
+                    selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_GAME) {
-                    selectedOption = 0;
                     GameStageManager::togglePause();
+                    selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::CREDITS) {
-                    selectedOption = 0;
                     GameStageManager::changeStage(GameStage::CREDITS);
+                    selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::CLOSE_GAME) {
                     exit(0);
