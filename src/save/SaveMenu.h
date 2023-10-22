@@ -198,7 +198,7 @@ namespace SaveMenu {
         // Sobe a opção no menu
         if ((pressedKey == 72 || pressedKey == 'w')) {
             selectedOption--;
-            if (selectedOption < 0) selectedOption = (saves.empty() ? 1 : saves.size() + 1);
+            if (selectedOption < 0) selectedOption = (saves.empty() ? isSaveGame : saves.size() + isSaveGame);
         }
 
         // Desce a opção no menu
