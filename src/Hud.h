@@ -68,9 +68,9 @@ namespace Hud {
         renderCenterString("Fase " + to_string(MapManager::currentLevel));
         renderDivider();
         renderVerticalString("Tempo de jogo: ", TimeFormat::formatIntoString(GameStatistics::gameTime));
-        renderVerticalString("Consumeiveis: ", to_string(Consumables::consumables.getSize()));
         renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".");
         renderDivider();
+        renderVerticalString("Bombas do jogador: ", to_string(Player::bombsAmount) + ".");
         renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".");
         cout << endl;
         renderBorder(char(GameChar::HUD_BOTTOM_LEFT), char(GameChar::HUD_BOTTOM_RIGHT));
