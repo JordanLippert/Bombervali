@@ -15,7 +15,9 @@ using namespace std;
 namespace Player {
     // Localização do jogador, row = linha, column = coluna
     int row = -1, column = -1;
-    int bombsAmount = 4;
+    int bombsAmount = 5;
+    int specialbomb1 = 0;
+    int specialbomb2 = 0;
 
     /**
      * Este método retorna se o player está em uma posição específica
@@ -30,9 +32,21 @@ namespace Player {
     void placeBomb() {
         // Método para verificar se o player pode colocar uma bomba: Bombs::isThereBombPlacedByPlayer()
         // Remover 1 bomba do player pra cada bomba colocada.
-        Bombs::isThereBombPlacedByPlayer();
-        Bombs::placeBomb(row, column, true, 1, false);
-        bombsAmount--;
+
+        if (Bombs::isThereBombPlacedByPlayer()) return;
+
+        if(bombsAmount > 0){
+            Bombs::placeBomb(row, column, true, 1, false);
+             bombsAmount--;
+        }
+        if(specialbomb1 > 0){
+            Bombs::placeBomb(row, column, true, 2, false);
+            specialbomb1--;
+        }
+        if(specialbomb2 > 0){
+            Bombs::placeBomb(row, column, true, 2, true);
+            specialbomb2--;
+        }
     }
 
     /**
@@ -53,10 +67,26 @@ namespace Player {
         {
             Menu::loseGame();
         }
-        if(Consumables::getConsumableIndex(row, column)){
-            Consumables::getConsumableByLocation(row, column);
+
+        if(Consumables::existsConsumableAtLocation(row, column)){
+
+            Consumable consumivel = Consumables::getConsumableByLocation(row, column);
+
+            if(consumivel.type == ConsumableType::BOMB){
+                bombsAmount = bombsAmount + 3;
+            }
+
+            if(consumivel.type == ConsumableType::POWER_UP_DISTANCE){
+                specialbomb1 = specialbomb1 + 3;
+            }
+
+            if(consumivel.type == ConsumableType::POWER_UP_IGNORE_WALLS){
+                specialbomb2 = specialbomb2 + 3;
+            }
+
             Consumables::deleteConsumableByLocation(row, column);
         }
+
         // verificar consumiveis aqui
         // para verificar se existe um consumível em uma localização, usar: Consumables::existsConsumableAtLocation(linha, coluna)
         // Paga pegar o consumível nessa localização, usar: Consumables::getConsumableByLocation(linha, coluna)
@@ -91,7 +121,6 @@ namespace Player {
 
             case 32: case 13: /** dropar bomba */
                 placeBomb();
-                bombsAmount--;
                 break;
         }
     }
