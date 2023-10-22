@@ -35,17 +35,23 @@ namespace Player {
 
         if (Bombs::isThereBombPlacedByPlayer()) return;
 
-        if(bombsAmount > 0){
-            Bombs::placeBomb(row, column, true, 1, false);
-             bombsAmount--;
-        }
-        if(specialbomb1 > 0){
-            Bombs::placeBomb(row, column, true, 2, false);
-            specialbomb1--;
-        }
-        if(specialbomb2 > 0){
-            Bombs::placeBomb(row, column, true, 2, true);
-            specialbomb2--;
+        if(bombsAmount > 0) {
+            int radius = 1;
+            bool ignoreWalls = false;
+
+            if (specialbomb1 > 0) {
+                radius = 2;
+                specialbomb1--;
+            }
+
+            if (specialbomb2 > 0) {
+                radius = 2;
+                ignoreWalls = true;
+                specialbomb2--;
+            }
+
+            Bombs::placeBomb(row, column, true, radius, ignoreWalls);
+            bombsAmount--;
         }
     }
 
