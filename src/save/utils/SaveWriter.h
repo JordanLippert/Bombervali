@@ -8,8 +8,10 @@
 #include <iostream>
 #include <fstream>
 #include "../../entities/Save.h"
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 namespace SaveWriter {
     /**
@@ -27,6 +29,22 @@ namespace SaveWriter {
                 return "POWER_UP_IGNORE_WALLS";
             default:
                 return "UNKNOWN";
+        }
+    }
+
+    void deleteSave(int saveNumber) {
+        string filename = "../saves/save_" + std::to_string(saveNumber) + ".csv";
+        cout << filename;
+
+        if (fs::exists(filename)) {
+            try {
+                fs::remove(filename);
+                cout << "Save " << saveNumber << " deletado com sucesso." << std::endl;
+            } catch (const std::exception& e) {
+                cerr << "Erro ao deletar o save: " << e.what() << std::endl;
+            }
+        } else {
+            cerr << "Save " << saveNumber << " não encontrado." << std::endl;
         }
     }
 

@@ -43,6 +43,9 @@ namespace SaveMenu {
 
             string saveNameText = "#" + to_string(i) + " " + save.saveName;
             string levelString = "Fase: " + to_string(save.currentLevel);
+            string playedTimeText = TimeFormat::formatIntoString(save.gameTime, true) + " jogados";
+            string remainingEnemiesText = to_string(save.enemiesAmount) + " inimigos";
+
             string spacesToCenter = generateSpaces((terminalColumns - HUD_SIZE) / 2);
 
             Color hudColor = isSelected ? Color::LIGHT_MAGENTA : Color::LIGHTGRAY;
@@ -50,6 +53,7 @@ namespace SaveMenu {
             cout << spacesToCenter;
             HudUtils::renderTopBorder(HUD_SIZE, hudColor);
             HudUtils::renderTwoStrings(saveNameText, levelString, HUD_SIZE, spacesToCenter, hudColor);
+            HudUtils::renderTwoStrings(playedTimeText, remainingEnemiesText, HUD_SIZE, spacesToCenter, hudColor);
             cout << endl << spacesToCenter;
             HudUtils::renderBottomBorder(HUD_SIZE, hudColor);
             cout << endl;
@@ -106,6 +110,17 @@ namespace SaveMenu {
             if (!saves.empty()) {
                 SaveSystem::loadSave(selectedSave.saveNumber);
                 GameStageManager::changeStage(GameStage::PLAYING);
+                return;
+            }
+        }
+
+        // Verificar se apertou DELETE ou BACKSPACE
+        if (pressedKey == 46 || pressedKey == 8) {
+            if (!saves.empty() && selectedOption != saves.size()) {
+                ConsoleColor::set(Color::RED);
+                SaveSystem::deleteSave(selectedSave.saveNumber);
+                system("cls");
+                fetched = false;
                 return;
             }
         }

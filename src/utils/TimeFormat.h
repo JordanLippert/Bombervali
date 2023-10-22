@@ -35,7 +35,7 @@ namespace TimeFormat {
      * @param totalSeconds O valor total de segundos.
      * @return Uma string formatada descrevendo os minutos e segundos.
      */
-    std::string formatIntoString(int totalSeconds) {
+    std::string formatIntoString(int totalSeconds, bool withoutDot = false) {
         SecondsAndMinutes secondsAndMinutes = format(totalSeconds);
 
         int minutes = secondsAndMinutes.minutes;
@@ -68,7 +68,8 @@ namespace TimeFormat {
                 formatted += "segundos";
             }
         }
-        formatted += ".";
+
+        if (!withoutDot) formatted += ".";
 
         return formatted;
     }

@@ -35,6 +35,10 @@ namespace SaveSystem {
         return SaveReader::readAllSavesInfo();
     }
 
+    void deleteSave(int saveNumber) {
+        SaveWriter::deleteSave(saveNumber);
+    }
+
     /**
      * Carrega um estado de salvamento específico no jogo.
      * @param saveNumber O número de salvamento a ser carregado.
