@@ -14,6 +14,8 @@ namespace GameClear {
     void clean() {
         // Define que o jogador deve ser reposicionado na próxima partida
         PlayerLocation::reset = true;
+        PlayerLocation::specialbomb2 = 0;
+        PlayerLocation::specialbomb1 = 0;
         // Limpa a lista de inimigos
         Enemies::enemies.clear();
         // Limpa a lista de bombas
