@@ -74,7 +74,7 @@ namespace SaveReader {
         ifstream file;
         file.open(fileName);
 
-        Save loadedSave(PlayerInfo(0,0,0));
+        Save loadedSave(PlayerInfo(0,0,0,0,0));
 
         string currentLine;
         while (!file.eof()) {
@@ -85,13 +85,15 @@ namespace SaveReader {
 
             if (type == "PLAYER_INFO") {
                 // Lê informações do jogador
-                int row, column, bombsAmount;
+                int row, column, bombsAmount, specialbomb1, specialbomb2;
 
                 row = toInt(splittedString[1]);
                 column = toInt(splittedString[2]);
                 bombsAmount = toInt(splittedString[3]);
+                specialbomb1 = toInt(splittedString[4]);
+                specialbomb2 = toInt(splittedString[5]);
 
-                PlayerInfo loadedPlayerInfo(row, column, bombsAmount);
+                PlayerInfo loadedPlayerInfo(row, column, bombsAmount, specialbomb1, specialbomb2);
                 loadedSave.playerInfo = loadedPlayerInfo;
             } else if (type == "ENEMY") {
                 // Lê informações de um inimigo

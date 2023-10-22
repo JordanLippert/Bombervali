@@ -23,6 +23,10 @@ namespace GameStageManager {
         return stage == GameStage::PLAYING && !isGamePaused;
     }
 
+    bool isInSaveMenu() {
+        return stage == GameStage::SAVE_GAME || stage == GameStage::LOAD_GAME;
+    }
+
     /**
      * Altera o estado do jogo e limpa a tela para evitar bugs visuais.
      * @param newStage O novo estágio do jogo.

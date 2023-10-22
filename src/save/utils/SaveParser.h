@@ -24,9 +24,11 @@ namespace SaveParser {
         int playerRow = CurrentPlayerInfo::row;
         int playerColumn = CurrentPlayerInfo::column;
         int bombsAmountOfPlayer = CurrentPlayerInfo::bombsAmount;
+        int specialBombsAmountOfPlayer1 = CurrentPlayerInfo::specialbomb1;
+        int specialBombsAmountOfPlayer2 = CurrentPlayerInfo::specialbomb2;
 
         // Inicializar o objeto de salvamento com as informações do jogador
-        Save save(PlayerInfo(playerRow, playerColumn, bombsAmountOfPlayer));
+        Save save(PlayerInfo(playerRow, playerColumn, bombsAmountOfPlayer, specialBombsAmountOfPlayer1, specialBombsAmountOfPlayer2));
 
         // Copiar estatísticas do jogo e outras informações relevantes
         save.placedBombs = GameStatistics::amountOfBombsPlaced;

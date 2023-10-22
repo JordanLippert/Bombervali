@@ -112,9 +112,10 @@ string generateSpaces(int spacesAmount) {
  * @param size O tamanho total desejado.
  * @return A string centralizada no meio da tela.
  */
-string centerStringInScreen(string str, int size) {
+string centerStringInScreen(string str, int size, bool withTrailingSpaces = true) {
     string newString = getNecessarySpacesToCenter(str, size);
-    newString += str + "      ";
+    newString += str;
+    if (withTrailingSpaces) newString += "       ";
     return newString;
 }
 

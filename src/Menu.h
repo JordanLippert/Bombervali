@@ -163,7 +163,7 @@ namespace Menu {
     void tick(int pressedKey) {
         // Verificar se está em um menu
         if (!GameStageManager::isPlayable()) {
-            if (GameStageManager::stage == GameStage::LOAD_GAME) {
+            if (GameStageManager::isInSaveMenu()) {
                 SaveMenu::tick(pressedKey);
                 return;
             }
@@ -181,10 +181,7 @@ namespace Menu {
                     selectedOption = 0;
                 }
                 if (currentOptionType == MenuOptionType::SAVE_GAME) {
-                    string saveName = "Ola mundo";
-
-                    SaveSystem::saveGame(saveName, 0);
-                    selectedOption = 0;
+                    SaveMenu::openSaveGameMenu();
                 }
                 if (currentOptionType == MenuOptionType::LOAD_GAME) {
                     SaveMenu::openLoadGameMenu();

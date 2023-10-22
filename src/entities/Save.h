@@ -11,12 +11,14 @@
 
 class PlayerInfo {
 public:
-    int row, column, bombsAmount;
+    int row, column, bombsAmount, specialbomb1, specialbomb2;
 
-    PlayerInfo(int row, int column, int bombsAmount) {
+    PlayerInfo(int row, int column, int bombsAmount, int specialbomb1, int specialbomb2) {
         this->row = row;
         this->column = column;
         this->bombsAmount = bombsAmount;
+        this->specialbomb1 = specialbomb1;
+        this->specialbomb2 = specialbomb2;
     }
 };
 

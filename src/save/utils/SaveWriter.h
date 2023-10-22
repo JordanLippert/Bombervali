@@ -65,7 +65,7 @@ namespace SaveWriter {
         }
 
         // Escreve as informações do jogador
-        file << "PLAYER_INFO," << save.playerInfo.row << "," << save.playerInfo.column << "," << save.playerInfo.bombsAmount << endl;
+        file << "PLAYER_INFO," << save.playerInfo.row << "," << save.playerInfo.column << "," << save.playerInfo.bombsAmount << "," << save.playerInfo.specialbomb1 << "," << save.playerInfo.specialbomb2 << endl;
 
         // Escreve as informações dos inimigos
         for (int i = 0; i < save.enemies.size(); i++) {

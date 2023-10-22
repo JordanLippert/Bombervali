@@ -22,6 +22,8 @@ namespace SaveLoader {
         PlayerLocation::row = save.playerInfo.row;
         PlayerLocation::column = save.playerInfo.column;
         PlayerLocation::bombsAmount = save.playerInfo.bombsAmount;
+        PlayerLocation::specialbomb1 = save.playerInfo.specialbomb1;
+        PlayerLocation::specialbomb2 = save.playerInfo.specialbomb2;
 
         // Restaura as estatísticas do jogo
         GameStatistics::gameTime = save.gameTime;
