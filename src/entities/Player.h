@@ -41,7 +41,6 @@ namespace Player {
 
             if (specialbomb1 > 0) {
                 radius = 2;
-                ignoreWalls = false;
                 specialbomb1--;
             }
 
@@ -51,7 +50,7 @@ namespace Player {
                 specialbomb2--;
             }
 
-            Bombs::placeBomb(row, column, true, 1, false);
+            Bombs::placeBomb(row, column, true, radius, ignoreWalls);
             bombsAmount--;
         }
     }
