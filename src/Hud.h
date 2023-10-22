@@ -10,70 +10,26 @@
 #include "managers/MapManager.h"
 #include "GameStatistics.h"
 #include "utils/TimeFormat.h"
+#include "utils/HudUtils.h"
 
 namespace Hud {
     int hudSize = 0; // Tamanho do painel HUD
-
-    // Função para renderizar a linha de separação no HUD
-    void renderDivider() {
-        ConsoleColor::set(Color::LIGHTGRAY);
-        cout << endl << char(GameChar::HUD_LEFT_RIGHT);
-
-        for (int i = 0; i < hudSize - 2; ++i) {
-            cout << char(GameChar::HUD_HORIZONTAL);
-        }
-
-        cout << char(GameChar::HUD_RIGHT_LEFT);
-    }
-
-    // Função para renderizar uma linha vertical de texto no HUD
-    void renderVerticalString(string display = "", string value = "") {
-        cout << endl << char(GameChar::HUD_VERTICAL) << " ";
-
-        ConsoleColor::set(Color::WHITE);
-        cout << spaceAtRight(display + value, hudSize - 3);
-        ConsoleColor::set(Color::LIGHTGRAY);
-
-        cout << char(GameChar::HUD_VERTICAL);
-    }
-
-    // Função para renderizar uma linha de texto centralizada no HUD
-    void renderCenterString(string text) {
-        cout << endl << char(GameChar::HUD_VERTICAL) << " ";
-
-        cout << getNecessarySpacesToCenter(text, hudSize - 3);
-        ConsoleColor::set(Color::LIGHT_BLUE);
-        cout << text;
-        ConsoleColor::set(Color::LIGHTGRAY);
-        cout << getNecessarySpacesToCenter(text, hudSize - 3);
-
-        cout << char(GameChar::HUD_VERTICAL);
-    }
-
-    // Função para renderizar a borda superior ou inferior do HUD
-    void renderBorder(char left, char right) {
-        cout << left;
-        for (int i = 0; i < hudSize - 2; ++i) {
-            cout << char(GameChar::HUD_HORIZONTAL);
-        }
-        cout << right;
-    }
 
     // Função principal para renderizar o HUD
     void render() {
         hudSize = MapManager::currentMap.getColumns() * 3;
 
         ConsoleColor::set(Color::LIGHTGRAY);
-        renderBorder(char(GameChar::HUD_TOP_LEFT), char(GameChar::HUD_TOP_RIGHT));
-        renderCenterString("Fase " + to_string(MapManager::currentLevel));
-        renderDivider();
-        renderVerticalString("Tempo de jogo: ", TimeFormat::formatIntoString(GameStatistics::gameTime));
-        renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".");
-        renderDivider();
-        renderVerticalString("Bombas do jogador: ", to_string(Player::bombsAmount) + ".");
-        renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".");
+        HudUtils::renderBorder(char(GameChar::HUD_TOP_LEFT), char(GameChar::HUD_TOP_RIGHT), hudSize);
+        HudUtils::renderCenterString("Fase " + to_string(MapManager::currentLevel), hudSize);
+        HudUtils::renderDivider(hudSize);
+        HudUtils::renderVerticalString("Tempo de jogo: ", TimeFormat::formatIntoString(GameStatistics::gameTime), hudSize);
+        HudUtils::renderVerticalString("Bombas colocadas: ", to_string(GameStatistics::amountOfBombsPlaced) + ".", hudSize);
+        HudUtils::renderDivider(hudSize);
+        HudUtils::renderVerticalString("Bombas do jogador: ", to_string(Player::bombsAmount) + ".", hudSize);
+        HudUtils::renderVerticalString("Inimigos restantes: ", to_string(Enemies::getAliveEnemiesAmount()) + ".", hudSize);
         cout << endl;
-        renderBorder(char(GameChar::HUD_BOTTOM_LEFT), char(GameChar::HUD_BOTTOM_RIGHT));
+        HudUtils::renderBorder(char(GameChar::HUD_BOTTOM_LEFT), char(GameChar::HUD_BOTTOM_RIGHT), hudSize);
         ConsoleColor::reset();
         cout << endl;
     }

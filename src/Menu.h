@@ -18,6 +18,7 @@
 #include "MenuOptions.h"
 #include "utils/TimeFormat.h"
 #include "save/SaveSystem.h"
+#include "save/SaveMenu.h"
 
 using namespace std;
 
@@ -160,6 +161,8 @@ namespace Menu {
 
     // Função para processar a lógica do menu com base nas teclas pressionadas
     void tick(int pressedKey) {
+        SaveMenu::tick();
+
         // Verificar se está em um menu
         if (!GameStageManager::isPlayable()) {
             // Verificar se apertou ENTER
@@ -179,8 +182,7 @@ namespace Menu {
                     SaveSystem::saveGame(saveName, 0);
                 }
                 if (currentOptionType == MenuOptionType::LOAD_GAME) {
-                    SaveSystem::loadSave(0);
-                    GameStageManager::changeStage(GameStage::PLAYING);
+                    SaveMenu::openLoadGameMenu();
                 }
                 if (currentOptionType == MenuOptionType::RETURN_TO_START) {
                     selectedOption = 0;
@@ -232,6 +234,7 @@ namespace Menu {
      * Método responsável pela camada de renderização dos menus
      */
     void render() {
+        SaveMenu::render(terminalColumns);
         if (GameStageManager::stage == GameStage::START) {
             renderStartMenu();
         }

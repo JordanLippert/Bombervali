@@ -9,6 +9,7 @@
 #include <string>
 #include <dirent.h>
 #include <fstream>
+#include <filesystem>
 #include "../../utils/StringUtils.h"
 #include "../../entities/Save.h"
 
@@ -62,6 +63,41 @@ namespace SaveReader {
         return largestSaveNumber;
     }
 
+    vector<Save> readAllSavesInfo() {
+        vector<Save> allSavesInfo;
+
+        struct dirent *entry;
+        DIR *dp = opendir("../saves");
+
+        if (dp != nullptr) {
+            while ((entry = readdir(dp))) {
+                string filename = entry->d_name;
+                if (filename.find("save_") == 0) {
+                    ifstream file(filename);
+                    string line;
+                    Save saveInfo(PlayerInfo(0, 0, 0)); // Crie um objeto Save para armazenar apenas as informações de SAVE_INFO
+
+                    while (getline(file, line)) {
+                        stringstream ss(line);
+                        string type;
+                        ss >> type;
+
+                        if (type == "SAVE_INFO") {
+                            ss >> saveInfo.saveName >> saveInfo.currentLevel >> saveInfo.gameTime >> saveInfo.placedBombs >> saveInfo.enemiesAmount;
+                        }
+                    }
+
+                    allSavesInfo.push_back(saveInfo);
+                    file.close();
+                }
+            }
+            closedir(dp);
+        } else {
+            cout << "Erro ao abrir a pasta de saves." << endl;
+        }
+
+        return allSavesInfo;
+    }
     /**
      * Lê um arquivo de salvamento e converte seus dados em um objeto `Save`.
      * @param saveNumber O número do salvamento a ser lido.

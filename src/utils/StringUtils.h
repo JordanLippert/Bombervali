@@ -60,6 +60,25 @@ bool contains(const std::string& str, char targetChar) {
 }
 
 /**
+ * Retorna uma string contendo espaços em branco para separar dois textos.
+ * @param str A string na esquerda.
+ * @param str A string na direita.
+ * @param size O tamanho total desejado.
+ * @return A string com espaços em branco para dividir os dois textos.
+ */
+string getNecessarySpacesToDivideTexts(string str, string str2, int size) {
+    int strLength = str.length() + str2.length();
+    int spaces = (size - strLength) / 2;
+    string newString;
+
+    for (int i = 0; i < spaces; ++i) {
+        newString += " ";
+    }
+
+    return newString;
+}
+
+/**
  * Retorna uma string contendo espaços em branco para centralizar o texto.
  * @param str A string a ser centralizada.
  * @param size O tamanho total desejado.

@@ -64,24 +64,16 @@ struct Enemy {
         int direction = generateNumber(4);
 
         if (direction == 0 ) {
-            if (!moveUp() || !canMoveUp) {
-                move( false, canMoveDown, canMoveLeft, canMoveRight);
-            }
+            moveUp();
         }
         if (direction == 1 ) {
-            if (!moveDown() || !canMoveDown) {
-                move( canMoveUp, false, canMoveLeft, canMoveRight);
-            }
+            moveDown();
         }
         if (direction == 2 ) {
-            if (!moveLeft() || !canMoveLeft) {
-                move( canMoveUp, canMoveDown, false, canMoveRight);
-            }
+            moveLeft();
         }
         else {
-            if (!moveRight() || !canMoveRight) {
-                move( canMoveUp, canMoveDown, canMoveLeft, false);
-            }
+            moveRight();
         }
     }
 
