@@ -70,6 +70,8 @@ namespace Consumables {
                 return current;
             }
         }
+
+        return {};
     }
 
     /**

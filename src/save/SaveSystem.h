@@ -27,6 +27,15 @@ namespace SaveSystem {
     }
 
     /**
+     * Salva o estado atual do jogo com um nome de salvamento específico.
+     * @param saveName O nome do arquivo de salvamento.
+     * @param saveNumber O número de salvamento (opcional). Se não fornecido, será calculado automaticamente.
+     */
+    vector<Save> getSavesInfos() {
+        return SaveReader::readAllSavesInfo();
+    }
+
+    /**
      * Carrega um estado de salvamento específico no jogo.
      * @param saveNumber O número de salvamento a ser carregado.
      */
