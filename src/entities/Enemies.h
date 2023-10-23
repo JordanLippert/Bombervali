@@ -177,7 +177,7 @@ namespace Enemies {
         // Calcular duração do ciclo
         duration = (end - start) / CLOCKS_PER_SEC;
 
-        if (duration == 1) {
+        if (duration >= 1) {
             duration = 0;
             // Variável para controlar se o contador deve reiniciar
             startedTimer = false;
